@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b002438dcc0cbcf40849a6dd95417ed9, type: 3}
+  m_Name: Pistol
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponSO
+  weaponName: Weapon
+  weaponIcon: {fileID: 999875010599587253, guid: b6af2b7f2e338de4699a27178f129395, type: 3}
+  description: Pistol Gun
+  weaponSprite: {fileID: 999875010599587253, guid: b6af2b7f2e338de4699a27178f129395, type: 3}
+  spriteOffset: {x: 0, y: 0, z: 0}
+  weaponOffset: {x: -0.54, y: 0.66, z: 0}
+  rotationOffset: 0
+  baseDamage: 10
+  fireRate: 0.3
+  projectileSpeed: 15
+  projectileCount: 1
+  spreadAngle: 0
+  projectilePrefab: {fileID: 4806496384374657963, guid: bbe7ab7a7decb964298028c5c016f5c3, type: 3}
+  muzzleEffect: {fileID: 0}
+  shootSound: {fileID: 8300000, guid: 46c4f07228ebf90438a93279409f03ad, type: 3}
+  unlockLevel: 1
+  isStartingWeapon: 0

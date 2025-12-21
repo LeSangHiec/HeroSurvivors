@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags:
+  - Enemy
+  - Obstacle
+  - Projectile
+  - Explosion
+  - Exp
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Ground
+    uniqueID: 1765150717
+    locked: 0
+  - name: Grass
+    uniqueID: 1829348955
+    locked: 0
+  - name: Rock
+    uniqueID: 2971480021
+    locked: 0
+  - name: Tree
+    uniqueID: 3334107131
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 1098097279
+    locked: 0
+  - name: Gun
+    uniqueID: 2422132503
+    locked: 0
+  - name: Bullet
+    uniqueID: 2192430003
+    locked: 0
+  - name: Enemy
+    uniqueID: 1109529103
+    locked: 0
+  - name: Hpbar
+    uniqueID: 111164913
+    locked: 0
+  - name: Explosion
+    uniqueID: 4267295295
+    locked: 0
+  - name: Exp
+    uniqueID: 1457764153
+    locked: 0
+  - name: UI
+    uniqueID: 36578839
+    locked: 0
+  m_RenderingLayers:
+  - Default

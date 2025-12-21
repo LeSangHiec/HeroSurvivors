@@ -1,0 +1,2368 @@
+fileFormatVersion: 2
+guid: b6af2b7f2e338de4699a27178f129395
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7397574952709894031
+    second: vF5MsQ_0
+  - first:
+      213: -2998674031166817959
+    second: vF5MsQ_1
+  - first:
+      213: -7987771656530146538
+    second: vF5MsQ_2
+  - first:
+      213: 716103511768151314
+    second: vF5MsQ_3
+  - first:
+      213: -6794751319349849527
+    second: vF5MsQ_4
+  - first:
+      213: 2059758400405474389
+    second: vF5MsQ_5
+  - first:
+      213: 3227450990773346785
+    second: vF5MsQ_6
+  - first:
+      213: 5339967085674362282
+    second: vF5MsQ_7
+  - first:
+      213: 5560094632774847581
+    second: vF5MsQ_8
+  - first:
+      213: -6241652375374922917
+    second: vF5MsQ_9
+  - first:
+      213: -1706786378894350355
+    second: vF5MsQ_10
+  - first:
+      213: 4427754192269044907
+    second: vF5MsQ_11
+  - first:
+      213: 7072750217748537885
+    second: vF5MsQ_12
+  - first:
+      213: -3352983389990927706
+    second: vF5MsQ_13
+  - first:
+      213: -8220512444774373351
+    second: vF5MsQ_14
+  - first:
+      213: -3466191175318014982
+    second: vF5MsQ_15
+  - first:
+      213: -8904235191856597866
+    second: vF5MsQ_16
+  - first:
+      213: 8463634751591883832
+    second: vF5MsQ_17
+  - first:
+      213: 2097755112607051934
+    second: vF5MsQ_18
+  - first:
+      213: -7038352464420084234
+    second: vF5MsQ_19
+  - first:
+      213: 1058933076113469644
+    second: vF5MsQ_20
+  - first:
+      213: -2492437742167665420
+    second: vF5MsQ_21
+  - first:
+      213: -553825561255727043
+    second: vF5MsQ_22
+  - first:
+      213: -338419786342600127
+    second: vF5MsQ_23
+  - first:
+      213: 3702075881226633403
+    second: vF5MsQ_24
+  - first:
+      213: -8770358922385931493
+    second: vF5MsQ_25
+  - first:
+      213: -8784291794190100735
+    second: vF5MsQ_26
+  - first:
+      213: 3425121787838921490
+    second: vF5MsQ_27
+  - first:
+      213: 5960924171423878763
+    second: vF5MsQ_28
+  - first:
+      213: 109162763046720777
+    second: vF5MsQ_29
+  - first:
+      213: -6118662141663584150
+    second: vF5MsQ_30
+  - first:
+      213: 1419718368458987700
+    second: vF5MsQ_31
+  - first:
+      213: 5422104656213358453
+    second: vF5MsQ_32
+  - first:
+      213: -6289906207516025627
+    second: vF5MsQ_33
+  - first:
+      213: 5495482065970283361
+    second: vF5MsQ_34
+  - first:
+      213: -2195856383977211373
+    second: vF5MsQ_35
+  - first:
+      213: 3276150293816159690
+    second: vF5MsQ_36
+  - first:
+      213: -3164989911816879593
+    second: vF5MsQ_37
+  - first:
+      213: 4541009143105617326
+    second: vF5MsQ_38
+  - first:
+      213: 8367949544663381286
+    second: vF5MsQ_39
+  - first:
+      213: -602960139229142481
+    second: vF5MsQ_40
+  - first:
+      213: 2341353357705661189
+    second: vF5MsQ_41
+  - first:
+      213: -6449367929641852559
+    second: vF5MsQ_42
+  - first:
+      213: 8241411320143889622
+    second: vF5MsQ_43
+  - first:
+      213: -4045870494901499364
+    second: vF5MsQ_44
+  - first:
+      213: 8659374442206506502
+    second: vF5MsQ_45
+  - first:
+      213: -7819570463777711224
+    second: vF5MsQ_46
+  - first:
+      213: -7583093004394898053
+    second: vF5MsQ_47
+  - first:
+      213: 5311110880364498752
+    second: vF5MsQ_48
+  - first:
+      213: 5979036382418817116
+    second: vF5MsQ_49
+  - first:
+      213: -2493184463836390782
+    second: vF5MsQ_50
+  - first:
+      213: 882830059577938549
+    second: vF5MsQ_51
+  - first:
+      213: -5318987311846217673
+    second: vF5MsQ_52
+  - first:
+      213: -3631092288904564195
+    second: vF5MsQ_53
+  - first:
+      213: -1878569486628915689
+    second: vF5MsQ_54
+  - first:
+      213: 6301839394826423397
+    second: vF5MsQ_55
+  - first:
+      213: 6448802514753298968
+    second: vF5MsQ_56
+  - first:
+      213: 2329237321686235169
+    second: vF5MsQ_57
+  - first:
+      213: -5389714370163164910
+    second: vF5MsQ_58
+  - first:
+      213: -9223353500179531527
+    second: vF5MsQ_59
+  - first:
+      213: 823526869062828696
+    second: vF5MsQ_60
+  - first:
+      213: -745470251877051006
+    second: vF5MsQ_61
+  - first:
+      213: -8031093212869872987
+    second: vF5MsQ_62
+  - first:
+      213: -7282230470860147181
+    second: vF5MsQ_63
+  - first:
+      213: -7682768398635700695
+    second: vF5MsQ_64
+  - first:
+      213: -3838930580326954050
+    second: vF5MsQ_65
+  - first:
+      213: -8075730996531979178
+    second: vF5MsQ_66
+  - first:
+      213: 6010569302696462837
+    second: vF5MsQ_67
+  - first:
+      213: 3518063291669171039
+    second: vF5MsQ_68
+  - first:
+      213: 3253828144039496136
+    second: vF5MsQ_69
+  - first:
+      213: -3408286799263648816
+    second: vF5MsQ_70
+  - first:
+      213: -8591388368643886257
+    second: vF5MsQ_71
+  - first:
+      213: -4887167435951638902
+    second: vF5MsQ_72
+  - first:
+      213: 1538984647354472622
+    second: vF5MsQ_73
+  - first:
+      213: 8180617815705820601
+    second: vF5MsQ_74
+  - first:
+      213: -5295690150048716224
+    second: vF5MsQ_75
+  - first:
+      213: 8169911770781555204
+    second: vF5MsQ_76
+  - first:
+      213: -2789399405275115232
+    second: vF5MsQ_77
+  - first:
+      213: 1956999319417397170
+    second: vF5MsQ_78
+  - first:
+      213: 999875010599587253
+    second: vF5MsQ_79
+  - first:
+      213: -1376555735928790292
+    second: vF5MsQ_80
+  - first:
+      213: 8199887285366860006
+    second: vF5MsQ_81
+  - first:
+      213: 514758643977223531
+    second: vF5MsQ_82
+  - first:
+      213: -6460101095957483662
+    second: vF5MsQ_83
+  - first:
+      213: -703712720033775362
+    second: vF5MsQ_84
+  - first:
+      213: 5960485066494623369
+    second: vF5MsQ_85
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: vF5MsQ_0
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 620
+        width: 35
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 170566846c8865990800000000000000
+      internalID: -7397574952709894031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_1
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 620
+        width: 45
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 959fc173bd19266d0800000000000000
+      internalID: -2998674031166817959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_2
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 620
+        width: 25
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61b4699dffbb52190800000000000000
+      internalID: -7987771656530146538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_3
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 620
+        width: 35
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 215b951995c10f900800000000000000
+      internalID: 716103511768151314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_4
+      rect:
+        serializedVersion: 2
+        x: 415
+        y: 620
+        width: 45
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9421909dca134b1a0800000000000000
+      internalID: -6794751319349849527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_5
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 620
+        width: 50
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55c8b432a5bb59c10800000000000000
+      internalID: 2059758400405474389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_6
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 620
+        width: 60
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e1270b83953acc20800000000000000
+      internalID: 3227450990773346785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_7
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 660
+        width: 45
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa5f5e5a5cf5b1a40800000000000000
+      internalID: 5339967085674362282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_8
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 670
+        width: 80
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5cc9102c9c692d40800000000000000
+      internalID: 5560094632774847581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_9
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 670
+        width: 60
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5bfd4afb323169a0800000000000000
+      internalID: -6241652375374922917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_10
+      rect:
+        serializedVersion: 2
+        x: 890
+        y: 660
+        width: 15
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de7e682d4d64058e0800000000000000
+      internalID: -1706786378894350355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_11
+      rect:
+        serializedVersion: 2
+        x: 910
+        y: 660
+        width: 20
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bac61f68afa827d30800000000000000
+      internalID: 4427754192269044907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_12
+      rect:
+        serializedVersion: 2
+        x: 935
+        y: 660
+        width: 15
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d12e7f999d4772260800000000000000
+      internalID: 7072750217748537885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_13
+      rect:
+        serializedVersion: 2
+        x: 955
+        y: 670
+        width: 25
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a24ec52f5fc771d0800000000000000
+      internalID: -3352983389990927706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_14
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 620
+        width: 40
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 918ab815c7fdaed80800000000000000
+      internalID: -8220512444774373351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_15
+      rect:
+        serializedVersion: 2
+        x: 670
+        y: 615
+        width: 40
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af3739f9d7d95efc0800000000000000
+      internalID: -3466191175318014982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_16
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 620
+        width: 80
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 694fad8054dcd6480800000000000000
+      internalID: -8904235191856597866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_17
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 645
+        width: 50
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 834294dd6fed47570800000000000000
+      internalID: 8463634751591883832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_18
+      rect:
+        serializedVersion: 2
+        x: 890
+        y: 630
+        width: 20
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e90f3b81929bc1d10800000000000000
+      internalID: 2097755112607051934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_19
+      rect:
+        serializedVersion: 2
+        x: 915
+        y: 630
+        width: 20
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f5ee3279bfb25e90800000000000000
+      internalID: -7038352464420084234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_20
+      rect:
+        serializedVersion: 2
+        x: 940
+        y: 630
+        width: 20
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc0b7a2b50612be00800000000000000
+      internalID: 1058933076113469644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_21
+      rect:
+        serializedVersion: 2
+        x: 965
+        y: 630
+        width: 20
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f4d1593415196dd0800000000000000
+      internalID: -2492437742167665420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_22
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 630
+        width: 25
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3032d9169a6058f0800000000000000
+      internalID: -553825561255727043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_23
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 620
+        width: 40
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 142f5125ff0bd4bf0800000000000000
+      internalID: -338419786342600127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_24
+      rect:
+        serializedVersion: 2
+        x: 975
+        y: 595
+        width: 50
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb00e08466a606330800000000000000
+      internalID: 3702075881226633403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_25
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 565
+        width: 150
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b134286070d694680800000000000000
+      internalID: -8770358922385931493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_26
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 565
+        width: 160
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1079be3872de71680800000000000000
+      internalID: -8784291794190100735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_27
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 570
+        width: 30
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21bf6947e1a788f20800000000000000
+      internalID: 3425121787838921490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_28
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 570
+        width: 50
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6e82ca93f479b250800000000000000
+      internalID: 5960924171423878763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_29
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 580
+        width: 60
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 905991264f2d38100800000000000000
+      internalID: 109162763046720777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_30
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 585
+        width: 20
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a60e2814335261ba0800000000000000
+      internalID: -6118662141663584150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_31
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 595
+        width: 50
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b85819855ad3b310800000000000000
+      internalID: 1419718368458987700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_32
+      rect:
+        serializedVersion: 2
+        x: 925
+        y: 570
+        width: 20
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 577b690157f2f3b40800000000000000
+      internalID: 5422104656213358453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_33
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 565
+        width: 80
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ec9b7e21a3c5b8a0800000000000000
+      internalID: -6289906207516025627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_34
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 560
+        width: 65
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16340bb92dfd34c40800000000000000
+      internalID: 5495482065970283361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_35
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 560
+        width: 115
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31ab34fb040c681e0800000000000000
+      internalID: -2195856383977211373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_36
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 560
+        width: 50
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: acd24bd9559377d20800000000000000
+      internalID: 3276150293816159690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_37
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 540
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 712c57ca172b314d0800000000000000
+      internalID: -3164989911816879593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_38
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 570
+        width: 40
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ead7c90a1c7e40f30800000000000000
+      internalID: 4541009143105617326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_39
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 540
+        width: 20
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6257d0c86cde02470800000000000000
+      internalID: 8367949544663381286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_40
+      rect:
+        serializedVersion: 2
+        x: 745
+        y: 540
+        width: 20
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f22e68fa2fad1a7f0800000000000000
+      internalID: -602960139229142481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_41
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 540
+        width: 40
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50bc6bb49782e7020800000000000000
+      internalID: 2341353357705661189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_42
+      rect:
+        serializedVersion: 2
+        x: 915
+        y: 540
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 171a6e7c90e3f76a0800000000000000
+      internalID: -6449367929641852559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_43
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 550
+        width: 40
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d44f094eef5f5270800000000000000
+      internalID: 8241411320143889622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_44
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 460
+        width: 80
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1a8928883e2ad7c0800000000000000
+      internalID: -4045870494901499364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_45
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 460
+        width: 60
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60ea0d40d274c2870800000000000000
+      internalID: 8659374442206506502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_46
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 460
+        width: 115
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88b9462d71e4b7390800000000000000
+      internalID: -7819570463777711224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_47
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 480
+        width: 110
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7dda46e61173c690800000000000000
+      internalID: -7583093004394898053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_48
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 480
+        width: 125
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04f86dac43bd4b940800000000000000
+      internalID: 5311110880364498752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_49
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 485
+        width: 45
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c50d53959edc9f250800000000000000
+      internalID: 5979036382418817116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_50
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 480
+        width: 80
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28a528980fd666dd0800000000000000
+      internalID: -2493184463836390782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_51
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 485
+        width: 70
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5721e220341704c00800000000000000
+      internalID: 882830059577938549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_52
+      rect:
+        serializedVersion: 2
+        x: 895
+        y: 515
+        width: 55
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 738a89898392f26b0800000000000000
+      internalID: -5318987311846217673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_53
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 510
+        width: 15
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d12fe253dc4cb9dc0800000000000000
+      internalID: -3631092288904564195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_54
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 510
+        width: 15
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7167897410bfde5e0800000000000000
+      internalID: -1878569486628915689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_55
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 515
+        width: 15
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56c01308a81a47750800000000000000
+      internalID: 6301839394826423397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_56
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 515
+        width: 15
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 812248e48bfbe7950800000000000000
+      internalID: 6448802514753298968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_57
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 380
+        width: 195
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 128b0b4d00d135020800000000000000
+      internalID: 2329237321686235169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_58
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 460
+        width: 15
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2193b951653e335b0800000000000000
+      internalID: -5389714370163164910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_59
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 460
+        width: 15
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f871f7ebd0100080800000000000000
+      internalID: -9223353500179531527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_60
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 380
+        width: 135
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 892ca7df251cd6b00800000000000000
+      internalID: 823526869062828696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_61
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 380
+        width: 135
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2855f3e61ce87a5f0800000000000000
+      internalID: -745470251877051006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_62
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 380
+        width: 180
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a237d00643db8090800000000000000
+      internalID: -8031093212869872987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_63
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 380
+        width: 240
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 316fadb38f150fa90800000000000000
+      internalID: -7282230470860147181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_64
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 300
+        width: 175
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92ee8b3b8d2516590800000000000000
+      internalID: -7682768398635700695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_65
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 300
+        width: 170
+        height: 75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebb4a3a0af069bac0800000000000000
+      internalID: -3838930580326954050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_66
+      rect:
+        serializedVersion: 2
+        x: 415
+        y: 325
+        width: 105
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65c991a127d3def80800000000000000
+      internalID: -8075730996531979178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_67
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 220
+        width: 255
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f907197fe4d96350800000000000000
+      internalID: 6010569302696462837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_68
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 330
+        width: 150
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5b484d9ceba2d030800000000000000
+      internalID: 3518063291669171039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_69
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 220
+        width: 155
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c984ad157be72d20800000000000000
+      internalID: 3253828144039496136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_70
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 220
+        width: 150
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d3bc35c63553b0d0800000000000000
+      internalID: -3408286799263648816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_71
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 220
+        width: 160
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f43fe8f3cc145c880800000000000000
+      internalID: -8591388368643886257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_72
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 250
+        width: 150
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a86fe3e3c1b4d2cb0800000000000000
+      internalID: -4887167435951638902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_73
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 140
+        width: 85
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea8d75402629b5510800000000000000
+      internalID: 1538984647354472622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_74
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 140
+        width: 105
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bd90648f84678170800000000000000
+      internalID: 8180617815705820601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_75
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 140
+        width: 100
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04aafc5cddde186b0800000000000000
+      internalID: -5295690150048716224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_76
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 140
+        width: 105
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40a97bf287b516170800000000000000
+      internalID: 8169911770781555204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_77
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 140
+        width: 130
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02114ef05001a49d0800000000000000
+      internalID: -2789399405275115232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_78
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 140
+        width: 135
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bf1e8b2388a82b10800000000000000
+      internalID: 1956999319417397170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_79
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 60
+        width: 60
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5bd049a460540ed00800000000000000
+      internalID: 999875010599587253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_80
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 60
+        width: 130
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce2207af9dd75ece0800000000000000
+      internalID: -1376555735928790292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_81
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 60
+        width: 140
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e8a88a8a0adbc170800000000000000
+      internalID: 8199887285366860006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_82
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 60
+        width: 75
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6df257624ac42700800000000000000
+      internalID: 514758643977223531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_83
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 60
+        width: 210
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27fa752c74c1956a0800000000000000
+      internalID: -6460101095957483662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_84
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 60
+        width: 150
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef086727209eb36f0800000000000000
+      internalID: -703712720033775362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vF5MsQ_85
+      rect:
+        serializedVersion: 2
+        x: 970
+        y: 70
+        width: 60
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98ebe658695e7b250800000000000000
+      internalID: 5960485066494623369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 2015ebe851de687458724ac2c4b5a9f5
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      vF5MsQ_0: -7397574952709894031
+      vF5MsQ_1: -2998674031166817959
+      vF5MsQ_10: -1706786378894350355
+      vF5MsQ_11: 4427754192269044907
+      vF5MsQ_12: 7072750217748537885
+      vF5MsQ_13: -3352983389990927706
+      vF5MsQ_14: -8220512444774373351
+      vF5MsQ_15: -3466191175318014982
+      vF5MsQ_16: -8904235191856597866
+      vF5MsQ_17: 8463634751591883832
+      vF5MsQ_18: 2097755112607051934
+      vF5MsQ_19: -7038352464420084234
+      vF5MsQ_2: -7987771656530146538
+      vF5MsQ_20: 1058933076113469644
+      vF5MsQ_21: -2492437742167665420
+      vF5MsQ_22: -553825561255727043
+      vF5MsQ_23: -338419786342600127
+      vF5MsQ_24: 3702075881226633403
+      vF5MsQ_25: -8770358922385931493
+      vF5MsQ_26: -8784291794190100735
+      vF5MsQ_27: 3425121787838921490
+      vF5MsQ_28: 5960924171423878763
+      vF5MsQ_29: 109162763046720777
+      vF5MsQ_3: 716103511768151314
+      vF5MsQ_30: -6118662141663584150
+      vF5MsQ_31: 1419718368458987700
+      vF5MsQ_32: 5422104656213358453
+      vF5MsQ_33: -6289906207516025627
+      vF5MsQ_34: 5495482065970283361
+      vF5MsQ_35: -2195856383977211373
+      vF5MsQ_36: 3276150293816159690
+      vF5MsQ_37: -3164989911816879593
+      vF5MsQ_38: 4541009143105617326
+      vF5MsQ_39: 8367949544663381286
+      vF5MsQ_4: -6794751319349849527
+      vF5MsQ_40: -602960139229142481
+      vF5MsQ_41: 2341353357705661189
+      vF5MsQ_42: -6449367929641852559
+      vF5MsQ_43: 8241411320143889622
+      vF5MsQ_44: -4045870494901499364
+      vF5MsQ_45: 8659374442206506502
+      vF5MsQ_46: -7819570463777711224
+      vF5MsQ_47: -7583093004394898053
+      vF5MsQ_48: 5311110880364498752
+      vF5MsQ_49: 5979036382418817116
+      vF5MsQ_5: 2059758400405474389
+      vF5MsQ_50: -2493184463836390782
+      vF5MsQ_51: 882830059577938549
+      vF5MsQ_52: -5318987311846217673
+      vF5MsQ_53: -3631092288904564195
+      vF5MsQ_54: -1878569486628915689
+      vF5MsQ_55: 6301839394826423397
+      vF5MsQ_56: 6448802514753298968
+      vF5MsQ_57: 2329237321686235169
+      vF5MsQ_58: -5389714370163164910
+      vF5MsQ_59: -9223353500179531527
+      vF5MsQ_6: 3227450990773346785
+      vF5MsQ_60: 823526869062828696
+      vF5MsQ_61: -745470251877051006
+      vF5MsQ_62: -8031093212869872987
+      vF5MsQ_63: -7282230470860147181
+      vF5MsQ_64: -7682768398635700695
+      vF5MsQ_65: -3838930580326954050
+      vF5MsQ_66: -8075730996531979178
+      vF5MsQ_67: 6010569302696462837
+      vF5MsQ_68: 3518063291669171039
+      vF5MsQ_69: 3253828144039496136
+      vF5MsQ_7: 5339967085674362282
+      vF5MsQ_70: -3408286799263648816
+      vF5MsQ_71: -8591388368643886257
+      vF5MsQ_72: -4887167435951638902
+      vF5MsQ_73: 1538984647354472622
+      vF5MsQ_74: 8180617815705820601
+      vF5MsQ_75: -5295690150048716224
+      vF5MsQ_76: 8169911770781555204
+      vF5MsQ_77: -2789399405275115232
+      vF5MsQ_78: 1956999319417397170
+      vF5MsQ_79: 999875010599587253
+      vF5MsQ_8: 5560094632774847581
+      vF5MsQ_80: -1376555735928790292
+      vF5MsQ_81: 8199887285366860006
+      vF5MsQ_82: 514758643977223531
+      vF5MsQ_83: -6460101095957483662
+      vF5MsQ_84: -703712720033775362
+      vF5MsQ_85: 5960485066494623369
+      vF5MsQ_9: -6241652375374922917
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
