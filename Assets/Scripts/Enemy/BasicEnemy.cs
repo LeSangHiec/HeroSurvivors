@@ -11,7 +11,7 @@ public class BasicEnemy : Enemy
     {
         base.Start();
 
-        // Override stats cho BasicEnemy
+        // Override stats
         maxHealth = 300f;
         currentHealth = maxHealth;
         damage = 20f;
@@ -22,30 +22,25 @@ public class BasicEnemy : Enemy
         base.Update();
     }
 
-    // ========== COLLISION DAMAGE ========== ← PHẦN MỚI
+    // ========== COLLISION DAMAGE ==========
 
-    // Damage 1 lần khi bắt đầu chạm
     protected override void OnEnterDamage(GameObject playerObject)
     {
-        PlayerStats playerController = playerObject.GetComponent<PlayerStats>();
-        if (playerController != null)
+        PlayerStats playerStats = playerObject.GetComponent<PlayerStats>();
+        if (playerStats != null)
         {
-            playerController.TakeDamage(damage);
-            Debug.Log($"BasicEnemy hit player for {damage} damage!");
+            playerStats.TakeDamage(damage);
         }
     }
 
-    // Damage liên tục khi đang chạm (với cooldown)
     protected override void OnStayDamage(GameObject playerObject)
     {
-        // Attack với cooldown
         if (Time.time >= lastAttackTime + attackCooldown)
         {
-            PlayerStats      playerController = playerObject.GetComponent<PlayerStats>();
-            if (playerController != null)
+            PlayerStats playerStats = playerObject.GetComponent<PlayerStats>();
+            if (playerStats != null)
             {
-                playerController.TakeDamage(damage);
-                Debug.Log($"BasicEnemy continuous attack for {damage} damage!");
+                playerStats.TakeDamage(damage);
             }
 
             lastAttackTime = Time.time;

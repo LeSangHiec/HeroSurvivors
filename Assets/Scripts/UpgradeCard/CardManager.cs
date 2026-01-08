@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CardManager : MonoBehaviour
 {
@@ -14,31 +13,31 @@ public class CardManager : MonoBehaviour
     [Header("Card Data")]
     [SerializeField] private List<CardSO> deck = new List<CardSO>();
 
-    // Tracking
     private List<CardSO> alreadySelectedCards = new List<CardSO>();
 
-    // Current cards
     private GameObject cardOne;
     private GameObject cardTwo;
     private GameObject cardThree;
 
-    // ========== CARD SELECTION ==========
+    // ========== SHOW/HIDE ==========
 
     public void ShowCardSelection()
     {
         if (cardSelectionUI == null)
         {
-            Debug.LogError("CardManager: Card Selection UI is not assigned!");
             return;
         }
 
         cardSelectionUI.SetActive(true);
         RandomizeNewCards();
 
-        // Pause game
         Time.timeScale = 0f;
 
-        Debug.Log("Card selection shown - Game paused");
+        if (GameEvents.Instance != null)
+        {
+            GameEvents.Instance.TriggerCardSelectionShown();
+            GameEvents.Instance.TriggerGamePause();
+        }
     }
 
     public void HideCardSelection()
@@ -48,98 +47,120 @@ public class CardManager : MonoBehaviour
             cardSelectionUI.SetActive(false);
         }
 
-        // Resume game
         Time.timeScale = 1f;
 
-        Debug.Log("Card selection hidden - Game resumed");
+        if (GameEvents.Instance != null)
+        {
+            GameEvents.Instance.TriggerCardSelectionHidden();
+            GameEvents.Instance.TriggerGameResume();
+        }
     }
 
-    // ========== RANDOMIZE CARDS ==========
+    // ========== CARD RANDOMIZATION ==========
 
     void RandomizeNewCards()
     {
-        // Destroy old cards
+        DestroyCurrentCards();
+
+        List<CardSO> validCards = GetValidCards();
+
+        if (validCards.Count == 0)
+        {
+            ResetAndRetry();
+            return;
+        }
+
+        List<CardSO> selectedCards = SelectRandomCards(validCards);
+
+        InstantiateSelectedCards(selectedCards);
+    }
+
+    void DestroyCurrentCards()
+    {
         if (cardOne != null) Destroy(cardOne);
         if (cardTwo != null) Destroy(cardTwo);
         if (cardThree != null) Destroy(cardThree);
+    }
 
-        // Get available cards
-        List<CardSO> availableCards = new List<CardSO>(deck);
+    List<CardSO> GetValidCards()
+    {
+        List<CardSO> validCards = new List<CardSO>();
 
-        // Remove unique cards already selected
-        availableCards.RemoveAll(card => card.isUnique && alreadySelectedCards.Contains(card));
-
-        // Remove weapon cards if max weapons reached
-        if (WeaponManager.Instance != null && !WeaponManager.Instance.CanAddWeapon())
+        foreach (CardSO card in deck)
         {
-            availableCards.RemoveAll(card => card.cardType == CardType.Weapon);
-            Debug.Log("Max weapons reached - removed weapon cards from pool");
+            if (!IsCardValid(card)) continue;
+            validCards.Add(card);
         }
 
-        // Check if enough cards
-        if (availableCards.Count < 3)
+        return validCards;
+    }
+
+    bool IsCardValid(CardSO card)
+    {
+        // Skip unique + picked
+        if (card.isUnique && alreadySelectedCards.Contains(card)) return false;
+
+        // Skip max level
+        if (CardTracker.Instance != null && CardTracker.Instance.IsCardMaxLevel(card)) return false;
+
+        // Check weapon unlock
+        if (card.cardType == CardType.Weapon)
         {
-            Debug.LogWarning($"Not enough available cards! Only {availableCards.Count} cards available.");
-
-            // Fill with non-unique cards if needed
-            List<CardSO> nonUniqueCards = deck.FindAll(card => !card.isUnique);
-            while (availableCards.Count < 3 && nonUniqueCards.Count > 0)
-            {
-                CardSO randomCard = nonUniqueCards[Random.Range(0, nonUniqueCards.Count)];
-                if (!availableCards.Contains(randomCard))
-                {
-                    availableCards.Add(randomCard);
-                }
-            }
-
-            if (availableCards.Count < 3)
-            {
-                Debug.LogError("Still not enough cards even after adding non-unique cards!");
-                return;
-            }
+            if (WeaponManager.Instance.HasWeapon(card.weaponData)) return false;
         }
 
-        // Randomize 3 cards
-        List<CardSO> randomizedCards = new List<CardSO>();
-
-        while (randomizedCards.Count < 3 && availableCards.Count > 0)
+        // Check weapon upgrade
+        if (card.cardType == CardType.WeaponUpgrade)
         {
-            CardSO randomCard = availableCards[Random.Range(0, availableCards.Count)];
-
-            if (!randomizedCards.Contains(randomCard))
-            {
-                randomizedCards.Add(randomCard);
-                availableCards.Remove(randomCard); // Prevent duplicates
-            }
+            if (!WeaponTracker.Instance.HasWeapon(card.targetWeapon)) return false;
         }
 
-        // Instantiate cards
-        if (randomizedCards.Count >= 3)
-        {
-            cardOne = InstantiateCard(randomizedCards[0], cardPositionOne);
-            cardTwo = InstantiateCard(randomizedCards[1], cardPositionTwo);
-            cardThree = InstantiateCard(randomizedCards[2], cardPositionThree);
+        return true;
+    }
 
-            Debug.Log("Cards randomized successfully!");
-        }
-        else
+    void ResetAndRetry()
+    {
+        if (CardTracker.Instance != null)
         {
-            Debug.LogError("Failed to randomize 3 cards!");
+            CardTracker.Instance.ResetCards();
         }
+        RandomizeNewCards();
+    }
+
+    List<CardSO> SelectRandomCards(List<CardSO> validCards)
+    {
+        List<CardSO> selectedCards = new List<CardSO>();
+        int count = Mathf.Min(3, validCards.Count);
+
+        for (int i = 0; i < count; i++)
+        {
+            if (validCards.Count == 0) break;
+
+            int idx = Random.Range(0, validCards.Count);
+            selectedCards.Add(validCards[idx]);
+            validCards.RemoveAt(idx);
+        }
+
+        return selectedCards;
+    }
+
+    void InstantiateSelectedCards(List<CardSO> selectedCards)
+    {
+        if (selectedCards.Count > 0) cardOne = InstantiateCard(selectedCards[0], cardPositionOne);
+        if (selectedCards.Count > 1) cardTwo = InstantiateCard(selectedCards[1], cardPositionTwo);
+        if (selectedCards.Count > 2) cardThree = InstantiateCard(selectedCards[2], cardPositionThree);
     }
 
     GameObject InstantiateCard(CardSO cardData, Transform position)
     {
         if (cardPrefab == null || position == null)
         {
-            Debug.LogError("CardManager: Card prefab or position is null!");
+            Debug.LogError("Card prefab or position is null!");
             return null;
         }
 
-        // Instantiate card
         GameObject newCard = Instantiate(cardPrefab, position);
 
-        // Setup card
         Card cardComponent = newCard.GetComponent<Card>();
         if (cardComponent != null)
         {
@@ -159,44 +180,66 @@ public class CardManager : MonoBehaviour
     {
         if (selectedCard == null)
         {
-            Debug.LogError("Selected card is null!");
             return;
         }
 
-        Debug.Log($"Card selected: {selectedCard.cardText}");
+        TriggerCardEvents(selectedCard);
+        TrackCard(selectedCard);
+        ApplyCard(selectedCard);
+        HideCardSelection();
+        NotifyQueue();
+    }
 
-        // Add to selected list if unique
+    void TriggerCardEvents(CardSO selectedCard)
+    {
+        if (GameEvents.Instance != null)
+        {
+            GameEvents.Instance.TriggerCardSelected(selectedCard);
+        }
+    }
+
+    void TrackCard(CardSO selectedCard)
+    {
+        if (CardTracker.Instance != null)
+        {
+            CardTracker.Instance.AddCard(selectedCard);
+        }
+
         if (selectedCard.isUnique && !alreadySelectedCards.Contains(selectedCard))
         {
             alreadySelectedCards.Add(selectedCard);
         }
+    }
 
-        // Apply card effect based on type
+    void ApplyCard(CardSO selectedCard)
+    {
         switch (selectedCard.cardType)
         {
             case CardType.Upgrade:
                 ApplyCardEffect(selectedCard);
                 break;
-
             case CardType.Weapon:
                 UnlockWeapon(selectedCard);
                 break;
+            case CardType.WeaponUpgrade:
+                UpgradeWeapon(selectedCard);
+                break;
         }
-
-        // Hide card selection
-        HideCardSelection();
     }
 
-    // ========== APPLY UPGRADE EFFECTS ==========
+    void NotifyQueue()
+    {
+        if (CardPickQueue.Instance != null)
+        {
+            CardPickQueue.Instance.OnCardSelected();
+        }
+    }
+
+    // ========== CARD EFFECTS ==========
 
     void ApplyCardEffect(CardSO card)
     {
-        // ← THÊM: Check nếu None thì return
-        if (card.effectType == CardEffect.None)
-        {
-            Debug.LogWarning($"Card {card.cardText} has no effect type (None)");
-            return;
-        }
+        if (card.effectType == CardEffect.None) return;
 
         PlayerStats playerStats = FindAnyObjectByType<PlayerStats>();
         PlayerController playerController = FindAnyObjectByType<PlayerController>();
@@ -204,79 +247,62 @@ public class CardManager : MonoBehaviour
 
         switch (card.effectType)
         {
-            case CardEffect.None:
-                // Do nothing
-                break;
-
             case CardEffect.MaxHealth:
-                if (playerStats != null)
-                {
-                    playerStats.IncreaseMaxHealth(card.effectValue);
-                }
+                playerStats?.IncreaseMaxHealth(card.effectValue);
                 break;
-
             case CardEffect.MoveSpeed:
-                if (playerController != null)
-                {
-                    playerController.IncreaseMoveSpeed(card.effectValue);
-                }
+                playerController?.IncreaseMoveSpeed(card.effectValue);
                 break;
-
             case CardEffect.Damage:
-                if (playerStats != null)
-                {
-                    playerStats.IncreaseDamage(card.effectValue);
-                }
+                playerStats?.IncreaseDamage(card.effectValue);
                 break;
-
             case CardEffect.AttackSpeed:
-                if (playerController != null)
-                {
-                    playerController.IncreaseAttackSpeed(card.effectValue);
-                }
+                playerController?.IncreaseAttackSpeed(card.effectValue);
                 break;
-
             case CardEffect.CritChance:
-                if (playerStats != null)
-                {
-                    playerStats.IncreaseCritChance(card.effectValue);
-                }
+                playerStats?.IncreaseCritChance(card.effectValue);
                 break;
-
             case CardEffect.HealthRegen:
-                if (playerStats != null)
-                {
-                    playerStats.IncreaseHealthRegen(card.effectValue);
-                }
+                playerStats?.IncreaseHealthRegen(card.effectValue);
                 break;
-
             case CardEffect.XPGain:
-                if (playerXP != null)
-                {
-                    playerXP.IncreaseXPGain(card.effectValue);
-                }
+                playerXP?.IncreaseXPGain(card.effectValue);
                 break;
         }
     }
-
-    // ========== UNLOCK WEAPON ==========
 
     void UnlockWeapon(CardSO card)
     {
         if (card.weaponData == null || card.weaponPrefab == null)
         {
-            Debug.LogError("Card missing weapon data or prefab!");
             return;
         }
 
-        // Use WeaponManager Singleton
         if (WeaponManager.Instance != null)
         {
             WeaponManager.Instance.AddWeapon(card.weaponData, card.weaponPrefab);
         }
-        else
+      
+    }
+
+    void UpgradeWeapon(CardSO card)
+    {
+        if (card.targetWeapon == null)
         {
-            Debug.LogError("WeaponManager.Instance is null!");
+            return;
         }
+
+        if (WeaponTracker.Instance != null)
+        {
+            WeaponTracker.Instance.UpgradeWeapon(card.targetWeapon);
+        }
+      
+    }
+
+    // ========== QUERIES ==========
+
+    public bool IsCardSelectionActive()
+    {
+        return cardSelectionUI != null && cardSelectionUI.activeSelf;
     }
 }

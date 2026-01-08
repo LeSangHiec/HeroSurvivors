@@ -3,7 +3,7 @@
 public class Bullet : MonoBehaviour
 {
     [Header("Bullet Settings")]
-    private float damage = 10f;
+    private float damage;
 
     [Header("Lifetime")]
     [SerializeField] private float lifetime = 5f;
@@ -13,83 +13,115 @@ public class Bullet : MonoBehaviour
     [SerializeField] private GameObject muzzleEffect;
 
     private float spawnTime;
-    private bool isReturning = false; // ← Prevent double return
-
-    void Awake()
-    {
-       
-    }
 
     void OnEnable()
     {
-        // Reset state
         spawnTime = Time.time;
-        isReturning = false;
-
-        // Spawn muzzle effect
-        if (muzzleEffect != null)
-        {
-            Instantiate(muzzleEffect, transform.position, transform.rotation);
-        }
+        SpawnMuzzleEffect();
     }
 
     void Update()
     {
-        // Auto return after lifetime
-        if (!isReturning && Time.time - spawnTime >= lifetime)
-        {
-            Debug.Log($"<color=orange>Bullet lifetime expired: {Time.time - spawnTime}s</color>");
-        }
+        CheckLifetime();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isReturning) return; // ← Already returning
-
         // Ignore player
         if (collision.CompareTag("Player"))
+        {
             return;
+        }
 
         // Hit enemy
         if (collision.CompareTag("Enemy"))
         {
-            Enemy enemy = collision.GetComponent<Enemy>();
-            if (enemy != null)
-            {
-                enemy.TakeDamage(damage);
-                Debug.Log($"<color=red>Bullet hit enemy! Damage: {damage}</color>");
-            }
-
-            DestroyBullet(collision.transform.position);
+            HandleEnemyHit(collision);
             return;
         }
 
         // Hit obstacle
         if (collision.CompareTag("Obstacle"))
         {
-            Debug.Log("<color=gray>Bullet hit obstacle!</color>");
-            DestroyBullet(collision.transform.position);
+            HandleObstacleHit(collision);
             return;
         }
     }
 
-    void DestroyBullet(Vector3 hitPosition)
-    {
-        // Spawn hit effect
-        if (hitEffect != null)
-        {
-            GameObject effect = Instantiate(hitEffect, hitPosition, Quaternion.identity);
-            Destroy(effect, 1f);
-        }
+    // ========== LIFETIME ==========
 
-        // Return to pool
-        
+    void CheckLifetime()
+    {
+        if (Time.time - spawnTime >= lifetime)
+        {
+            ReturnToPool();
+        }
     }
 
-   
+    // ========== COLLISION HANDLERS ==========
+
+    void HandleEnemyHit(Collider2D collision)
+    {
+        Enemy enemy = collision.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            enemy.TakeDamage(damage);
+        }
+
+        SpawnHitEffect(collision.transform.position);
+        ReturnToPool();
+    }
+
+    void HandleObstacleHit(Collider2D collision)
+    {
+        SpawnHitEffect(collision.transform.position);
+        ReturnToPool();
+    }
+
+    // ========== EFFECTS ==========
+
+    void SpawnMuzzleEffect()
+    {
+        if (muzzleEffect != null)
+        {
+            GameObject effect = Instantiate(muzzleEffect, transform.position, transform.rotation);
+            Destroy(effect, 1f);
+        }
+    }
+
+    void SpawnHitEffect(Vector3 position)
+    {
+        if (hitEffect != null)
+        {
+            GameObject effect = Instantiate(hitEffect, position, Quaternion.identity);
+            Destroy(effect, 1f);
+        }
+    }
+
+    // ========== POOLING ==========
+
+    void ReturnToPool()
+    {
+        PooledObject pooledObj = GetComponent<PooledObject>();
+        if (pooledObj != null)
+        {
+            pooledObj.Despawn();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    // ========== PUBLIC METHODS ==========
 
     public void SetDamage(float damageAmount)
     {
         damage = damageAmount;
+    }
+
+    public void ResetBullet()
+    {
+        spawnTime = Time.time;
     }
 }

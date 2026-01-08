@@ -171,4 +171,4 @@ MonoBehaviour:
   firePoint: {fileID: 574069863160234474}
   weaponSprite: {fileID: 973774391426501989}
   recoil: 2
-  autoFire: 0
+  autoFire: 1

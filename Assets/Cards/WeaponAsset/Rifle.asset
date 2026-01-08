@@ -14,18 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSO
   weaponName: Weapon
   weaponIcon: {fileID: 8169911770781555204, guid: b6af2b7f2e338de4699a27178f129395, type: 3}
-  description: 
+  description: Rifle Gun
   weaponSprite: {fileID: 8169911770781555204, guid: b6af2b7f2e338de4699a27178f129395, type: 3}
   spriteOffset: {x: 0, y: 0, z: 0}
   weaponOffset: {x: 0.09, y: 1.08, z: 0}
   rotationOffset: 0
   baseDamage: 10
-  fireRate: 0.17
+  fireRate: 0.2
   projectileSpeed: 13
-  projectileCount: 2
+  projectileCount: 1
   spreadAngle: 0
   projectilePrefab: {fileID: 4806496384374657963, guid: 95707b6118be6a74f8bcd4fb15687db1, type: 3}
   muzzleEffect: {fileID: 0}
   shootSound: {fileID: 8300000, guid: 46c4f07228ebf90438a93279409f03ad, type: 3}
   unlockLevel: 0
   isStartingWeapon: 1
+  maxWeaponLevel: 5
+  canUpgrade: 1
+  damagePerLevel: 0.1
+  fireRatePerLevel: 0.02
+  speedPerLevel: 0.5
+  projectileCountLevels: 0300000005000000

@@ -97,21 +97,13 @@ public class PlayerController : MonoBehaviour
     {
         moveSpeedMultiplier += percentage;
 
-        Debug.Log($"<color=cyan>Move Speed increased by {percentage * 100}%! Multiplier: {moveSpeedMultiplier:F2}x</color>");
     }
 
     public void IncreaseAttackSpeed(float percentage)
     {
         attackSpeedMultiplier += percentage;
 
-        Debug.Log($"<color=magenta>Attack Speed increased by {percentage * 100}%! Multiplier: {attackSpeedMultiplier:F2}x</color>");
-
-        // TODO: Apply to weapon
-        // WeaponController weapon = GetComponentInChildren<WeaponController>();
-        // if (weapon != null)
-        // {
-        //     weapon.SetFireRateMultiplier(attackSpeedMultiplier);
-        // }
+       
     }
 
     // ========== PUBLIC GETTERS ==========
@@ -121,4 +113,6 @@ public class PlayerController : MonoBehaviour
     public float GetCurrentMoveSpeed() => baseMoveSpeed * moveSpeedMultiplier;
     public float GetMoveSpeedMultiplier() => moveSpeedMultiplier;
     public float GetAttackSpeedMultiplier() => attackSpeedMultiplier;
+    public float GetBaseMoveSpeed() => baseMoveSpeed;
+
 }

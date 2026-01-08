@@ -10,12 +10,13 @@ public class WeaponBase : MonoBehaviour
     [SerializeField] protected Transform firePoint;
     [SerializeField] protected SpriteRenderer weaponSprite;
 
-    // Stats (from WeaponSO)
+    // Stats
     protected float baseDamage;
     protected float fireRate;
     protected float projectileSpeed;
     protected int projectileCount;
     protected float spreadAngle;
+    protected int currentWeaponLevel = 1;
 
     // References
     protected Transform player;
@@ -32,7 +33,6 @@ public class WeaponBase : MonoBehaviour
     {
         mainCamera = Camera.main;
 
-        // Find player
         player = transform.parent;
         while (player != null && player.GetComponent<PlayerStats>() == null)
         {
@@ -44,14 +44,10 @@ public class WeaponBase : MonoBehaviour
             playerStats = player.GetComponent<PlayerStats>();
         }
 
-        // Auto-find components
         if (firePoint == null)
         {
             firePoint = transform.Find("FirePoint");
-            if (firePoint == null)
-            {
-                Debug.LogWarning($"{gameObject.name}: FirePoint not found!");
-            }
+            
         }
 
         if (weaponSprite == null)
@@ -65,11 +61,14 @@ public class WeaponBase : MonoBehaviour
         if (weaponData != null)
         {
             InitializeFromData();
+            SubscribeEvents();
         }
-        else
-        {
-            Debug.LogError($"{gameObject.name}: WeaponSO is not assigned!");
-        }
+        
+    }
+
+    void OnDestroy()
+    {
+        UnsubscribeEvents();
     }
 
     protected virtual void Update()
@@ -90,25 +89,89 @@ public class WeaponBase : MonoBehaviour
     {
         if (weaponData == null) return;
 
-        baseDamage = weaponData.baseDamage;
-        fireRate = weaponData.fireRate;
-        projectileSpeed = weaponData.projectileSpeed;
-        projectileCount = weaponData.projectileCount;
-        spreadAngle = weaponData.spreadAngle;
+        // lấy lv từ tracker
+        if (WeaponTracker.Instance != null)
+        {
+            currentWeaponLevel = WeaponTracker.Instance.GetWeaponLevel(weaponData);
+            if (currentWeaponLevel == 0) currentWeaponLevel = 1;
+        }
 
+        ApplyStats();
+
+        // Apply visual settings
         if (weaponSprite != null && weaponData.weaponSprite != null)
         {
             weaponSprite.sprite = weaponData.weaponSprite;
             weaponSprite.transform.localPosition = weaponData.spriteOffset;
         }
 
-        // ← THÊM: Apply weapon offset
         transform.localPosition = weaponData.weaponOffset;
 
-        Debug.Log($"<color=cyan>{weaponData.weaponName} initialized</color>");
     }
 
-    // ========== VIRTUAL METHODS (Có code mặc định) ==========
+    protected virtual void ApplyStats()
+    {
+        if (weaponData == null) return;
+
+        // chỉ số cơ bản của SO
+        baseDamage = weaponData.baseDamage;
+        fireRate = weaponData.fireRate;
+        projectileSpeed = weaponData.projectileSpeed;
+        projectileCount = weaponData.projectileCount;
+        spreadAngle = weaponData.spreadAngle;
+
+        // LV
+        int levelBonus = currentWeaponLevel - 1;
+
+        if (levelBonus > 0)
+        {
+            // dame tăng theo lv
+            float multiplier = 1f + weaponData.damagePerLevel * levelBonus;
+            baseDamage *= multiplier;
+
+            fireRate = Mathf.Max(0.05f, fireRate - weaponData.fireRatePerLevel * levelBonus);
+
+            projectileSpeed += weaponData.speedPerLevel * levelBonus;
+
+            foreach (int level in weaponData.projectileCountLevels)
+            {
+                if (currentWeaponLevel >= level)
+                {
+                    projectileCount++;
+                }
+            }
+        }
+    }
+
+    // ========== EVENT HANDLING ==========
+
+    void SubscribeEvents()
+    {
+        if (GameEvents.Instance != null)
+        {
+            GameEvents.Instance.onWeaponUpgraded.AddListener(OnWeaponUpgraded);
+        }
+    }
+
+    void UnsubscribeEvents()
+    {
+        if (GameEvents.Instance != null)
+        {
+            GameEvents.Instance.onWeaponUpgraded.RemoveListener(OnWeaponUpgraded);
+        }
+    }
+
+    void OnWeaponUpgraded(WeaponSO upgradedWeapon, int newLevel)
+    {
+        if (weaponData == upgradedWeapon)
+        {
+            currentWeaponLevel = newLevel;
+            ApplyStats();
+
+        }
+    }
+
+    // ========== ROTATION ==========
 
     protected virtual void UpdateRotation()
     {
@@ -120,7 +183,7 @@ public class WeaponBase : MonoBehaviour
         Vector2 direction = mousePosition - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        // Apply rotation offset
+        // Wuay súng
         if (weaponData != null)
         {
             angle += weaponData.rotationOffset;
@@ -128,12 +191,14 @@ public class WeaponBase : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        // Flip sprite
+        // Lật súng
         if (weaponSprite != null && player != null)
         {
             weaponSprite.flipY = mousePosition.x < player.position.x;
         }
     }
+
+    // ========== SHOOTING ==========
 
     protected virtual void HandleShooting()
     {
@@ -148,59 +213,79 @@ public class WeaponBase : MonoBehaviour
 
     protected virtual bool CanShoot()
     {
-        // Default: Hold mouse to shoot
-        return Input.GetMouseButton(0);
+        return Input.GetMouseButton(0); 
     }
 
     protected virtual void Fire()
     {
         if (weaponData == null || weaponData.projectilePrefab == null || firePoint == null)
         {
-            Debug.LogWarning($"{gameObject.name}: Cannot fire - missing data!");
             return;
         }
 
-        // Spawn projectiles
         for (int i = 0; i < projectileCount; i++)
         {
             SpawnProjectile(i);
         }
 
-        // Play effects
         PlayShootEffects();
     }
 
     protected virtual void SpawnProjectile(int index)
     {
-        // Calculate spread angle
-        float angle = 0f;
-        if (projectileCount > 1 && spreadAngle > 0f)
+        if (weaponData.projectilePrefab == null || firePoint == null) return;
+
+        
+        float currentSpread = 0f;
+        if (projectileCount > 1)
         {
             float step = spreadAngle / (projectileCount - 1);
-            angle = -spreadAngle / 2f + step * index;
+            currentSpread = -spreadAngle / 2f + step * index;
         }
 
-        // Spawn with rotation
-        Quaternion rotation = firePoint.rotation * Quaternion.Euler(0, 0, angle);
-        GameObject projectile = Instantiate(weaponData.projectilePrefab, firePoint.position, rotation);
+        
+        Quaternion spreadRotation = Quaternion.Euler(0, 0, currentSpread);
+        Vector2 direction = spreadRotation * firePoint.right;
+
+        //  bullet pool 
+        GameObject bulletObj = null;
+        string poolName = weaponData.projectilePrefab.name;
+
+        if (PoolManager.Instance != null)
+        {
+            bulletObj = PoolManager.Instance.Spawn(
+                poolName,
+                firePoint.position,
+                Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg)
+            );
+        }
+        else
+        {
+            bulletObj = Instantiate(
+                weaponData.projectilePrefab,
+                firePoint.position,
+                Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg)
+            );
+        }
+
+        if (bulletObj == null) return;
 
         // Set velocity
-        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
+        Rigidbody2D rb = bulletObj.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
-            Vector2 direction = rotation * Vector2.right;
-            rb.linearVelocity = direction * projectileSpeed;
+            rb.linearVelocity = direction.normalized * projectileSpeed;
         }
 
         // Set damage
-        Bullet bullet = projectile.GetComponent<Bullet>();
+        Bullet bullet = bulletObj.GetComponent<Bullet>();
         if (bullet != null)
         {
             float totalDamage = CalculateTotalDamage();
             bullet.SetDamage(totalDamage);
+            bullet.ResetBullet();
         }
     }
-    // ========== DAMAGE CALCULATION ==========
 
     protected virtual float CalculateTotalDamage()
     {
@@ -221,16 +306,14 @@ public class WeaponBase : MonoBehaviour
 
     protected virtual void PlayShootEffects()
     {
-        // Muzzle flash
         StartCoroutine(MuzzleFlash());
 
-        // Spawn effect
+        // Spawn muzzle effect
         if (weaponData != null && weaponData.muzzleEffect != null && firePoint != null)
         {
             Instantiate(weaponData.muzzleEffect, firePoint.position, firePoint.rotation);
         }
 
-        // Play sound
         PlayShootSound();
     }
 
@@ -253,7 +336,7 @@ public class WeaponBase : MonoBehaviour
         }
     }
 
-    // ========== PUBLIC METHODS ==========
+    // ========== PUBLIC GETTERS ==========
 
     public WeaponSO GetWeaponData() => weaponData;
     public float GetBaseDamage() => baseDamage;

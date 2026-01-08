@@ -8,7 +8,6 @@ public class RifleWeapon : WeaponBase
     protected override void Start()
     {
         base.Start();
-        Debug.Log("<color=yellow>★ Rifle equipped! ★</color>");
     }
 
     // Override CanShoot để auto-fire

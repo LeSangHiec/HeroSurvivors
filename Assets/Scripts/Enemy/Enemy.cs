@@ -12,7 +12,7 @@ public abstract class Enemy : MonoBehaviour
     [Header("Movement")]
     [SerializeField] protected float enemyMoveSpeed = 1f;
 
-    [Header("Obstacle Avoidance")] // ← THÊM PHẦN NÀY
+    [Header("Obstacle Avoidance")]
     [SerializeField] protected bool enableAvoidance = true;
     [SerializeField] protected float detectionDistance = 1.5f;
     [SerializeField] protected float avoidanceForce = 3f;
@@ -38,10 +38,14 @@ public abstract class Enemy : MonoBehaviour
     protected virtual void Awake()
     {
         if (spriteRenderer == null)
+        {
             spriteRenderer = GetComponent<SpriteRenderer>();
+        }
 
         if (rb == null)
+        {
             rb = GetComponent<Rigidbody2D>();
+        }
     }
 
     protected virtual void Start()
@@ -59,38 +63,35 @@ public abstract class Enemy : MonoBehaviour
         FlipEnemy();
     }
 
-    // ← SỬA HÀM NÀY
+    // ========== MOVEMENT ==========
+
     protected void MoveToPlayer()
     {
-        if (player != null)
+        if (player == null) return;
+
+        Vector2 direction = (player.transform.position - transform.position).normalized;
+
+        if (enableAvoidance)
         {
-            Vector2 direction = (player.transform.position - transform.position).normalized;
+            direction = ApplyObstacleAvoidance(direction);
+        }
 
-            // ← THÊM: Obstacle avoidance
-            if (enableAvoidance)
-            {
-                direction = ApplyObstacleAvoidance(direction);
-            }
-
-            if (rb != null)
-            {
-                rb.linearVelocity = direction * enemyMoveSpeed;
-            }
-            else
-            {
-                transform.position = Vector2.MoveTowards(
-                    transform.position,
-                    player.transform.position,
-                    enemyMoveSpeed * Time.deltaTime
-                );
-            }
+        if (rb != null)
+        {
+            rb.linearVelocity = direction * enemyMoveSpeed;
+        }
+        else
+        {
+            transform.position = Vector2.MoveTowards(
+                transform.position,
+                player.transform.position,
+                enemyMoveSpeed * Time.deltaTime
+            );
         }
     }
 
-    // ← THÊM HÀM MỚI
     protected Vector2 ApplyObstacleAvoidance(Vector2 desiredDirection)
     {
-        // Raycast phía trước
         RaycastHit2D hit = Physics2D.Raycast(
             transform.position,
             desiredDirection,
@@ -100,12 +101,8 @@ public abstract class Enemy : MonoBehaviour
 
         if (hit.collider != null)
         {
-            // Tính hướng tránh vật cản
             Vector2 avoidanceDirection = Vector2.Perpendicular(hit.normal);
-
-            // Blend giữa hướng đến player và hướng tránh
             Vector2 finalDirection = (desiredDirection + avoidanceDirection * avoidanceForce).normalized;
-
             return finalDirection;
         }
 
@@ -120,6 +117,8 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+    // ========== DAMAGE & DEATH ==========
+
     public virtual void TakeDamage(float damageAmount)
     {
         if (isDead) return;
@@ -129,6 +128,12 @@ public abstract class Enemy : MonoBehaviour
 
         UpdateHpBar();
         OnDamaged();
+
+        if (GameEvents.Instance != null)
+        {
+            GameEvents.Instance.TriggerEnemyDamaged(this);
+            GameEvents.Instance.TriggerDamageDealt(damageAmount);
+        }
 
         if (currentHealth <= 0)
         {
@@ -155,14 +160,87 @@ public abstract class Enemy : MonoBehaviour
     {
         isDead = true;
 
+        DisableCollider();
+        TriggerDeathEvents();
+        SpawnDeathEffect();
+        DropLoot();
+        HandlePooling();
+    }
+
+    void DisableCollider()
+    {
+        Collider2D collider = GetComponent<Collider2D>();
+        if (collider != null)
+        {
+            collider.enabled = false;
+        }
+    }
+
+    void TriggerDeathEvents()
+    {
+        if (GameEvents.Instance != null)
+        {
+            GameEvents.Instance.TriggerEnemyKilled(this);
+        }
+    }
+
+    void SpawnDeathEffect()
+    {
         if (deathEffect != null)
         {
             Instantiate(deathEffect, transform.position, Quaternion.identity);
         }
-
-        DropLoot();
-        Destroy(gameObject);
     }
+
+    void HandlePooling()
+    {
+        PooledEnemy pooledEnemy = GetComponent<PooledEnemy>();
+        if (pooledEnemy == null)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    // ========== RESET ==========
+
+    public virtual void ResetEnemy()
+    {
+        currentHealth = maxHealth;
+        isDead = false;
+
+        UpdateHpBar();
+        ResetVisuals();
+        ResetPhysics();
+        EnableCollider();
+    }
+
+    void ResetVisuals()
+    {
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = Color.white;
+        }
+    }
+
+    void ResetPhysics()
+    {
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
+    }
+
+    void EnableCollider()
+    {
+        Collider2D collider = GetComponent<Collider2D>();
+        if (collider != null)
+        {
+            collider.enabled = true;
+        }
+    }
+
+    // ========== UI ==========
 
     protected void UpdateHpBar()
     {
@@ -171,6 +249,8 @@ public abstract class Enemy : MonoBehaviour
             hpBar.fillAmount = currentHealth / maxHealth;
         }
     }
+
+    // ========== LOOT ==========
 
     protected virtual void DropLoot()
     {
@@ -185,6 +265,8 @@ public abstract class Enemy : MonoBehaviour
             }
         }
     }
+
+    // ========== COLLISION ==========
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
@@ -202,15 +284,11 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    protected virtual void OnEnterDamage(GameObject playerObject)
-    {
-    }
+    protected virtual void OnEnterDamage(GameObject playerObject) { }
+    protected virtual void OnStayDamage(GameObject playerObject) { }
 
-    protected virtual void OnStayDamage(GameObject playerObject)
-    {
-    }
+    // ========== MULTIPLIERS ==========
 
-    // Multiplier methods
     public void SetHealthMultiplier(float multiplier)
     {
         healthMultiplier = multiplier;
@@ -238,12 +316,15 @@ public abstract class Enemy : MonoBehaviour
         SetSpeedMultiplier(speed);
     }
 
+    // ========== GETTERS ==========
+
     public float GetDamage() => damage;
     public float GetCurrentHealth() => currentHealth;
     public float GetMaxHealth() => maxHealth;
     public bool IsDead() => isDead;
 
-    // ← THÊM: Visualize raycast trong editor
+    // ========== GIZMOS ==========
+
     void OnDrawGizmosSelected()
     {
         if (!enableAvoidance || player == null) return;

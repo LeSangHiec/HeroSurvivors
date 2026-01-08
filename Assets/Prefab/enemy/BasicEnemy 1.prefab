@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 5946695917578519402}
   - component: {fileID: 3624785616078089665}
   - component: {fileID: 9070176458628032711}
+  - component: {fileID: 8576180630899964815}
+  - component: {fileID: 1817837312562785884}
   m_Layer: 0
   m_Name: BasicEnemy 1
   m_TagString: Enemy
@@ -237,6 +239,48 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &8576180630899964815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8405394039025064054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 490e1864eb624e746ab6a80fd84b5526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyRespawner
+  player: {fileID: 0}
+  mainCamera: {fileID: 0}
+  maxDistanceFromPlayer: 35
+  minSpawnDistance: 18
+  maxSpawnDistance: 25
+  edgeOffset: 2
+  checkInterval: 1
+  onlyTeleportWhenOutsideCamera: 1
+  resetHealthOnTeleport: 0
+--- !u!114 &1817837312562785884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8405394039025064054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 490e1864eb624e746ab6a80fd84b5526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyRespawner
+  player: {fileID: 0}
+  mainCamera: {fileID: 0}
+  maxDistanceFromPlayer: 35
+  minSpawnDistance: 18
+  maxSpawnDistance: 25
+  edgeOffset: 2
+  checkInterval: 0.5
+  onlyTeleportWhenOutsideCamera: 1
+  resetHealthOnTeleport: 0
 --- !u!1001 &7712338242588846667
 PrefabInstance:
   m_ObjectHideFlags: 0

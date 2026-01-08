@@ -3,11 +3,7 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
-    // ========== SINGLETON ==========
-
     public static WeaponManager Instance { get; private set; }
-
-    // ========== SETTINGS ==========
 
     [Header("Player Reference")]
     [SerializeField] private Transform player;
@@ -20,15 +16,11 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private WeaponSO startingWeapon;
     [SerializeField] private GameObject startingWeaponPrefab;
 
-    // Tracking
     private List<WeaponBase> activeWeapons = new List<WeaponBase>();
     private List<WeaponSO> unlockedWeapons = new List<WeaponSO>();
 
-    // ========== SINGLETON SETUP ==========
-
     void Awake()
     {
-        // Singleton pattern
         if (Instance == null)
         {
             Instance = this;
@@ -39,23 +31,37 @@ public class WeaponManager : MonoBehaviour
             return;
         }
 
-        // Find player
+        FindPlayer();
+        CreateWeaponContainer();
+    }
+
+    void Start()
+    {
+        if (startingWeapon != null && startingWeaponPrefab != null)
+        {
+            AddWeapon(startingWeapon, startingWeaponPrefab);
+        }
+    }
+
+    // ========== INITIALIZATION ==========
+
+    void FindPlayer()
+    {
         if (player == null)
         {
             GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
             if (playerObj != null)
             {
                 player = playerObj.transform;
-                Debug.Log($"<color=yellow>Player auto-found: {player.name}</color>");
             }
-            else
-            {
-                Debug.LogError("WeaponManager: Player not found!");
-                return;
-            }
+            
         }
+    }
 
-        // Find or create weapon container
+    void CreateWeaponContainer()
+    {
+        if (player == null) return;
+
         if (weaponContainer == null)
         {
             weaponContainer = player.Find("WeaponContainer");
@@ -69,90 +75,83 @@ public class WeaponManager : MonoBehaviour
                 container.transform.localScale = Vector3.one;
 
                 weaponContainer = container.transform;
-
-                Debug.Log($"<color=green>WeaponContainer created under {player.name}</color>");
             }
-            else
-            {
-                Debug.Log($"<color=cyan>WeaponContainer found in {player.name}</color>");
-            }
-        }
-    }
-
-    void Start()
-    {
-        if (startingWeapon != null && startingWeaponPrefab != null)
-        {
-            AddWeapon(startingWeapon, startingWeaponPrefab);
         }
     }
 
     // ========== WEAPON MANAGEMENT ==========
 
-    public bool CanAddWeapon()
-    {
-        return activeWeapons.Count < maxWeapons;
-    }
-
-    public bool HasWeapon(WeaponSO weaponData)
-    {
-        return unlockedWeapons.Contains(weaponData);
-    }
-
     public void AddWeapon(WeaponSO weaponData, GameObject weaponPrefab)
+    {
+        if (!ValidateWeapon(weaponData, weaponPrefab)) return;
+        if (HasWeapon(weaponData)) return;
+        if (!CanAddWeapon()) return;
+
+        GameObject weaponObj = InstantiateWeapon(weaponPrefab, weaponData);
+        if (weaponObj == null) return;
+
+        SetupWeapon(weaponObj, weaponData);
+    }
+
+    bool ValidateWeapon(WeaponSO weaponData, GameObject weaponPrefab)
     {
         if (weaponData == null || weaponPrefab == null)
         {
-            Debug.LogError("WeaponManager: Weapon data or prefab is null!");
-            return;
-        }
-
-        if (HasWeapon(weaponData))
-        {
-            Debug.LogWarning($"Already has {weaponData.weaponName}!");
-            return;
-        }
-
-        if (!CanAddWeapon())
-        {
-            Debug.LogWarning("Max weapons reached!");
-            return;
+            return false;
         }
 
         if (weaponContainer == null)
         {
-            Debug.LogError("WeaponManager: Weapon container is null!");
-            return;
+            return false;
         }
 
-        // Spawn weapon at container (0, 0, 0)
+        return true;
+    }
+
+    GameObject InstantiateWeapon(GameObject weaponPrefab, WeaponSO weaponData)
+    {
         GameObject weaponObj = Instantiate(weaponPrefab, weaponContainer);
         weaponObj.name = weaponData.weaponName;
-
-        Debug.Log($"<color=yellow>Weapon spawned: {weaponObj.name}</color>");
-        Debug.Log($"<color=yellow>Weapon parent: {weaponObj.transform.parent.name}</color>");
-        Debug.Log($"<color=yellow>Weapon position: {weaponObj.transform.position}</color>");
-        Debug.Log($"<color=yellow>Weapon active: {weaponObj.activeSelf}</color>");
-        // Reset local transform
         weaponObj.transform.localPosition = Vector3.zero;
         weaponObj.transform.localRotation = Quaternion.identity;
         weaponObj.transform.localScale = Vector3.one;
 
-        // Setup weapon with data
+        return weaponObj;
+    }
+
+    void SetupWeapon(GameObject weaponObj, WeaponSO weaponData)
+    {
         WeaponBase weapon = weaponObj.GetComponent<WeaponBase>();
+
         if (weapon != null)
         {
             weapon.SetWeaponData(weaponData);
             activeWeapons.Add(weapon);
             unlockedWeapons.Add(weaponData);
 
-            Debug.Log($"<color=cyan>★ EQUIPPED: {weaponData.weaponName} ★</color>");
-            Debug.Log($"Active weapons: {activeWeapons.Count}/{maxWeapons}");
+            TriggerWeaponEvents(weaponData);
+            RegisterWeapon(weaponData);
+
         }
         else
         {
-            Debug.LogError($"Weapon prefab doesn't have WeaponBase component!");
             Destroy(weaponObj);
+        }
+    }
+
+    void TriggerWeaponEvents(WeaponSO weaponData)
+    {
+        if (GameEvents.Instance != null)
+        {
+            GameEvents.Instance.TriggerWeaponUnlocked(weaponData);
+        }
+    }
+
+    void RegisterWeapon(WeaponSO weaponData)
+    {
+        if (WeaponTracker.Instance != null)
+        {
+            WeaponTracker.Instance.RegisterWeapon(weaponData);
         }
     }
 
@@ -165,16 +164,16 @@ public class WeaponManager : MonoBehaviour
             Destroy(activeWeapons[index].gameObject);
             activeWeapons.RemoveAt(index);
             unlockedWeapons.RemoveAt(index);
-
-            Debug.Log($"Removed {weaponData.weaponName}");
         }
     }
 
-    // ========== PUBLIC GETTERS ==========
+    // ========== QUERIES ==========
 
+    public bool CanAddWeapon() => activeWeapons.Count < maxWeapons;
+    public bool HasWeapon(WeaponSO weaponData) => unlockedWeapons.Contains(weaponData);
     public int GetActiveWeaponCount() => activeWeapons.Count;
     public int GetMaxWeapons() => maxWeapons;
     public List<WeaponSO> GetUnlockedWeapons() => new List<WeaponSO>(unlockedWeapons);
     public List<WeaponBase> GetActiveWeapons() => new List<WeaponBase>(activeWeapons);
     public Transform GetPlayer() => player;
-} 
+}

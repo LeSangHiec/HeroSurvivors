@@ -9,7 +9,6 @@ public class PistolWeapon : WeaponBase
     protected override void Start()
     {
         base.Start();
-        Debug.Log("<color=cyan>★ Pistol equipped! ★</color>");
     }
 
     protected override bool CanShoot()

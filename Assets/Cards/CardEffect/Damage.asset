@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Damage
   m_EditorClassIdentifier: Assembly-CSharp::CardSO
   cardText: +100 damage
-  CardImage: {fileID: 3129109906697280852, guid: 0a568b087e40d68478d27414be80cf4a, type: 3}
+  CardImage: {fileID: -5753298303747642727, guid: 34b232c9854ce1a4cbd1c0eb3bc92379, type: 3}
   cardType: 0
   effectType: 3
   effectValue: 10
@@ -21,3 +21,5 @@ MonoBehaviour:
   weaponPrefab: {fileID: 0}
   unlockLevel: 0
   isUnique: 0
+  maxLevel: 2
+  canStack: 1

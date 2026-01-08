@@ -3,7 +3,7 @@
 public class XPGem : MonoBehaviour
 {
     [Header("XP Settings")]
-    [SerializeField] private int xpValue = 10;
+    [SerializeField] private int xpValue = 20;
 
     [Header("Movement Settings")]
     [SerializeField] private float attractSpeed = 5f;
@@ -12,11 +12,9 @@ public class XPGem : MonoBehaviour
 
     [Header("Visual")]
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private float bobSpeed = 2f;
-    [SerializeField] private float bobHeight = 0.2f;
-
+    
     [Header("Lifetime")]
-    [SerializeField] private float lifetime = 30f; // Tự biến mất sau 30 giây
+    [SerializeField] private float lifetime = 30f; 
 
     private PlayerController player;
     private Vector3 startPosition;
@@ -42,7 +40,6 @@ public class XPGem : MonoBehaviour
     {
         if (isBeingCollected || player == null) return;
 
-        // Bob animation (lên xuống)
 
         // Attract to player
         if (autoAttract)
@@ -50,8 +47,6 @@ public class XPGem : MonoBehaviour
             AttractToPlayer();
         }
     }
-
-   
 
     void AttractToPlayer()
     {
@@ -83,9 +78,6 @@ public class XPGem : MonoBehaviour
         {
             playerXP.AddXP(xpValue);
         }
-
-        Debug.Log($"Player collected {xpValue} XP!");
-
         Destroy(gameObject);
     }
 

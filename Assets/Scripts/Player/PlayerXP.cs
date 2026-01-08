@@ -9,7 +9,7 @@ public class PlayerXP : MonoBehaviour
     [SerializeField] private int xpToNextLevel = 100;
     [SerializeField] private int currentLevel = 1;
     [SerializeField] private float xpScalingFactor = 1.2f;
-    [SerializeField] private float xpGainMultiplier = 1f; // ← THÊM
+    [SerializeField] private float xpGainMultiplier = 1f;
 
     [Header("UI References")]
     [SerializeField] private Image xpBarFill;
@@ -25,29 +25,56 @@ public class PlayerXP : MonoBehaviour
         UpdateLevelText();
     }
 
-    // ========== XP METHODS ==========
+    void Update()
+    {
+        HandleDebugInput();
+    }
+
+    // ========== XP MANAGEMENT ==========
 
     public void AddXP(int amount)
     {
         if (amount <= 0) return;
 
-        // ← SỬA: Áp dụng multiplier
         int actualXP = Mathf.RoundToInt(amount * xpGainMultiplier);
         currentXP += actualXP;
 
-        Debug.Log($"Gained {actualXP} XP! (Base: {amount} x {xpGainMultiplier:F2}) Total: {currentXP}/{xpToNextLevel}");
+        TriggerXPEvents(actualXP);
+
+        int levelsGained = ProcessLevelUps();
+
+        if (levelsGained > 0)
+        {
+            QueueCardPicks(levelsGained);
+        }
+
+        UpdateXPBar();
+    }
+
+    void TriggerXPEvents(int actualXP)
+    {
+        if (GameEvents.Instance != null)
+        {
+            GameEvents.Instance.TriggerXPGained(actualXP);
+        }
 
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.PlayXPCollect();
         }
+    }
+
+    int ProcessLevelUps()
+    {
+        int levelsGained = 0;
 
         while (currentXP >= xpToNextLevel)
         {
             LevelUp();
+            levelsGained++;
         }
 
-        UpdateXPBar();
+        return levelsGained;
     }
 
     void LevelUp()
@@ -56,43 +83,63 @@ public class PlayerXP : MonoBehaviour
         currentLevel++;
         xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * xpScalingFactor);
 
-        Debug.Log($"<color=yellow>★ LEVEL UP! Now Level {currentLevel} ★</color>");
-        Debug.Log($"Next level requires: {xpToNextLevel} XP");
+        Debug.Log($"<color=yellow>★ Level {currentLevel}! ★</color>");
+
+        TriggerLevelUpEvents();
+        SpawnLevelUpEffect();
+        UpdateLevelText();
+    }
+
+    void TriggerLevelUpEvents()
+    {
+        if (GameEvents.Instance != null)
+        {
+            GameEvents.Instance.TriggerLevelUp(currentLevel);
+        }
 
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.PlayLevelUp();
         }
+    }
 
+    void SpawnLevelUpEffect()
+    {
         if (levelUpEffect != null)
         {
             Instantiate(levelUpEffect, transform.position, Quaternion.identity);
         }
-
-        UpdateLevelText();
-        OnLevelUp();
     }
 
-    void OnLevelUp()
+    void QueueCardPicks(int count)
     {
-        // Show card selection
-        CardManager cardManager = FindAnyObjectByType<CardManager>();
+        if (CardPickQueue.Instance != null)
+        {
+            CardPickQueue.Instance.QueueCardPicks(count);
+        }
+        else
+        {
+            FallbackCardSelection();
+        }
+    }
+
+    void FallbackCardSelection()
+    {
+        CardManager cardManager = FindFirstObjectByType<CardManager>();
         if (cardManager != null)
         {
             cardManager.ShowCardSelection();
         }
     }
 
-    // ========== UPGRADE METHODS ==========
+    // ========== UPGRADES ==========
 
     public void IncreaseXPGain(float percentage)
     {
         xpGainMultiplier += percentage;
-
-        Debug.Log($"<color=yellow>XP Gain increased by {percentage * 100}%! Multiplier: {xpGainMultiplier:F2}x</color>");
     }
 
-    // ========== UI UPDATES ==========
+    // ========== UI ==========
 
     void UpdateXPBar()
     {
@@ -100,6 +147,11 @@ public class PlayerXP : MonoBehaviour
         {
             float fillAmount = (float)currentXP / xpToNextLevel;
             xpBarFill.fillAmount = fillAmount;
+
+            if (GameEvents.Instance != null)
+            {
+                GameEvents.Instance.TriggerXPBarChanged(fillAmount);
+            }
         }
 
         if (xpText != null)
@@ -116,7 +168,7 @@ public class PlayerXP : MonoBehaviour
         }
     }
 
-    // ========== PUBLIC GETTERS ==========
+    // ========== GETTERS ==========
 
     public int GetCurrentXP() => currentXP;
     public int GetXPToNextLevel() => xpToNextLevel;
@@ -126,18 +178,17 @@ public class PlayerXP : MonoBehaviour
 
     // ========== DEBUG ==========
 
-    void Update()
+    [System.Diagnostics.Conditional("UNITY_EDITOR")]
+    void HandleDebugInput()
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
             AddXP(50);
-            Debug.Log("Debug: Added 50 XP");
         }
 
         if (Input.GetKeyDown(KeyCode.L))
         {
             AddXP(xpToNextLevel);
-            Debug.Log("Debug: Force level up");
         }
     }
 }

@@ -21,3 +21,6 @@ MonoBehaviour:
   weaponPrefab: {fileID: 7525120264659539782, guid: 561c2116a1f233e4d8305bf044d118af, type: 3}
   unlockLevel: 0
   isUnique: 1
+  maxLevel: 5
+  canStack: 1
+  targetWeapon: {fileID: 0}

@@ -8,6 +8,8 @@ TagManager:
   - Obstacle
   - Projectile
   - Explosion
+  - EnemyProjectile
+  - XPGem
   - Exp
   layers:
   - Default
@@ -64,7 +66,7 @@ TagManager:
   - name: Gun
     uniqueID: 2422132503
     locked: 0
-  - name: Bullet
+  - name: Projectile
     uniqueID: 2192430003
     locked: 0
   - name: Enemy

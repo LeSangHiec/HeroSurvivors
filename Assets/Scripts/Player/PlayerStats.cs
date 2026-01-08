@@ -1,17 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class PlayerStats : MonoBehaviour
 {
     [Header("Health Settings")]
     [SerializeField] private float maxHealth = 100f;
+    private float baseMaxHealth;
     private float currentHealth;
 
     [Header("Combat Stats")]
-    [SerializeField] private float baseDamage = 10f;
+    [SerializeField] private float baseDamage;
     [SerializeField] private float damageMultiplier = 1f;
-    [SerializeField] private float critChance = 0f;
+    [SerializeField] private float critChance;
 
     [Header("Regeneration")]
     [SerializeField] private float healthRegenPerSecond = 0f;
@@ -32,14 +32,19 @@ public class PlayerStats : MonoBehaviour
     void Awake()
     {
         if (spriteRenderer == null)
+        {
             spriteRenderer = GetComponent<SpriteRenderer>();
+        }
 
         if (rb == null)
+        {
             rb = GetComponent<Rigidbody2D>();
+        }
     }
 
     void Start()
     {
+        baseMaxHealth = maxHealth;
         currentHealth = maxHealth;
         UpdateHpBar();
     }
@@ -48,43 +53,17 @@ public class PlayerStats : MonoBehaviour
     {
         if (isDead) return;
 
-        // Health regeneration
-        if (healthRegenPerSecond > 0f)
-        {
-            regenTimer += Time.deltaTime;
-
-            if (regenTimer >= 1f)
-            {
-                Heal(healthRegenPerSecond);
-                regenTimer = 0f;
-            }
-        }
-
-        // Debug keys
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            TakeDamage(20f);
-            Debug.Log("Debug: Took 20 damage");
-        }
-
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            Heal(20f);
-            Debug.Log("Debug: Healed 20 HP");
-        }
+        HandleHealthRegen();
     }
 
-    // ========== HEALTH SYSTEM ==========
+    // ========== HEALTH MANAGEMENT ==========
 
     public void TakeDamage(float damageAmount)
     {
-        // ← SỬA: Chỉ check isDead
         if (isDead) return;
 
         currentHealth -= damageAmount;
         currentHealth = Mathf.Max(currentHealth, 0);
-
-        Debug.Log($"Player took {damageAmount} damage. HP: {currentHealth}/{maxHealth}");
 
         UpdateHpBar();
 
@@ -92,7 +71,6 @@ public class PlayerStats : MonoBehaviour
         {
             AudioManager.Instance.PlayPlayerHit();
         }
-
 
         if (currentHealth <= 0)
         {
@@ -110,8 +88,20 @@ public class PlayerStats : MonoBehaviour
         {
             currentHealth += actualHeal;
             UpdateHpBar();
+        }
+    }
 
-            Debug.Log($"Player healed {actualHeal}. HP: {currentHealth}/{maxHealth}");
+    void HandleHealthRegen()
+    {
+        if (healthRegenPerSecond > 0f)
+        {
+            regenTimer += Time.deltaTime;
+
+            if (regenTimer >= 1f)
+            {
+                Heal(healthRegenPerSecond);
+                regenTimer = 0f;
+            }
         }
     }
 
@@ -121,37 +111,63 @@ public class PlayerStats : MonoBehaviour
 
         isDead = true;
 
-        StopAllCoroutines();
+        Debug.Log("★ Player Died! ★");
 
+        StopAllCoroutines();
+        ResetVisuals();
+        StopMovement();
+        SpawnDeathEffect();
+        PlayDeathSound();
+        TriggerDeathEvents();
+
+        gameObject.SetActive(false);
+    }
+
+    void ResetVisuals()
+    {
         if (spriteRenderer != null)
         {
             spriteRenderer.enabled = true;
             spriteRenderer.color = Color.white;
         }
+    }
 
+    void StopMovement()
+    {
         if (rb != null)
         {
             rb.linearVelocity = Vector2.zero;
         }
+    }
 
+    void SpawnDeathEffect()
+    {
         if (deathEffect != null)
         {
             Instantiate(deathEffect, transform.position, Quaternion.identity);
         }
+    }
 
+    void PlayDeathSound()
+    {
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.PlayPlayerDeath();
         }
+    }
 
-        Debug.Log("Player died!");
+    void TriggerDeathEvents()
+    {
+        if (GameEvents.Instance != null)
+        {
+            GameEvents.Instance.TriggerPlayerDeath();
+            GameEvents.Instance.TriggerGameOver();
+        }
 
         if (GameManager.Instance != null)
         {
             GameManager.Instance.GameOver();
         }
-
-        gameObject.SetActive(false);
     }
 
     void UpdateHpBar()
@@ -159,48 +175,36 @@ public class PlayerStats : MonoBehaviour
         if (hpBar != null)
         {
             hpBar.fillAmount = currentHealth / maxHealth;
-
-           
         }
     }
 
-    // ========== UPGRADE METHODS ==========
+    // ========== STAT UPGRADES ==========
 
     public void IncreaseMaxHealth(float amount)
     {
         float healthPercentage = currentHealth / maxHealth;
-
         maxHealth += amount;
         currentHealth = maxHealth * healthPercentage;
-
         UpdateHpBar();
-
-        Debug.Log($"<color=green>Max Health increased by {amount}! Now: {maxHealth}</color>");
     }
 
     public void IncreaseDamage(float percentage)
     {
         damageMultiplier += percentage;
-
-        Debug.Log($"<color=red>Damage increased by {percentage * 100}%! Multiplier: {damageMultiplier:F2}x</color>");
     }
 
     public void IncreaseCritChance(float amount)
     {
         critChance += amount;
         critChance = Mathf.Min(critChance, 1f);
-
-        Debug.Log($"<color=yellow>Crit Chance increased by {amount * 100}%! Now: {critChance * 100}%</color>");
     }
 
     public void IncreaseHealthRegen(float amount)
     {
         healthRegenPerSecond += amount;
-
-        Debug.Log($"<color=cyan>Health Regen increased by {amount}/sec! Now: {healthRegenPerSecond}/sec</color>");
     }
 
-    // ========== PUBLIC GETTERS ==========
+    // ========== GETTERS ==========
 
     public float GetCurrentHealth() => currentHealth;
     public float GetMaxHealth() => maxHealth;
@@ -211,4 +215,9 @@ public class PlayerStats : MonoBehaviour
     public float GetTotalDamage() => baseDamage * damageMultiplier;
     public float GetCritChance() => critChance;
     public float GetHealthRegen() => healthRegenPerSecond;
+    public float GetBaseMaxHealth() => baseMaxHealth;
+
+    // ========== DEBUG ==========
+
+   
 }

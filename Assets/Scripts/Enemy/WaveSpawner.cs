@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 [System.Serializable]
@@ -7,20 +6,20 @@ public class Wave
 {
     [Header("Wave Info")]
     public string waveName = "Wave 1";
-    public float startTime = 0f; // Thời gian bắt đầu wave (giây)
+    public float startTime = 0f;
 
     [Header("Enemy Settings")]
-    public GameObject[] enemyPrefabs; // Danh sách enemy có thể spawn
-    public int[] enemyWeights; // Tỷ lệ spawn (càng cao càng hay spawn)
+    public GameObject[] enemyPrefabs;
+    public int[] enemyWeights;
 
     [Header("Spawn Settings")]
-    public int enemiesPerMinute = 30; // Số enemy spawn mỗi phút
-    public int maxEnemiesAlive = 50; // Giới hạn enemy cùng lúc
+    public int enemiesPerMinute = 30;
+    public int maxEnemiesAlive = 50;
 
     [Header("Difficulty")]
-    public float enemyHealthMultiplier = 1f; // Nhân HP
-    public float enemyDamageMultiplier = 1f; // Nhân damage
-    public float enemySpeedMultiplier = 1f; // Nhân speed
+    public float enemyHealthMultiplier = 1f;
+    public float enemyDamageMultiplier = 1f;
+    public float enemySpeedMultiplier = 1f;
 }
 
 public class WaveSpawner : MonoBehaviour
@@ -32,8 +31,8 @@ public class WaveSpawner : MonoBehaviour
 
     [Header("Spawn Area")]
     [SerializeField] private Transform player;
-    [SerializeField] private float minSpawnDistance = 15f; // Spawn xa player tối thiểu
-    [SerializeField] private float maxSpawnDistance = 20f; // Spawn xa player tối đa
+    [SerializeField] private float minSpawnDistance = 15f;
+    [SerializeField] private float maxSpawnDistance = 20f;
 
     [Header("References")]
     [SerializeField] private GameTimer gameTimer;
@@ -41,7 +40,7 @@ public class WaveSpawner : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool showSpawnGizmos = true;
 
-    // Private variables
+    // State
     private Wave currentWave;
     private int currentWaveIndex = -1;
     private List<GameObject> activeEnemies = new List<GameObject>();
@@ -62,7 +61,30 @@ public class WaveSpawner : MonoBehaviour
 
     void Start()
     {
-        // Tự động tìm player nếu chưa gắn
+        FindPlayer();
+        FindGameTimer();
+        StartSpawning();
+    }
+
+    void Update()
+    {
+        if (!isSpawning) return;
+
+        UpdateCurrentWave();
+
+        if (Time.time >= nextSpawnTime && currentWave != null)
+        {
+            SpawnEnemy();
+            CalculateNextSpawnTime();
+        }
+
+        CleanupDestroyedEnemies();
+    }
+
+    // ========== INITIALIZATION ==========
+
+    void FindPlayer()
+    {
         if (player == null)
         {
             PlayerController playerController = FindAnyObjectByType<PlayerController>();
@@ -71,33 +93,17 @@ public class WaveSpawner : MonoBehaviour
                 player = playerController.transform;
             }
         }
+    }
 
-        // Tự động tìm GameTimer nếu chưa gắn
+    void FindGameTimer()
+    {
         if (gameTimer == null)
         {
             gameTimer = FindAnyObjectByType<GameTimer>();
         }
-
-        StartSpawning();
     }
 
-    void Update()
-    {
-        if (!isSpawning) return;
-
-        // Update wave dựa trên thời gian
-        UpdateCurrentWave();
-
-        // Spawn enemies
-        if (Time.time >= nextSpawnTime && currentWave != null)
-        {
-            SpawnEnemy();
-            CalculateNextSpawnTime();
-        }
-
-        // Cleanup null enemies
-        CleanupDestroyedEnemies();
-    }
+    // ========== WAVE MANAGEMENT ==========
 
     void UpdateCurrentWave()
     {
@@ -105,7 +111,6 @@ public class WaveSpawner : MonoBehaviour
 
         float currentTime = gameTimer.GetCurrentTime();
 
-        // Tìm wave phù hợp với thời gian hiện tại
         for (int i = waves.Length - 1; i >= 0; i--)
         {
             if (currentTime >= waves[i].startTime)
@@ -124,58 +129,101 @@ public class WaveSpawner : MonoBehaviour
         currentWaveIndex = waveIndex;
         currentWave = waves[waveIndex];
 
-        Debug.Log($"<color=yellow>WAVE CHANGED: {currentWave.waveName}</color>");
-        Debug.Log($"Enemies/min: {currentWave.enemiesPerMinute}, Max alive: {currentWave.maxEnemiesAlive}");
+        // Log wave start (kept for feedback)
+        Debug.Log($"<color=yellow>★ {currentWave.waveName} Started! ★</color>");
 
+        TriggerWaveEvent();
         CalculateNextSpawnTime();
     }
 
+    void TriggerWaveEvent()
+    {
+        if (GameEvents.Instance != null)
+        {
+            GameEvents.Instance.TriggerWaveChanged(currentWaveIndex);
+        }
+    }
+
+    // ========== SPAWNING ==========
+
     void SpawnEnemy()
     {
-        // Check giới hạn enemies
         if (activeEnemies.Count >= currentWave.maxEnemiesAlive)
         {
             return;
         }
 
-        // Chọn enemy ngẫu nhiên theo weight
         GameObject enemyPrefab = GetRandomEnemyPrefab();
-        if (enemyPrefab == null)
-        {
-            Debug.LogWarning("No enemy prefab found in current wave!");
-            return;
-        }
+        if (enemyPrefab == null) return;
 
-        // Tính vị trí spawn
         Vector3 spawnPosition = GetRandomSpawnPosition();
+        GameObject enemy = CreateEnemy(enemyPrefab, spawnPosition);
 
-        // Spawn enemy
-        GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+        if (enemy == null) return;
 
-        // Apply multipliers
         ApplyWaveMultipliers(enemy);
+        TrackEnemy(enemy);
+        TriggerSpawnEvents();
+    }
 
-        // Add vào list
+    GameObject CreateEnemy(GameObject prefab, Vector3 position)
+    {
+        if (EnemyPoolManager.Instance != null)
+        {
+            return EnemyPoolManager.Instance.SpawnEnemy(prefab.name, position, Quaternion.identity);
+        }
+        else
+        {
+            return Instantiate(prefab, position, Quaternion.identity);
+        }
+    }
+
+    void ApplyWaveMultipliers(GameObject enemy)
+    {
+        Enemy enemyScript = enemy.GetComponent<Enemy>();
+        if (enemyScript != null)
+        {
+            enemyScript.ApplyMultipliers(
+                currentWave.enemyHealthMultiplier,
+                currentWave.enemyDamageMultiplier,
+                currentWave.enemySpeedMultiplier
+            );
+        }
+    }
+
+    void TrackEnemy(GameObject enemy)
+    {
         activeEnemies.Add(enemy);
+    }
+
+    void TriggerSpawnEvents()
+    {
+        if (GameEvents.Instance != null)
+        {
+            GameEvents.Instance.TriggerEnemyCountChanged(activeEnemies.Count);
+        }
     }
 
     GameObject GetRandomEnemyPrefab()
     {
         if (currentWave.enemyPrefabs.Length == 0) return null;
 
-        // Nếu không có weights, chọn random bình thường
         if (currentWave.enemyWeights.Length != currentWave.enemyPrefabs.Length)
         {
-            return currentWave.enemyPrefabs[Random.Range(0, currentWave.enemyPrefabs.Length)];
+            return GetRandomPrefabUnweighted();
         }
 
-        // Weighted random selection
-        int totalWeight = 0;
-        foreach (int weight in currentWave.enemyWeights)
-        {
-            totalWeight += weight;
-        }
+        return GetRandomPrefabWeighted();
+    }
 
+    GameObject GetRandomPrefabUnweighted()
+    {
+        return currentWave.enemyPrefabs[Random.Range(0, currentWave.enemyPrefabs.Length)];
+    }
+
+    GameObject GetRandomPrefabWeighted()
+    {
+        int totalWeight = CalculateTotalWeight();
         int randomValue = Random.Range(0, totalWeight);
         int currentWeight = 0;
 
@@ -191,20 +239,23 @@ public class WaveSpawner : MonoBehaviour
         return currentWave.enemyPrefabs[0];
     }
 
+    int CalculateTotalWeight()
+    {
+        int totalWeight = 0;
+        foreach (int weight in currentWave.enemyWeights)
+        {
+            totalWeight += weight;
+        }
+        return totalWeight;
+    }
+
     Vector3 GetRandomSpawnPosition()
     {
-        if (player == null)
-        {
-            return Vector3.zero;
-        }
+        if (player == null) return Vector3.zero;
 
-        // Random góc
         float angle = Random.Range(0f, 360f) * Mathf.Deg2Rad;
-
-        // Random khoảng cách
         float distance = Random.Range(minSpawnDistance, maxSpawnDistance);
 
-        // Tính vị trí
         Vector3 offset = new Vector3(
             Mathf.Cos(angle) * distance,
             Mathf.Sin(angle) * distance,
@@ -214,47 +265,74 @@ public class WaveSpawner : MonoBehaviour
         return player.position + offset;
     }
 
-    void ApplyWaveMultipliers(GameObject enemy)
-    {
-        Enemy enemyScript = enemy.GetComponent<Enemy>();
-        if (enemyScript == null) return;
-
-        // Apply multipliers
-        enemyScript.ApplyMultipliers(
-            currentWave.enemyHealthMultiplier,
-            currentWave.enemyDamageMultiplier,
-            currentWave.enemySpeedMultiplier
-        );
-    }
-
     void CalculateNextSpawnTime()
     {
         if (currentWave == null) return;
 
-        // Tính interval dựa trên enemies per minute
         float spawnInterval = 60f / currentWave.enemiesPerMinute;
         nextSpawnTime = Time.time + spawnInterval;
     }
 
+    // ========== CLEANUP ==========
+
     void CleanupDestroyedEnemies()
     {
-        // Remove null references (enemies đã chết)
-        activeEnemies.RemoveAll(enemy => enemy == null);
+        int oldCount = activeEnemies.Count;
+
+        activeEnemies.RemoveAll(enemy => enemy == null || !enemy.activeInHierarchy);
+
+        if (oldCount != activeEnemies.Count)
+        {
+            TriggerCountChangedEvent();
+        }
     }
+
+    void TriggerCountChangedEvent()
+    {
+        if (GameEvents.Instance != null)
+        {
+            GameEvents.Instance.TriggerEnemyCountChanged(activeEnemies.Count);
+        }
+    }
+
+    // ========== PUBLIC METHODS ==========
 
     public void StartSpawning()
     {
         isSpawning = true;
-        Debug.Log("Wave spawner started!");
     }
 
     public void StopSpawning()
     {
         isSpawning = false;
-        Debug.Log("Wave spawner stopped!");
     }
 
     public void ClearAllEnemies()
+    {
+        if (EnemyPoolManager.Instance != null)
+        {
+            ClearEnemiesWithPool();
+        }
+        else
+        {
+            ClearEnemiesWithDestroy();
+        }
+
+        activeEnemies.Clear();
+    }
+
+    void ClearEnemiesWithPool()
+    {
+        foreach (GameObject enemy in activeEnemies)
+        {
+            if (enemy != null && enemy.activeInHierarchy)
+            {
+                EnemyPoolManager.Instance.DespawnEnemy(enemy);
+            }
+        }
+    }
+
+    void ClearEnemiesWithDestroy()
     {
         foreach (GameObject enemy in activeEnemies)
         {
@@ -263,25 +341,24 @@ public class WaveSpawner : MonoBehaviour
                 Destroy(enemy);
             }
         }
-        activeEnemies.Clear();
     }
 
-    // Visualize spawn area
+    // ========== GETTERS ==========
+
+    public int GetActiveEnemyCount() => activeEnemies.Count;
+    public Wave GetCurrentWave() => currentWave;
+    public int GetCurrentWaveIndex() => currentWaveIndex;
+
+    // ========== GIZMOS ==========
+
     void OnDrawGizmos()
     {
         if (!showSpawnGizmos || player == null) return;
 
-        // Min spawn distance
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(player.position, minSpawnDistance);
 
-        // Max spawn distance
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(player.position, maxSpawnDistance);
     }
-
-    // Public getters
-    public int GetActiveEnemyCount() => activeEnemies.Count;
-    public Wave GetCurrentWave() => currentWave;
-    public int GetCurrentWaveIndex() => currentWaveIndex;
 }

@@ -8,6 +8,7 @@ public class Card : MonoBehaviour
     [SerializeField] private Image cardImageRenderer;
     [SerializeField] private TMP_Text cardTextRenderer;
     [SerializeField] private Button cardButton; // ← THÊM
+    [SerializeField] private TMP_Text levelText; // ← THÊM
 
     private CardSO cardInfo;
     private CardManager cardManager; // ← THÊM
@@ -39,6 +40,25 @@ public class Card : MonoBehaviour
         if (cardTextRenderer != null)
         {
             cardTextRenderer.text = card.cardText;
+        }
+        if (levelText != null)
+        {
+            int currentLevel = 0;
+
+            if (CardTracker.Instance != null)
+            {
+                currentLevel = CardTracker.Instance.GetCardLevel(card);
+            }
+
+            int displayLevel = currentLevel + 1;
+
+            levelText.text = $"Lv.{displayLevel}";
+
+            if (displayLevel >= card.maxLevel)
+            {
+                levelText.color = Color.yellow;
+                levelText.text = $"Lv.{displayLevel} (MAX)";
+            }
         }
     }
 

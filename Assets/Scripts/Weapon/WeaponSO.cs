@@ -35,4 +35,21 @@ public class WeaponSO : ScriptableObject
     [Header("Unlock Requirements")]
     public int unlockLevel = 1;
     public bool isStartingWeapon = false;
+
+    [Header("Upgrade System")]
+    public int maxWeaponLevel = 5;
+    public bool canUpgrade = true;
+
+    [Header("Upgrade Scaling")]
+    [Tooltip("% damage increase per level")]
+    public float damagePerLevel = 0.1f; // 10% per level
+
+    [Tooltip("Fire rate decrease per level")]
+    public float fireRatePerLevel = 0.02f; // -0.02s per level
+
+    [Tooltip("Projectile speed increase per level")]
+    public float speedPerLevel = 0.5f; // +0.5 per level
+
+    [Tooltip("Add extra projectile at these level")]
+    public int[] projectileCountLevels = new int[] { 3, 5 };
 }

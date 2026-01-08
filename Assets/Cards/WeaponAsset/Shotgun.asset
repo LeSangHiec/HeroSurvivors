@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSO
   weaponName: Weapon
   weaponIcon: {fileID: -8591388368643886257, guid: b6af2b7f2e338de4699a27178f129395, type: 3}
-  description: 
+  description: ShotGun
   weaponSprite: {fileID: -8591388368643886257, guid: b6af2b7f2e338de4699a27178f129395, type: 3}
   spriteOffset: {x: 0, y: 0, z: 0}
   weaponOffset: {x: 0.66, y: 0.83, z: 0}
@@ -29,3 +29,9 @@ MonoBehaviour:
   shootSound: {fileID: 8300000, guid: 46c4f07228ebf90438a93279409f03ad, type: 3}
   unlockLevel: 1
   isStartingWeapon: 0
+  maxWeaponLevel: 5
+  canUpgrade: 1
+  damagePerLevel: 0.1
+  fireRatePerLevel: 0.02
+  speedPerLevel: 0.5
+  projectileCountLevels: 0300000005000000

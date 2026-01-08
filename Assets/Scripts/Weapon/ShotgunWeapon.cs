@@ -9,15 +9,12 @@ public class ShotgunWeapon : WeaponBase
     protected override void Start()
     {
         base.Start();
-        Debug.Log("<color=orange>★ Shotgun equipped! ★</color>");
     }
 
-    // Override Fire() để thêm recoil
     protected override void Fire()
     {
-        base.Fire(); // Gọi Fire() mặc định (bắn đạn)
+        base.Fire();
 
-        // Thêm recoil effect
         ApplyRecoil();
     }
 
@@ -34,12 +31,10 @@ public class ShotgunWeapon : WeaponBase
         }
     }
 
-    // Override sound để to hơn
     protected override void PlayShootSound()
     {
         if (AudioManager.Instance != null)
         {
-            // Shotgun to hơn pistol
             AudioManager.Instance.PlaySFX(weaponData.shootSound, 1.5f);
         }
     }
@@ -47,11 +42,11 @@ public class ShotgunWeapon : WeaponBase
     {
         if (autoFire)
         {
-            return true; // Luôn bắn (full auto)
+            return true; 
         }
         else
         {
-            return base.CanShoot(); // Giữ chuột
+            return base.CanShoot(); 
         }
     }
 }

@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 1558602956240990129}
   - component: {fileID: 2440445190720586588}
   - component: {fileID: -8286838163696824391}
+  - component: {fileID: -5835461088020796503}
+  - component: {fileID: -5710657082255208330}
   m_Layer: 0
   m_Name: ExplosionEnemy
   m_TagString: Enemy
@@ -255,6 +257,42 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &-5835461088020796503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6700572493935290248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 490e1864eb624e746ab6a80fd84b5526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyRespawner
+  player: {fileID: 0}
+  mainCamera: {fileID: 0}
+  maxDistanceFromPlayer: 21.3
+  minSpawnDistance: 15.1
+  maxSpawnDistance: 18.6
+  edgeOffset: 2
+  checkInterval: 0.1
+  onlyTeleportWhenOutsideCamera: 1
+  resetHealthOnTeleport: 0
+--- !u!114 &-5710657082255208330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6700572493935290248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e64965679954654fa0c844e48979e9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PooledEnemy
+  poolName: 
+  autoDespawnWhenDead: 1
+  despawnDelay: 0.5
 --- !u!1001 &1674453775773431080
 PrefabInstance:
   m_ObjectHideFlags: 0
