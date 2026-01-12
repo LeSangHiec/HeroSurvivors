@@ -3,30 +3,26 @@
 public class PooledEnemy : MonoBehaviour
 {
     [HideInInspector]
-    public string poolName; // Pool mà enemy này thuộc về
+    public string poolName;
 
-    // Auto-despawn settings (optional)
-    [Header("Auto Despawn (Optional)")]
-    [SerializeField] private bool autoDespawnWhenDead = true;
-    [SerializeField] private float despawnDelay = 0.5f; // Delay sau khi chết
+    [Header("Auto Despawn")]
+    [SerializeField] private bool autoDespawnOnDeath = true;
+    [SerializeField] private float despawnDelay = 2f;
 
-    private Enemy enemyScript;
-
-    void Awake()
+    // ✅ THÊM: Method để handle death
+    public void OnEnemyDeath()
     {
-        enemyScript = GetComponent<Enemy>();
-    }
-
-    void Update()
-    {
-        // Auto-despawn khi enemy chết
-        if (autoDespawnWhenDead && enemyScript != null && enemyScript.IsDead())
+        if (autoDespawnOnDeath)
         {
             Invoke(nameof(Despawn), despawnDelay);
         }
+        else
+        {
+            Despawn();
+        }
     }
 
-    public void Despawn()
+    void Despawn()
     {
         if (EnemyPoolManager.Instance != null)
         {
@@ -34,8 +30,13 @@ public class PooledEnemy : MonoBehaviour
         }
         else
         {
-            // Fallback: destroy nếu không có pool manager
             Destroy(gameObject);
         }
+    }
+
+    // ✅ THÊM: Cancel despawn khi object disabled (optional)
+    void OnDisable()
+    {
+        CancelInvoke();
     }
 }

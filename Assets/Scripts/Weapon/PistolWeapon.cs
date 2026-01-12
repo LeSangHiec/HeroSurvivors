@@ -15,11 +15,11 @@ public class PistolWeapon : WeaponBase
     {
         if (autoFire)
         {
-            return true; // Luôn bắn (full auto)
+            return true; 
         }
         else
         {
-            return base.CanShoot(); // Giữ chuột
+            return base.CanShoot(); 
         }
     }
 }

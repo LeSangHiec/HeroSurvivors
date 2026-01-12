@@ -322,7 +322,7 @@ public class WeaponBase : MonoBehaviour
         if (weaponSprite != null)
         {
             Color originalColor = weaponSprite.color;
-            weaponSprite.color = Color.yellow;
+            weaponSprite.color = Color.red;
             yield return new WaitForSeconds(0.05f);
             weaponSprite.color = originalColor;
         }

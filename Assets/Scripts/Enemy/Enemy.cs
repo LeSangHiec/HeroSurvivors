@@ -27,13 +27,13 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected GameObject xpGemPrefab;
     [SerializeField] protected GameObject deathEffect;
 
+    [Header("Death Animation")] // ← NEW
+    [SerializeField] protected bool useDeathAnimation = false;
+    [SerializeField] protected float deathAnimationDuration = 1f;
+    [SerializeField] protected string deathAnimationTrigger = "Die";
+
     protected PlayerController player;
     protected bool isDead = false;
-
-    // Wave multipliers
-    private float healthMultiplier = 1f;
-    private float damageMultiplier = 1f;
-    private float speedMultiplier = 1f;
 
     protected virtual void Awake()
     {
@@ -156,11 +156,55 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+    // ✅ UPDATED: Support death animation
     protected virtual void Die()
     {
+        if (isDead) return;
+
         isDead = true;
 
+        StopMovement();
         DisableCollider();
+
+        if (useDeathAnimation)
+        {
+            StartCoroutine(PlayDeathAnimation());
+        }
+        else
+        {
+            CompleteDeath();
+        }
+    }
+
+    // ✅ NEW: Stop movement on death
+    protected virtual void StopMovement()
+    {
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
+    }
+
+    // ✅ NEW: Play death animation
+    protected virtual System.Collections.IEnumerator PlayDeathAnimation()
+    {
+        // Trigger animation
+        Animator animator = GetComponent<Animator>();
+        if (animator != null)
+        {
+            animator.SetTrigger(deathAnimationTrigger);
+        }
+
+        // Wait for animation
+        yield return new WaitForSeconds(deathAnimationDuration);
+
+        CompleteDeath();
+    }
+
+    // ✅ NEW: Complete death after animation
+    protected virtual void CompleteDeath()
+    {
         TriggerDeathEvents();
         SpawnDeathEffect();
         DropLoot();
@@ -195,7 +239,11 @@ public abstract class Enemy : MonoBehaviour
     void HandlePooling()
     {
         PooledEnemy pooledEnemy = GetComponent<PooledEnemy>();
-        if (pooledEnemy == null)
+        if (pooledEnemy != null)
+        {
+            pooledEnemy.OnEnemyDeath();
+        }
+        else
         {
             Destroy(gameObject);
         }
@@ -291,7 +339,6 @@ public abstract class Enemy : MonoBehaviour
 
     public void SetHealthMultiplier(float multiplier)
     {
-        healthMultiplier = multiplier;
         maxHealth *= multiplier;
         currentHealth = maxHealth;
         UpdateHpBar();
@@ -299,13 +346,11 @@ public abstract class Enemy : MonoBehaviour
 
     public void SetDamageMultiplier(float multiplier)
     {
-        damageMultiplier = multiplier;
         damage *= multiplier;
     }
 
     public void SetSpeedMultiplier(float multiplier)
     {
-        speedMultiplier = multiplier;
         enemyMoveSpeed *= multiplier;
     }
 

@@ -15,6 +15,13 @@ public class Wave
     [Header("Spawn Settings")]
     public int enemiesPerMinute = 30;
     public int maxEnemiesAlive = 50;
+    public int minEnemiesAlive = 20; // ← NEW: Minimum enemies to maintain
+
+    [Header("Wave Transition")]
+    [Tooltip("Gradually remove old wave enemies when they go off-screen")]
+    public bool removeOldEnemiesOffScreen = true;
+    [Tooltip("Maximum old enemies allowed to stay")]
+    public int maxOldEnemiesAllowed = 20;
 
     [Header("Difficulty")]
     public float enemyHealthMultiplier = 1f;
@@ -34,18 +41,29 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] private float minSpawnDistance = 15f;
     [SerializeField] private float maxSpawnDistance = 20f;
 
+    [Header("Off-Screen Detection")]
+    [SerializeField] private float offScreenMargin = 2f;
+
+    [Header("Dynamic Spawning")]
+    [SerializeField] private float minSpawnCheckInterval = 1f; // Check every second
+    [SerializeField] private bool enableDynamicSpawning = true;
+
     [Header("References")]
     [SerializeField] private GameTimer gameTimer;
 
     [Header("Debug")]
     [SerializeField] private bool showSpawnGizmos = true;
+    [SerializeField] private bool showDebugLogs = false;
 
     // State
     private Wave currentWave;
     private int currentWaveIndex = -1;
     private List<GameObject> activeEnemies = new List<GameObject>();
+    private Dictionary<GameObject, int> enemyWaveMap = new Dictionary<GameObject, int>();
     private float nextSpawnTime = 0f;
+    private float nextMinSpawnCheck = 0f;
     private bool isSpawning = false;
+    private Camera mainCamera;
 
     void Awake()
     {
@@ -57,6 +75,8 @@ public class WaveSpawner : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        mainCamera = Camera.main;
     }
 
     void Start()
@@ -72,13 +92,25 @@ public class WaveSpawner : MonoBehaviour
 
         UpdateCurrentWave();
 
+        // Normal timed spawning
         if (Time.time >= nextSpawnTime && currentWave != null)
         {
-            SpawnEnemy();
-            CalculateNextSpawnTime();
+            if (CanSpawnEnemy())
+            {
+                SpawnEnemy();
+                CalculateNextSpawnTime();
+            }
+        }
+
+        // ✅ NEW: Dynamic spawning to maintain minimum
+        if (enableDynamicSpawning && Time.time >= nextMinSpawnCheck)
+        {
+            CheckMinimumEnemies();
+            nextMinSpawnCheck = Time.time + minSpawnCheckInterval;
         }
 
         CleanupDestroyedEnemies();
+        RemoveOldEnemiesOffScreen();
     }
 
     // ========== INITIALIZATION ==========
@@ -129,11 +161,16 @@ public class WaveSpawner : MonoBehaviour
         currentWaveIndex = waveIndex;
         currentWave = waves[waveIndex];
 
-        // Log wave start (kept for feedback)
         Debug.Log($"<color=yellow>★ {currentWave.waveName} Started! ★</color>");
 
         TriggerWaveEvent();
-        CalculateNextSpawnTime();
+        ResetSpawnTimer();
+    }
+
+    void ResetSpawnTimer()
+    {
+        nextSpawnTime = Time.time;
+        nextMinSpawnCheck = Time.time;
     }
 
     void TriggerWaveEvent()
@@ -146,13 +183,14 @@ public class WaveSpawner : MonoBehaviour
 
     // ========== SPAWNING ==========
 
+    bool CanSpawnEnemy()
+    {
+        int currentWaveEnemyCount = GetCurrentWaveEnemyCount();
+        return currentWaveEnemyCount < currentWave.maxEnemiesAlive;
+    }
+
     void SpawnEnemy()
     {
-        if (activeEnemies.Count >= currentWave.maxEnemiesAlive)
-        {
-            return;
-        }
-
         GameObject enemyPrefab = GetRandomEnemyPrefab();
         if (enemyPrefab == null) return;
 
@@ -164,6 +202,38 @@ public class WaveSpawner : MonoBehaviour
         ApplyWaveMultipliers(enemy);
         TrackEnemy(enemy);
         TriggerSpawnEvents();
+
+        if (showDebugLogs)
+        {
+            Debug.Log($"<color=green>Spawned {enemyPrefab.name}. Current wave enemies: {GetCurrentWaveEnemyCount()}</color>");
+        }
+    }
+
+    // ✅ NEW: Check and maintain minimum enemy count
+    void CheckMinimumEnemies()
+    {
+        if (currentWave == null) return;
+
+        int currentWaveEnemyCount = GetCurrentWaveEnemyCount();
+
+        if (currentWaveEnemyCount < currentWave.minEnemiesAlive)
+        {
+            int toSpawn = currentWave.minEnemiesAlive - currentWaveEnemyCount;
+            toSpawn = Mathf.Min(toSpawn, currentWave.maxEnemiesAlive - currentWaveEnemyCount);
+
+            if (showDebugLogs)
+            {
+                Debug.Log($"<color=cyan>Low enemy count ({currentWaveEnemyCount}/{currentWave.minEnemiesAlive}). Spawning {toSpawn} enemies...</color>");
+            }
+
+            for (int i = 0; i < toSpawn; i++)
+            {
+                if (CanSpawnEnemy())
+                {
+                    SpawnEnemy();
+                }
+            }
+        }
     }
 
     GameObject CreateEnemy(GameObject prefab, Vector3 position)
@@ -194,6 +264,7 @@ public class WaveSpawner : MonoBehaviour
     void TrackEnemy(GameObject enemy)
     {
         activeEnemies.Add(enemy);
+        enemyWaveMap[enemy] = currentWaveIndex;
     }
 
     void TriggerSpawnEvents()
@@ -203,6 +274,122 @@ public class WaveSpawner : MonoBehaviour
             GameEvents.Instance.TriggerEnemyCountChanged(activeEnemies.Count);
         }
     }
+
+    // ========== OLD ENEMY REMOVAL ==========
+
+    void RemoveOldEnemiesOffScreen()
+    {
+        if (currentWaveIndex == 0) return;
+        if (currentWave == null || !currentWave.removeOldEnemiesOffScreen) return;
+        if (mainCamera == null) return;
+
+        int oldEnemyCount = GetOldEnemyCount();
+
+        if (oldEnemyCount <= currentWave.maxOldEnemiesAllowed) return;
+
+        List<GameObject> oldEnemiesOffScreen = GetOldEnemiesOffScreen();
+
+        if (oldEnemiesOffScreen.Count == 0) return;
+
+        GameObject enemyToRemove = oldEnemiesOffScreen[0];
+        RemoveEnemy(enemyToRemove);
+    }
+
+    int GetOldEnemyCount()
+    {
+        int count = 0;
+
+        foreach (GameObject enemy in activeEnemies)
+        {
+            if (enemy != null && enemyWaveMap.ContainsKey(enemy))
+            {
+                if (enemyWaveMap[enemy] < currentWaveIndex)
+                {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    List<GameObject> GetOldEnemiesOffScreen()
+    {
+        List<GameObject> result = new List<GameObject>();
+
+        foreach (GameObject enemy in activeEnemies)
+        {
+            if (enemy == null) continue;
+            if (!enemyWaveMap.ContainsKey(enemy)) continue;
+
+            if (enemyWaveMap[enemy] < currentWaveIndex)
+            {
+                if (IsOffScreen(enemy.transform.position))
+                {
+                    result.Add(enemy);
+                }
+            }
+        }
+
+        return result;
+    }
+
+    bool IsOffScreen(Vector3 worldPosition)
+    {
+        if (mainCamera == null) return false;
+
+        Vector3 viewportPos = mainCamera.WorldToViewportPoint(worldPosition);
+
+        bool offScreen = viewportPos.x < -offScreenMargin ||
+                        viewportPos.x > 1f + offScreenMargin ||
+                        viewportPos.y < -offScreenMargin ||
+                        viewportPos.y > 1f + offScreenMargin;
+
+        return offScreen;
+    }
+
+    void RemoveEnemy(GameObject enemy)
+    {
+        if (enemy == null) return;
+
+        activeEnemies.Remove(enemy);
+
+        if (enemyWaveMap.ContainsKey(enemy))
+        {
+            enemyWaveMap.Remove(enemy);
+        }
+
+        if (EnemyPoolManager.Instance != null)
+        {
+            EnemyPoolManager.Instance.DespawnEnemy(enemy);
+        }
+        else
+        {
+            Destroy(enemy);
+        }
+
+        TriggerCountChangedEvent();
+    }
+
+    int GetCurrentWaveEnemyCount()
+    {
+        int count = 0;
+
+        foreach (GameObject enemy in activeEnemies)
+        {
+            if (enemy != null && enemyWaveMap.ContainsKey(enemy))
+            {
+                if (enemyWaveMap[enemy] == currentWaveIndex)
+                {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    // ========== ENEMY SELECTION ==========
 
     GameObject GetRandomEnemyPrefab()
     {
@@ -249,6 +436,8 @@ public class WaveSpawner : MonoBehaviour
         return totalWeight;
     }
 
+    // ========== SPAWN POSITION ==========
+
     Vector3 GetRandomSpawnPosition()
     {
         if (player == null) return Vector3.zero;
@@ -279,7 +468,25 @@ public class WaveSpawner : MonoBehaviour
     {
         int oldCount = activeEnemies.Count;
 
-        activeEnemies.RemoveAll(enemy => enemy == null || !enemy.activeInHierarchy);
+        List<GameObject> toRemove = new List<GameObject>();
+
+        foreach (GameObject enemy in activeEnemies)
+        {
+            if (enemy == null || !enemy.activeInHierarchy)
+            {
+                toRemove.Add(enemy);
+            }
+        }
+
+        foreach (GameObject enemy in toRemove)
+        {
+            activeEnemies.Remove(enemy);
+
+            if (enemyWaveMap.ContainsKey(enemy))
+            {
+                enemyWaveMap.Remove(enemy);
+            }
+        }
 
         if (oldCount != activeEnemies.Count)
         {
@@ -319,6 +526,7 @@ public class WaveSpawner : MonoBehaviour
         }
 
         activeEnemies.Clear();
+        enemyWaveMap.Clear();
     }
 
     void ClearEnemiesWithPool()

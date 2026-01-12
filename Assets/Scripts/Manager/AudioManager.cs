@@ -12,7 +12,6 @@ public class AudioManager : MonoBehaviour
     [Header("Music Clips")]
     [SerializeField] private AudioClip menuMusic;
     [SerializeField] private AudioClip gameplayMusic;
-    [SerializeField] private AudioClip bossMusic;
     [SerializeField] private AudioClip victoryMusic;
     [SerializeField] private AudioClip gameOverMusic;
 
@@ -20,7 +19,6 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip buttonClick;
     [SerializeField] private AudioClip playerHit;
     [SerializeField] private AudioClip playerDeath;
-    [SerializeField] private AudioClip enemyHit;
     [SerializeField] private AudioClip enemyDeath;
     [SerializeField] private AudioClip weaponShoot;
     [SerializeField] private AudioClip xpCollect;
@@ -173,10 +171,6 @@ public class AudioManager : MonoBehaviour
         if (gameplayMusic != null) PlayMusic(gameplayMusic);
     }
 
-    public void PlayBossMusic()
-    {
-        if (bossMusic != null) PlayMusic(bossMusic);
-    }
 
     public void PlayVictoryMusic()
     {
@@ -193,7 +187,6 @@ public class AudioManager : MonoBehaviour
     public void PlayButtonClick() => PlaySFX(buttonClick);
     public void PlayPlayerHit() => PlaySFX(playerHit);
     public void PlayPlayerDeath() => PlaySFX(playerDeath);
-    public void PlayEnemyHit() => PlaySFX(enemyHit);
     public void PlayEnemyDeath() => PlaySFX(enemyDeath);
     public void PlayWeaponShoot() => PlaySFX(weaponShoot);
     public void PlayXPCollect() => PlaySFX(xpCollect);

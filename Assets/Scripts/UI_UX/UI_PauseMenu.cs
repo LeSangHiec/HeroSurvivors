@@ -1,109 +1,216 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_PauseMenu : MonoBehaviour
+public class PauseMenu : MonoBehaviour
 {
     [Header("Panels")]
     [SerializeField] private GameObject pauseMenuPanel;
-    [SerializeField] private GameObject playerStatsPanel;
     [SerializeField] private GameObject upgradesPanel;
+    [SerializeField] private GameObject optionsPanel;
 
     [Header("Buttons")]
     [SerializeField] private Button resumeButton;
+    [SerializeField] private Button optionsButton;
+    [SerializeField] private Button mainMenuButton;
     [SerializeField] private Button quitButton;
 
-    [Header("Settings")]
-    [SerializeField] private KeyCode pauseKey1 = KeyCode.Escape;
-    [SerializeField] private KeyCode pauseKey2 = KeyCode.P;
+    [Header("Options Back Button")]
+    [SerializeField] private Button optionsBackButton;
 
     private bool isPaused = false;
 
     void Start()
     {
-        // Setup buttons
-        if (resumeButton != null)
-            resumeButton.onClick.AddListener(ResumeGame);
+        SetupButtonListeners();
 
-        if (quitButton != null)
-            quitButton.onClick.AddListener(QuitToMainMenu);
-
-        // Subscribe events
-        if (GameEvents.Instance != null)
-        {
-            GameEvents.Instance.onGamePause.AddListener(OnGamePause);
-            GameEvents.Instance.onGameResume.AddListener(OnGameResume);
-        }
-
-        // Hide by default
-        if (pauseMenuPanel != null)
-            pauseMenuPanel.SetActive(false);
-    }
-
-    void OnDestroy()
-    {
-        if (GameEvents.Instance != null)
-        {
-            GameEvents.Instance.onGamePause.RemoveListener(OnGamePause);
-            GameEvents.Instance.onGameResume.RemoveListener(OnGameResume);
-        }
+        // ✅ CRITICAL: Hide all panels at start
+        HideAllPanels();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(pauseKey1) || Input.GetKeyDown(pauseKey2))
+        HandlePauseInput();
+    }
+
+    // ========== SETUP ==========
+
+    void SetupButtonListeners()
+    {
+        if (resumeButton != null)
         {
-            TogglePause();
+            resumeButton.onClick.AddListener(OnResumeClicked);
+        }
+
+        if (optionsButton != null)
+        {
+            optionsButton.onClick.AddListener(OnOptionsClicked);
+        }
+
+        if (mainMenuButton != null)
+        {
+            mainMenuButton.onClick.AddListener(OnMainMenuClicked);
+        }
+
+        if (quitButton != null)
+        {
+            quitButton.onClick.AddListener(OnQuitClicked);
+        }
+
+        if (optionsBackButton != null)
+        {
+            optionsBackButton.onClick.AddListener(OnOptionsBackClicked);
         }
     }
 
-    void TogglePause()
-    {
-        // Don't pause if card selection active
-        if (IsCardSelectionActive())
-            return;
+    // ========== INPUT HANDLING ==========
 
-        if (isPaused)
-            ResumeGame();
+    void HandlePauseInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isPaused)
+            {
+                // If in options, go back to upgrades
+                if (IsInOptionsPanel())
+                {
+                    ShowUpgradesPanel();
+                }
+                else
+                {
+                    Resume();
+                }
+            }
+            else
+            {
+                Pause();
+            }
+        }
+    }
+
+    // ========== PAUSE/RESUME ==========
+
+    public void Pause()
+    {
+        isPaused = true;
+        Time.timeScale = 0f;
+
+        ShowUpgradesPanel();
+
+        if (GameEvents.Instance != null)
+        {
+            GameEvents.Instance.TriggerGamePause();
+        }
+    }
+
+    public void Resume()
+    {
+        isPaused = false;
+        Time.timeScale = 1f;
+
+        HideAllPanels();
+
+        if (GameEvents.Instance != null)
+        {
+            GameEvents.Instance.TriggerGameResume();
+        }
+    }
+
+    // ========== PANEL SWITCHING ==========
+
+    void ShowUpgradesPanel()
+    {
+        // Show pause menu background
+        if (pauseMenuPanel != null)
+        {
+            pauseMenuPanel.SetActive(true);
+        }
+
+        // Show upgrades panel
+        if (upgradesPanel != null)
+        {
+            upgradesPanel.SetActive(true);
+        }
+
+        // ✅ CRITICAL: Hide options panel
+        if (optionsPanel != null)
+        {
+            optionsPanel.SetActive(false);
+        }
+    }
+
+    void ShowOptionsPanel()
+    {
+        // Show pause menu background
+        if (pauseMenuPanel != null)
+        {
+            pauseMenuPanel.SetActive(true);
+        }
+
+        // ✅ CRITICAL: Hide upgrades panel
+        if (upgradesPanel != null)
+        {
+            upgradesPanel.SetActive(false);
+        }
+
+        // Show options panel
+        if (optionsPanel != null)
+        {
+            optionsPanel.SetActive(true);
+        }
+    }
+
+    void HideAllPanels()
+    {
+        if (pauseMenuPanel != null)
+        {
+            pauseMenuPanel.SetActive(false);
+        }
+
+        if (upgradesPanel != null)
+        {
+            upgradesPanel.SetActive(false);
+        }
+
+        if (optionsPanel != null)
+        {
+            optionsPanel.SetActive(false);
+        }
+    }
+
+    // ========== BUTTON CALLBACKS ==========
+
+    void OnResumeClicked()
+    {
+        PlayButtonSound();
+
+        // ✅ Check if in options panel
+        if (IsInOptionsPanel())
+        {
+            // Go back to upgrades panel
+            ShowUpgradesPanel();
+        }
         else
-            PauseGame();
-    }
-
-    void PauseGame()
-    {
-        if (GameManager.Instance != null)
         {
-            GameManager.Instance.PauseGame();
-        }
-        else
-        {
-            Time.timeScale = 0f;
-            if (GameEvents.Instance != null)
-                GameEvents.Instance.TriggerGamePause();
+            // Resume game
+            Resume();
         }
     }
 
-    void ResumeGame()
+    void OnOptionsClicked()
     {
-        if (AudioManager.Instance != null)
-            AudioManager.Instance.PlayButtonClick();
-
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.ResumeGame();
-        }
-        else
-        {
-            Time.timeScale = 1f;
-            if (GameEvents.Instance != null)
-                GameEvents.Instance.TriggerGameResume();
-        }
+        PlayButtonSound();
+        ShowOptionsPanel();
     }
 
-    void QuitToMainMenu()
+    void OnOptionsBackClicked()
     {
-        if (AudioManager.Instance != null)
-            AudioManager.Instance.PlayButtonClick();
+        PlayButtonSound();
+        ShowUpgradesPanel();
+    }
 
+    void OnMainMenuClicked()
+    {
+        PlayButtonSound();
         Time.timeScale = 1f;
 
         if (SceneController.Instance != null)
@@ -112,52 +219,32 @@ public class UI_PauseMenu : MonoBehaviour
         }
     }
 
-    void OnGamePause()
+    void OnQuitClicked()
     {
-        isPaused = true;
+        PlayButtonSound();
 
-        if (!IsCardSelectionActive())
+        if (SceneController.Instance != null)
         {
-            ShowPauseMenu();
+            SceneController.Instance.QuitGame();
         }
     }
 
-    void OnGameResume()
+    // ========== HELPERS ==========
+
+    bool IsInOptionsPanel()
     {
-        isPaused = false;
-        HidePauseMenu();
+        return optionsPanel != null && optionsPanel.activeSelf;
     }
 
-    void ShowPauseMenu()
+    void PlayButtonSound()
     {
-        if (pauseMenuPanel != null)
-            pauseMenuPanel.SetActive(true);
-
-        // Refresh panels
-        if (playerStatsPanel != null)
+        if (AudioManager.Instance != null)
         {
-            UI_PlayerStatsPanel stats = playerStatsPanel.GetComponent<UI_PlayerStatsPanel>();
-            if (stats != null)
-                stats.RefreshStats();
-        }
-
-        if (upgradesPanel != null)
-        {
-            UI_UpgradesPanel upgrades = upgradesPanel.GetComponent<UI_UpgradesPanel>();
-            if (upgrades != null)
-                upgrades.RefreshUpgrades();
+            AudioManager.Instance.PlayButtonClick();
         }
     }
 
-    void HidePauseMenu()
-    {
-        if (pauseMenuPanel != null)
-            pauseMenuPanel.SetActive(false);
-    }
+    // ========== PUBLIC GETTERS ==========
 
-    bool IsCardSelectionActive()
-    {
-        CardManager cardMgr = FindFirstObjectByType<CardManager>();
-        return cardMgr != null && cardMgr.IsCardSelectionActive();
-    }
+    public bool IsPaused() => isPaused;
 }

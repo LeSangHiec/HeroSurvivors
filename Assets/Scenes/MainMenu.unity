@@ -3686,16 +3686,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   musicSource: {fileID: 1630464815}
   sfxSource: {fileID: 1630464814}
-  menuMusic: {fileID: 8300000, guid: 578da2b5027051046880799402d595f5, type: 3}
+  menuMusic: {fileID: 8300000, guid: 7143fb2a1daeb2c46a66cf2a65c5e013, type: 3}
   gameplayMusic: {fileID: 8300000, guid: 578da2b5027051046880799402d595f5, type: 3}
-  bossMusic: {fileID: 0}
   victoryMusic: {fileID: 0}
   gameOverMusic: {fileID: 0}
-  buttonClick: {fileID: 0}
-  playerHit: {fileID: 0}
+  buttonClick: {fileID: 8300000, guid: f5764da81404d764ea6b57d798558757, type: 3}
+  playerHit: {fileID: 8300000, guid: 451523156c7a6634c95cea25a4c97819, type: 3}
   playerDeath: {fileID: 0}
-  enemyHit: {fileID: 0}
-  enemyDeath: {fileID: 0}
+  enemyDeath: {fileID: 8300000, guid: e3eea788b7b33ff42936ca366339767a, type: 3}
   weaponShoot: {fileID: 8300000, guid: 46c4f07228ebf90438a93279409f03ad, type: 3}
   xpCollect: {fileID: 8300000, guid: ed27f5c0e94e66d46b57236ff9233695, type: 3}
   levelUp: {fileID: 8300000, guid: 7b52f34a75efeb14ebb1a9db740401f1, type: 3}
@@ -4101,8 +4099,14 @@ MonoBehaviour:
   masterVolumeLabel: {fileID: 633553063}
   musicVolumeLabel: {fileID: 1728257506}
   sfxVolumeLabel: {fileID: 401663569}
+  musicMuteToggle: {fileID: 0}
+  sfxMuteToggle: {fileID: 0}
   backButton: {fileID: 0}
-  mainMenu: {fileID: 1482194830}
+  onBackButtonClicked:
+    m_PersistentCalls:
+      m_Calls: []
+  playSoundOnSliderChange: 1
+  soundPreviewDelay: 0.1
 --- !u!1 &1878938727
 GameObject:
   m_ObjectHideFlags: 0

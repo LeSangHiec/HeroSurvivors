@@ -1,8 +1,9 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
-public class OptionsMenu : MonoBehaviour
+public class UniversalOptionsPanel : MonoBehaviour
 {
     [Header("Volume Sliders")]
     [SerializeField] private Slider masterVolumeSlider;
@@ -14,37 +15,53 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] private TMP_Text musicVolumeLabel;
     [SerializeField] private TMP_Text sfxVolumeLabel;
 
+    [Header("Mute Toggles (Optional)")]
+    [SerializeField] private Toggle musicMuteToggle;
+    [SerializeField] private Toggle sfxMuteToggle;
+
     [Header("Back Button")]
     [SerializeField] private Button backButton;
 
-    [Header("References")]
-    [SerializeField] private MainMenu mainMenu;
+    [Header("Back Navigation")]
+    [SerializeField] private UnityEvent onBackButtonClicked;
+
+    [Header("Settings")]
+    [SerializeField] private bool playSoundOnSliderChange = true;
+    [SerializeField] private float soundPreviewDelay = 0.1f;
+
+    private float lastPreviewTime;
+    private bool listenersSetup = false; // ← THÊM: Track listener state
 
     void Start()
     {
-        if (mainMenu == null)
-        {
-            mainMenu = FindFirstObjectByType<MainMenu>();
-        }
-
-        SetupSliderListeners();
-
-        if (backButton != null)
-        {
-            backButton.onClick.AddListener(OnBackButtonClicked);
-        }
-
+        SetupListeners();
         LoadCurrentSettings();
     }
 
     void OnEnable()
     {
-        // Refresh settings when panel is shown
+        // ✅ FIX: Setup listeners if not already done
+        if (!listenersSetup)
+        {
+            SetupListeners();
+        }
+
         LoadCurrentSettings();
     }
 
-    void SetupSliderListeners()
+    void OnDisable()
     {
+        // ❌ KHÔNG remove listeners nữa
+        // RemoveListeners(); // ← XÓA DÒNG NÀY
+    }
+
+    // ========== SETUP ==========
+
+    void SetupListeners()
+    {
+        // ✅ THÊM: Prevent duplicate listeners
+        if (listenersSetup) return;
+
         if (masterVolumeSlider != null)
         {
             masterVolumeSlider.onValueChanged.AddListener(OnMasterVolumeChanged);
@@ -59,17 +76,94 @@ public class OptionsMenu : MonoBehaviour
         {
             sfxVolumeSlider.onValueChanged.AddListener(OnSFXVolumeChanged);
         }
+
+        if (musicMuteToggle != null)
+        {
+            musicMuteToggle.onValueChanged.AddListener(OnMusicMuteChanged);
+        }
+
+        if (sfxMuteToggle != null)
+        {
+            sfxMuteToggle.onValueChanged.AddListener(OnSFXMuteChanged);
+        }
+
+        if (backButton != null)
+        {
+            backButton.onClick.AddListener(OnBackClicked);
+        }
+
+        listenersSetup = true; // ✅ Mark as setup
     }
 
-    //  LOAD CURRENT SETTINGS 
+    void RemoveListeners()
+    {
+        if (!listenersSetup) return;
+
+        if (masterVolumeSlider != null)
+        {
+            masterVolumeSlider.onValueChanged.RemoveListener(OnMasterVolumeChanged);
+        }
+
+        if (musicVolumeSlider != null)
+        {
+            musicVolumeSlider.onValueChanged.RemoveListener(OnMusicVolumeChanged);
+        }
+
+        if (sfxVolumeSlider != null)
+        {
+            sfxVolumeSlider.onValueChanged.RemoveListener(OnSFXVolumeChanged);
+        }
+
+        if (musicMuteToggle != null)
+        {
+            musicMuteToggle.onValueChanged.RemoveListener(OnMusicMuteChanged);
+        }
+
+        if (sfxMuteToggle != null)
+        {
+            sfxMuteToggle.onValueChanged.RemoveListener(OnSFXMuteChanged);
+        }
+
+        if (backButton != null)
+        {
+            backButton.onClick.RemoveListener(OnBackClicked);
+        }
+
+        listenersSetup = false;
+    }
+
+    void OnDestroy()
+    {
+        // ✅ THÊM: Cleanup when destroyed
+        RemoveListeners();
+    }
+
+    // ========== LOAD SETTINGS ==========
 
     void LoadCurrentSettings()
     {
-        if (AudioManager.Instance == null)
+        if (AudioManager.Instance == null) return;
+
+        // ✅ THÊM: Temporarily remove listeners to prevent triggering callbacks
+        bool wasSetup = listenersSetup;
+        if (wasSetup)
         {
-            return;
+            RemoveListeners();
         }
 
+        LoadVolumeSettings();
+        LoadMuteSettings();
+        UpdateAllLabels();
+
+        // ✅ Re-add listeners
+        if (wasSetup)
+        {
+            SetupListeners();
+        }
+    }
+
+    void LoadVolumeSettings()
+    {
         if (masterVolumeSlider != null)
         {
             masterVolumeSlider.value = AudioManager.Instance.GetMasterVolume();
@@ -84,11 +178,22 @@ public class OptionsMenu : MonoBehaviour
         {
             sfxVolumeSlider.value = AudioManager.Instance.GetSFXVolume();
         }
-
-        UpdateVolumeLabels();
     }
 
-    //  SLIDER CALLBACKS 
+    void LoadMuteSettings()
+    {
+        if (musicMuteToggle != null)
+        {
+            musicMuteToggle.isOn = AudioManager.Instance.IsMusicMuted();
+        }
+
+        if (sfxMuteToggle != null)
+        {
+            sfxMuteToggle.isOn = AudioManager.Instance.IsSFXMuted();
+        }
+    }
+
+    // ========== VOLUME CALLBACKS ==========
 
     void OnMasterVolumeChanged(float value)
     {
@@ -97,7 +202,7 @@ public class OptionsMenu : MonoBehaviour
             AudioManager.Instance.SetMasterVolume(value);
         }
 
-        UpdateVolumeLabels();
+        UpdateVolumeLabel(masterVolumeLabel, value);
     }
 
     void OnMusicVolumeChanged(float value)
@@ -107,7 +212,7 @@ public class OptionsMenu : MonoBehaviour
             AudioManager.Instance.SetMusicVolume(value);
         }
 
-        UpdateVolumeLabels();
+        UpdateVolumeLabel(musicVolumeLabel, value);
     }
 
     void OnSFXVolumeChanged(float value)
@@ -117,53 +222,68 @@ public class OptionsMenu : MonoBehaviour
             AudioManager.Instance.SetSFXVolume(value);
         }
 
-        UpdateVolumeLabels();
+        UpdateVolumeLabel(sfxVolumeLabel, value);
+        PlayPreviewSound();
+    }
 
+    // ========== MUTE CALLBACKS ==========
+
+    void OnMusicMuteChanged(bool isMuted)
+    {
         if (AudioManager.Instance != null)
         {
-            AudioManager.Instance.PlayButtonClick();
+            AudioManager.Instance.SetMuteMusic(isMuted);
         }
     }
 
-    //  BUTTON CALLBACKS
+    void OnSFXMuteChanged(bool isMuted)
+    {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.SetMuteSFX(isMuted);
+        }
+    }
 
-    void OnBackButtonClicked()
+    // ========== BACK BUTTON ==========
+
+    void OnBackClicked()
     {
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.PlayButtonClick();
         }
 
-        // Go back to main menu
-        if (mainMenu != null)
-        {
-            mainMenu.ShowMainMenu();
-        }
-       
+        onBackButtonClicked?.Invoke();
     }
 
-    //  UPDATE LABELS
+    // ========== UI UPDATES ==========
 
-    void UpdateVolumeLabels()
+    void UpdateAllLabels()
     {
         if (AudioManager.Instance == null) return;
 
-        if (masterVolumeLabel != null)
-        {
-            int percentage = Mathf.RoundToInt(AudioManager.Instance.GetMasterVolume() * 100);
-            masterVolumeLabel.text = $"{percentage}%";
-        }
+        UpdateVolumeLabel(masterVolumeLabel, AudioManager.Instance.GetMasterVolume());
+        UpdateVolumeLabel(musicVolumeLabel, AudioManager.Instance.GetMusicVolume());
+        UpdateVolumeLabel(sfxVolumeLabel, AudioManager.Instance.GetSFXVolume());
+    }
 
-        if (musicVolumeLabel != null)
+    void UpdateVolumeLabel(TMP_Text label, float value)
+    {
+        if (label != null)
         {
-            int percentage = Mathf.RoundToInt(AudioManager.Instance.GetMusicVolume() * 100);
-            musicVolumeLabel.text = $"{percentage}%";
+            label.text = $"{Mathf.RoundToInt(value * 100)}%";
         }
+    }
 
-        if (sfxVolumeLabel != null)
+    void PlayPreviewSound()
+    {
+        if (!playSoundOnSliderChange) return;
+        if (AudioManager.Instance == null) return;
+
+        if (Time.unscaledTime - lastPreviewTime > soundPreviewDelay)
         {
-            int percentage = Mathf.RoundToInt(AudioManager.Instance.GetSFXVolume() * 100);
-            sfxVolumeLabel.text = $"{percentage}%";
+            AudioManager.Instance.PlayButtonClick();
+            lastPreviewTime = Time.unscaledTime;
         }
     }
 }
