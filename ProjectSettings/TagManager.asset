@@ -63,7 +63,7 @@ TagManager:
   - name: Player
     uniqueID: 1098097279
     locked: 0
-  - name: Gun
+  - name: Weapon
     uniqueID: 2422132503
     locked: 0
   - name: Projectile

@@ -19,6 +19,16 @@ public class UI_PlayerStatsPanel : MonoBehaviour
         FindPlayerReferences();
         SetupDefaultConfigs();
         CreateStatEntries();
+
+        // ✅ FIX: Update stats after creating entries
+        RefreshStats();
+    }
+
+    // ✅ NEW: Refresh when panel becomes active
+    void OnEnable()
+    {
+        // Small delay to ensure player is initialized
+        Invoke(nameof(RefreshStats), 0.1f);
     }
 
     // ========== INITIALIZATION ==========
@@ -38,6 +48,16 @@ public class UI_PlayerStatsPanel : MonoBehaviour
             {
                 playerController = playerObj.GetComponent<PlayerController>();
             }
+        }
+
+        // ✅ ADD: Debug log
+        if (playerStats == null)
+        {
+            Debug.LogError("UI_PlayerStatsPanel: PlayerStats not found!");
+        }
+        else
+        {
+            Debug.Log($"UI_PlayerStatsPanel: PlayerStats found. Max HP: {playerStats.GetMaxHealth()}");
         }
     }
 
@@ -63,6 +83,7 @@ public class UI_PlayerStatsPanel : MonoBehaviour
     {
         if (statEntryPrefab == null || statsContainer == null)
         {
+            Debug.LogError("UI_PlayerStatsPanel: Prefab or Container is null!");
             return;
         }
 
@@ -88,7 +109,7 @@ public class UI_PlayerStatsPanel : MonoBehaviour
             StatEntry entry = entryObj.GetComponent<StatEntry>();
             if (entry != null)
             {
-                entry.Setup(config.label, "0");
+                entry.Setup(config.label, "0"); // Initial value
 
                 if (config.icon != null)
                 {
@@ -104,7 +125,11 @@ public class UI_PlayerStatsPanel : MonoBehaviour
 
     public void RefreshStats()
     {
-        if (!FindAndValidatePlayer()) return;
+        if (!FindAndValidatePlayer())
+        {
+            Debug.LogWarning("UI_PlayerStatsPanel: Cannot refresh - player not found");
+            return;
+        }
 
         foreach (StatConfig config in statConfigs)
         {
@@ -114,16 +139,13 @@ public class UI_PlayerStatsPanel : MonoBehaviour
 
     bool FindAndValidatePlayer()
     {
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-
-        if (playerObj == null)
+        // Try to find player if references are null
+        if (playerStats == null || playerController == null)
         {
-            return false;
+            FindPlayerReferences();
         }
 
-        playerStats = playerObj.GetComponent<PlayerStats>();
-        playerController = playerObj.GetComponent<PlayerController>();
-
+        // Validate
         if (playerStats == null || playerController == null)
         {
             return false;
@@ -169,6 +191,8 @@ public class UI_PlayerStatsPanel : MonoBehaviour
 
     void UpdateHP(StatEntry entry)
     {
+        if (playerStats == null) return;
+
         float current = playerStats.GetCurrentHealth();
         float max = playerStats.GetMaxHealth();
         entry.SetValue($"{current:F0}/{max:F0}");
@@ -176,36 +200,50 @@ public class UI_PlayerStatsPanel : MonoBehaviour
 
     void UpdateMaxHP(StatEntry entry)
     {
+        if (playerStats == null) return;
+
         entry.SetValue($"{playerStats.GetMaxHealth():F0}");
     }
 
     void UpdateDamage(StatEntry entry)
     {
+        if (playerStats == null) return;
+
         entry.SetValue($"{playerStats.GetTotalDamage():F1}");
     }
 
     void UpdateDamageMultiplier(StatEntry entry)
     {
+        if (playerStats == null) return;
+
         entry.SetValue($"{playerStats.GetDamageMultiplier():F2}x");
     }
 
     void UpdateSpeed(StatEntry entry)
     {
+        if (playerController == null) return;
+
         entry.SetValue($"{playerController.GetCurrentMoveSpeed():F1}");
     }
 
     void UpdateAttackSpeed(StatEntry entry)
     {
+        if (playerController == null) return;
+
         entry.SetValue($"{playerController.GetAttackSpeedMultiplier():F2}x");
     }
 
     void UpdateCritChance(StatEntry entry)
     {
+        if (playerStats == null) return;
+
         entry.SetValue($"{playerStats.GetCritChance() * 100:F0}%");
     }
 
     void UpdateHealthRegen(StatEntry entry)
     {
+        if (playerStats == null) return;
+
         entry.SetValue($"{playerStats.GetHealthRegen():F1}/s");
     }
 

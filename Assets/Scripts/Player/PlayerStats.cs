@@ -161,7 +161,6 @@ public class PlayerStats : MonoBehaviour
         if (GameEvents.Instance != null)
         {
             GameEvents.Instance.TriggerPlayerDeath();
-            GameEvents.Instance.TriggerGameOver();
         }
 
         if (GameManager.Instance != null)

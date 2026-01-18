@@ -228,46 +228,7 @@ public class GameManager : MonoBehaviour
         player = playerCtrl;
     }
 
-    // ========== DEBUG ==========
-
-    //void DebugWeaponStats()
-    //{
-    //    Debug.Log("========== WEAPON STATS DEBUG ==========");
-
-    //    if (WeaponManager.Instance != null)
-    //    {
-    //        var weapons = WeaponManager.Instance.GetActiveWeapons();
-
-    //        foreach (WeaponBase weapon in weapons)
-    //        {
-    //            WeaponSO data = weapon.GetWeaponData();
-    //            float baseDmg = weapon.GetBaseDamage();
-    //            float totalDmg = weapon.GetTotalDamage();
-
-    //            int level = 1;
-    //            if (WeaponTracker.Instance != null)
-    //            {
-    //                level = WeaponTracker.Instance.GetWeaponLevel(data);
-    //            }
-
-    //            Debug.Log($"--- {data.weaponName} (Level {level}) ---");
-    //            Debug.Log($"  Base Damage: {baseDmg:F1}");
-    //            Debug.Log($"  Total Damage: {totalDmg:F1}");
-    //        }
-    //    }
-
-    //    if (FindAnyObjectByType<PlayerStats>() != null)
-    //    {
-    //        PlayerStats stats = FindAnyObjectByType<PlayerStats>();
-    //        Debug.Log("--- Player Stats ---");
-    //        Debug.Log($"  Base Damage: {stats.GetBaseDamage()}");
-    //        Debug.Log($"  Damage Multiplier: {stats.GetDamageMultiplier()}x");
-    //    }
-
-    //    Debug.Log("========================================");
-    //}
-
-    // ========== GETTERS ==========
+    
 
     public bool IsPaused() => isPaused;
     public bool IsGameOver() => isGameOver;

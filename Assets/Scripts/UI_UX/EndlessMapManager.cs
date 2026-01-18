@@ -35,7 +35,7 @@ public class EndlessMapManager : MonoBehaviour
     [SerializeField] private bool showChunkBorders = true;
     [SerializeField] private bool logChunkActivity = true;
 
-    // Chunk tracking
+    // theo dõi chunk
     private Dictionary<Vector2Int, ChunkData> loadedChunks = new Dictionary<Vector2Int, ChunkData>();
     private Vector2Int currentPlayerChunk;
     private Vector2Int lastPlayerChunk;
@@ -281,7 +281,7 @@ public class EndlessMapManager : MonoBehaviour
     {
         if (groundTilemap == null)
         {
-            Debug.LogError("Ground Tilemap not assigned!");
+            Debug.LogError("Ground Tilemap chưa có");
             return;
         }
 
@@ -304,20 +304,15 @@ public class EndlessMapManager : MonoBehaviour
         {
             for (int y = 0; y < chunkSize; y++)
             {
-                // Wrap pattern (repeat infinitely)
                 int patternX = x % patternSize.x;
                 int patternY = y % patternSize.y;
 
-                // Convert 2D to 1D index
                 int patternIndex = patternY * patternSize.x + patternX;
 
-                // Get tile from cached pattern
                 TileBase tile = cachedPattern[patternIndex];
 
-                // Set tile position
                 Vector3Int tilePos = startTilePos + new Vector3Int(x, y, 0);
 
-                // Paint tile
                 groundTilemap.SetTile(tilePos, tile);
             }
         }
@@ -359,42 +354,30 @@ public class EndlessMapManager : MonoBehaviour
         }
     }
 
-    // ========== OBSTACLE SPAWNING ==========
-
     void SpawnObstacles(ChunkData chunk)
     {
         if (ObstaclePoolManager.Instance == null)
         {
             return;
         }
-
-        // Use chunk coord as seed for consistent generation
         Random.InitState(chunk.chunkCoord.x * 10000 + chunk.chunkCoord.y);
-
         int obstacleCount = Random.Range(minObstaclesPerChunk, maxObstaclesPerChunk + 1);
         List<Vector2> spawnedPositions = new List<Vector2>();
-
         for (int i = 0; i < obstacleCount; i++)
         {
             Vector2 spawnPos = GetRandomPositionInChunk(chunk, spawnedPositions);
-
-            // Random obstacle type
             string poolName = Random.value > 0.5f ? "Rock" : "Tree";
-
             GameObject obstacle = ObstaclePoolManager.Instance.SpawnObstacle(
                 poolName,
                 spawnPos,
                 Quaternion.identity
             );
-
             if (obstacle != null)
             {
                 chunk.obstacles.Add(obstacle);
                 spawnedPositions.Add(spawnPos);
             }
         }
-
-        // Reset random seed
         Random.InitState((int)System.DateTime.Now.Ticks);
     }
 
@@ -413,8 +396,6 @@ public class EndlessMapManager : MonoBehaviour
                 chunkWorldPos.x + randomX,
                 chunkWorldPos.y + randomY
             );
-
-            // Check spacing
             bool tooClose = false;
             foreach (Vector2 existingPos in existingPositions)
             {
@@ -424,14 +405,12 @@ public class EndlessMapManager : MonoBehaviour
                     break;
                 }
             }
-
             if (!tooClose)
             {
                 return candidatePos;
             }
         }
 
-        // Fallback: random position
         return new Vector2(
             chunkWorldPos.x + Random.Range(0f, chunkWorldSize),
             chunkWorldPos.y + Random.Range(0f, chunkWorldSize)

@@ -175,16 +175,7 @@ public class GameEvents : MonoBehaviour
         onCardSelected?.Invoke(card);
     }
 
-    public void TriggerCardSelectionShown()
-    {
-        onCardSelectionShown?.Invoke();
-    }
-
-    public void TriggerCardSelectionHidden()
-    {
-        onCardSelectionHidden?.Invoke();
-    }
-
+  
     // Weapon
     public void TriggerWeaponUnlocked(WeaponSO weapon)
     {

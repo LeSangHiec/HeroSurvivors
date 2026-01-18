@@ -16386,7 +16386,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1645919270
 Transform:
   m_ObjectHideFlags: 0
@@ -16830,7 +16830,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1718167763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16853,6 +16853,9 @@ MonoBehaviour:
     enemyWeights: 460000000a00000014000000
     enemiesPerMinute: 500
     maxEnemiesAlive: 50
+    minEnemiesAlive: 20
+    removeOldEnemiesOffScreen: 1
+    maxOldEnemiesAllowed: 20
     enemyHealthMultiplier: 1
     enemyDamageMultiplier: 1
     enemySpeedMultiplier: 1
@@ -16866,6 +16869,9 @@ MonoBehaviour:
     enemyWeights: 320000000f000000190000000a000000
     enemiesPerMinute: 100
     maxEnemiesAlive: 50
+    minEnemiesAlive: 20
+    removeOldEnemiesOffScreen: 1
+    maxOldEnemiesAllowed: 20
     enemyHealthMultiplier: 1
     enemyDamageMultiplier: 1
     enemySpeedMultiplier: 1
@@ -16876,14 +16882,21 @@ MonoBehaviour:
     enemyWeights: 64000000
     enemiesPerMinute: 100
     maxEnemiesAlive: 1
+    minEnemiesAlive: 20
+    removeOldEnemiesOffScreen: 1
+    maxOldEnemiesAllowed: 20
     enemyHealthMultiplier: 1
     enemyDamageMultiplier: 1
     enemySpeedMultiplier: 1
   player: {fileID: 1913580798}
   minSpawnDistance: 12.7
   maxSpawnDistance: 17.2
+  offScreenMargin: 2
+  minSpawnCheckInterval: 1
+  enableDynamicSpawning: 1
   gameTimer: {fileID: 1400132930}
   showSpawnGizmos: 0
+  showDebugLogs: 0
 --- !u!4 &1718167764
 Transform:
   m_ObjectHideFlags: 0
@@ -18232,7 +18245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f00870e7bb7634342a65692bd23e729d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
-  maxHealth: 1000000
+  maxHealth: 10000
   baseDamage: 10
   damageMultiplier: 1
   critChance: 0.2
@@ -18464,6 +18477,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 67640d75b5952784f9926af7021f52a4, type: 2}
   - {fileID: 11400000, guid: 10a213b1f88106d4d9581f974b2c31ff, type: 2}
   - {fileID: 11400000, guid: e1b39f05641bc434ba561a6bc4f710a9, type: 2}
+  - {fileID: 11400000, guid: 3a04e7d55f1ed26498472c474ad2b1d4, type: 2}
+  - {fileID: 11400000, guid: 91d0acd32d954c14c9ebc9bf21a5d8db, type: 2}
 --- !u!4 &1952324675
 Transform:
   m_ObjectHideFlags: 0

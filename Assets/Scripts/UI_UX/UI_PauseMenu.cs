@@ -96,10 +96,7 @@ public class PauseMenu : MonoBehaviour
 
         ShowUpgradesPanel();
 
-        if (GameEvents.Instance != null)
-        {
-            GameEvents.Instance.TriggerGamePause();
-        }
+       
     }
 
     public void Resume()
@@ -109,10 +106,7 @@ public class PauseMenu : MonoBehaviour
 
         HideAllPanels();
 
-        if (GameEvents.Instance != null)
-        {
-            GameEvents.Instance.TriggerGameResume();
-        }
+        
     }
 
     // ========== PANEL SWITCHING ==========

@@ -83,7 +83,6 @@ public class PlayerXP : MonoBehaviour
         currentLevel++;
         xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * xpScalingFactor);
 
-        Debug.Log($"<color=yellow>★ Level {currentLevel}! ★</color>");
 
         TriggerLevelUpEvents();
         SpawnLevelUpEffect();

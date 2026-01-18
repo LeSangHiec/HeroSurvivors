@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b002438dcc0cbcf40849a6dd95417ed9, type: 3}
+  m_Name: Garlic
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponSO
+  weaponName: Weapon
+  weaponIcon: {fileID: -263757610435022259, guid: d71557d55d0cef54c98301dc33371dda, type: 3}
+  description: 
+  weaponSprite: {fileID: -4358791336019270677, guid: a09513a828934ac4787e1fe5309fb15d, type: 3}
+  spriteOffset: {x: 0, y: 0, z: 0}
+  weaponOffset: {x: 0, y: 0, z: 0}
+  rotationOffset: 0
+  baseDamage: 5
+  fireRate: 0.5
+  projectileSpeed: 1
+  projectileCount: 1
+  spreadAngle: 0
+  projectilePrefab: {fileID: 0}
+  muzzleEffect: {fileID: 0}
+  shootSound: {fileID: 0}
+  unlockLevel: 1
+  isStartingWeapon: 0
+  maxWeaponLevel: 5
+  canUpgrade: 1
+  damagePerLevel: 0.2
+  fireRatePerLevel: 0.05
+  speedPerLevel: 1
+  projectileCountLevels: 

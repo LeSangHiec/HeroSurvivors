@@ -10,14 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6e815e5d9824504399e77acf6c5a545, type: 3}
-  m_Name: ShotGun
+  m_Name: GarlicWeapon
   m_EditorClassIdentifier: Assembly-CSharp::CardSO
-  cardText: Shotgun
-  CardImage: {fileID: -8591388368643886257, guid: b6af2b7f2e338de4699a27178f129395, type: 3}
+  cardText: Garlic Damages all nearby enemies
+  CardImage: {fileID: -263757610435022259, guid: d71557d55d0cef54c98301dc33371dda, type: 3}
   cardType: 1
   effectType: 0
   effectValue: 0
-  weaponData: {fileID: 11400000, guid: 25e9eb09bb2d825498223adaa64440e9, type: 2}
-  weaponPrefab: {fileID: 7525120264659539782, guid: cfc16e439280dfd4bba30942451a5590, type: 3}
+  weaponData: {fileID: 11400000, guid: 7a9723877d537d2429ef3f08ee42b850, type: 2}
+  weaponPrefab: {fileID: 8171744759664665420, guid: 9f562a53a40e3ac419157219eb0202b7, type: 3}
   unlockLevel: 0
   isUnique: 1
+  maxLevel: 1
+  canStack: 0
+  targetWeapon: {fileID: 0}

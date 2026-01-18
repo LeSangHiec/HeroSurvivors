@@ -205,8 +205,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37babddba2072d34b9308daf886200a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FastEnemy
-  maxHealth: 50
-  currentHealth: 0
+  maxHealth: 1000
+  currentHealth: 1000
   damage: 50
   hpBar: {fileID: 2154094960504354651}
   enemyMoveSpeed: 2
@@ -221,6 +221,9 @@ MonoBehaviour:
   xpDropAmount: 10
   xpGemPrefab: {fileID: 772648285333728963, guid: ba57c0de07cf74b4f956e627d7dabd23, type: 3}
   deathEffect: {fileID: 0}
+  useDeathAnimation: 0
+  deathAnimationDuration: 1
+  deathAnimationTrigger: Die
   attackCooldown: 1
 --- !u!114 &6403597605768372857
 MonoBehaviour:
@@ -273,7 +276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PooledEnemy
   poolName: 
-  autoDespawnWhenDead: 1
+  autoDespawnOnDeath: 1
   despawnDelay: 0.5
 --- !u!1001 &2331845638615787495
 PrefabInstance:

@@ -63,7 +63,6 @@ public abstract class Enemy : MonoBehaviour
         FlipEnemy();
     }
 
-    // ========== MOVEMENT ==========
 
     protected void MoveToPlayer()
     {
@@ -117,7 +116,6 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    // ========== DAMAGE & DEATH ==========
 
     public virtual void TakeDamage(float damageAmount)
     {
@@ -156,7 +154,6 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    // ✅ UPDATED: Support death animation
     protected virtual void Die()
     {
         if (isDead) return;
@@ -176,7 +173,6 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    // ✅ NEW: Stop movement on death
     protected virtual void StopMovement()
     {
         if (rb != null)
@@ -186,23 +182,19 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    // ✅ NEW: Play death animation
     protected virtual System.Collections.IEnumerator PlayDeathAnimation()
     {
-        // Trigger animation
         Animator animator = GetComponent<Animator>();
         if (animator != null)
         {
             animator.SetTrigger(deathAnimationTrigger);
         }
 
-        // Wait for animation
         yield return new WaitForSeconds(deathAnimationDuration);
 
         CompleteDeath();
     }
 
-    // ✅ NEW: Complete death after animation
     protected virtual void CompleteDeath()
     {
         TriggerDeathEvents();
@@ -298,7 +290,7 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    // ========== LOOT ==========
+    //  Rơi XP 
 
     protected virtual void DropLoot()
     {
@@ -314,7 +306,7 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    // ========== COLLISION ==========
+    //  va chạm 
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
@@ -335,7 +327,7 @@ public abstract class Enemy : MonoBehaviour
     protected virtual void OnEnterDamage(GameObject playerObject) { }
     protected virtual void OnStayDamage(GameObject playerObject) { }
 
-    // ========== MULTIPLIERS ==========
+    //  MULTIPLIERS 
 
     public void SetHealthMultiplier(float multiplier)
     {

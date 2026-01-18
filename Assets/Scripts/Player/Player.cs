@@ -52,7 +52,6 @@ public class PlayerController : MonoBehaviour
 
         if (isMoving)
         {
-            // ← SỬA: Áp dụng multiplier
             float currentSpeed = baseMoveSpeed * moveSpeedMultiplier;
             rb.linearVelocity = moveInput * currentSpeed;
         }

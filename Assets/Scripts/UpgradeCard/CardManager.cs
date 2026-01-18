@@ -33,11 +33,6 @@ public class CardManager : MonoBehaviour
 
         Time.timeScale = 0f;
 
-        if (GameEvents.Instance != null)
-        {
-            GameEvents.Instance.TriggerCardSelectionShown();
-            GameEvents.Instance.TriggerGamePause();
-        }
     }
 
     public void HideCardSelection()
@@ -49,11 +44,7 @@ public class CardManager : MonoBehaviour
 
         Time.timeScale = 1f;
 
-        if (GameEvents.Instance != null)
-        {
-            GameEvents.Instance.TriggerCardSelectionHidden();
-            GameEvents.Instance.TriggerGameResume();
-        }
+       
     }
 
     // ========== CARD RANDOMIZATION ==========
