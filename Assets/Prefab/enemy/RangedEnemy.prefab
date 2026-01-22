@@ -469,6 +469,12 @@ MonoBehaviour:
   xpDropAmount: 10
   xpGemPrefab: {fileID: 772648285333728963, guid: ba57c0de07cf74b4f956e627d7dabd23, type: 3}
   deathEffect: {fileID: 0}
+  useDeathAnimation: 0
+  deathAnimationDuration: 1
+  deathAnimationTrigger: Die
+  healthPickupPrefab: {fileID: 6633560389402007732, guid: ea29d3a534ee76a42a01757062b2000f, type: 3}
+  healthDropChance: 0.1
+  healthDropAmount: 150
   optimalDistance: 8
   minDistance: 6
   maxDistance: 10
@@ -495,7 +501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PooledEnemy
   poolName: 
-  autoDespawnWhenDead: 1
+  autoDespawnOnDeath: 1
   despawnDelay: 0.5
 --- !u!1 &8753457598731525615
 GameObject:

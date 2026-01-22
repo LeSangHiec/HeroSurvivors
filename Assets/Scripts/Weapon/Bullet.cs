@@ -4,12 +4,14 @@ public class Bullet : MonoBehaviour
 {
     [Header("Bullet Settings")]
     private float damage;
+    private bool isCritical = false; // ← NEW
 
     [Header("Lifetime")]
     [SerializeField] private float lifetime = 5f;
 
     [Header("Effects")]
     [SerializeField] private GameObject hitEffect;
+    [SerializeField] private GameObject critHitEffect; // ← NEW: Special crit effect
     [SerializeField] private GameObject muzzleEffect;
 
     private float spawnTime;
@@ -27,20 +29,17 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        // Ignore player
         if (collision.CompareTag("Player"))
         {
             return;
         }
 
-        // Hit enemy
         if (collision.CompareTag("Enemy"))
         {
             HandleEnemyHit(collision);
             return;
         }
 
-        // Hit obstacle
         if (collision.CompareTag("Obstacle"))
         {
             HandleObstacleHit(collision);
@@ -65,10 +64,20 @@ public class Bullet : MonoBehaviour
         Enemy enemy = collision.GetComponent<Enemy>();
         if (enemy != null)
         {
+            // ✅ Apply damage (already includes crit multiplier)
             enemy.TakeDamage(damage);
         }
 
-        SpawnHitEffect(collision.transform.position);
+        // ✅ Spawn appropriate hit effect
+        if (isCritical && critHitEffect != null)
+        {
+            SpawnCritHitEffect(collision.transform.position);
+        }
+        else
+        {
+            SpawnHitEffect(collision.transform.position);
+        }
+
         ReturnToPool();
     }
 
@@ -98,6 +107,16 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    // ✅ NEW: Crit hit effect
+    void SpawnCritHitEffect(Vector3 position)
+    {
+        GameObject effect = Instantiate(critHitEffect, position, Quaternion.identity);
+        Destroy(effect, 1.5f);
+
+        // Optional: Screen shake on crit
+        // CameraShake.Instance?.Shake(0.1f, 0.2f);
+    }
+
     // ========== POOLING ==========
 
     void ReturnToPool()
@@ -118,10 +137,22 @@ public class Bullet : MonoBehaviour
     public void SetDamage(float damageAmount)
     {
         damage = damageAmount;
+        isCritical = false; // Reset crit flag
+    }
+
+    // ✅ NEW: Set damage with crit info
+    public void SetDamage(float damageAmount, bool critical)
+    {
+        damage = damageAmount;
+        isCritical = critical;
     }
 
     public void ResetBullet()
     {
         spawnTime = Time.time;
+        isCritical = false;
     }
+
+    // ✅ NEW: Get if crit
+    public bool IsCritical() => isCritical;
 }

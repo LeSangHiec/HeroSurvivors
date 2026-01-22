@@ -10,9 +10,7 @@ public class FastEnemy : Enemy
     protected override void Start()
     {
         base.Start();
-        maxHealth = 30f;
-        currentHealth = maxHealth;
-        damage = 20f;
+        
     }
 
 

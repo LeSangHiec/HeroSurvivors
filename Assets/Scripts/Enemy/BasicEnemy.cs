@@ -12,9 +12,7 @@ public class BasicEnemy : Enemy
         base.Start();
 
         // Override stats
-        maxHealth = 300f;
-        currentHealth = maxHealth;
-        damage = 20f;
+        
     }
 
     protected override void Update()

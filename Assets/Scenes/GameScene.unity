@@ -3395,6 +3395,8 @@ MonoBehaviour:
   gameTimer: {fileID: 1400132930}
   waveSpawner: {fileID: 1718167763}
   player: {fileID: 1913580804}
+  gameOverUI: {fileID: 1965445234}
+  victoryUI: {fileID: 0}
 --- !u!4 &505583495
 Transform:
   m_ObjectHideFlags: 0
@@ -16830,7 +16832,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1718167763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16846,6 +16848,32 @@ MonoBehaviour:
   waves:
   - waveName: 1
     startTime: 0
+    enemyPrefabs:
+    - {fileID: 8405394039025064054, guid: 87d89524e4774a7459cb895060215fcd, type: 3}
+    enemyWeights: 64000000
+    enemiesPerMinute: 100
+    maxEnemiesAlive: 1
+    minEnemiesAlive: 20
+    removeOldEnemiesOffScreen: 1
+    maxOldEnemiesAllowed: 20
+    enemyHealthMultiplier: 1.2
+    enemyDamageMultiplier: 1.2
+    enemySpeedMultiplier: 1
+  - waveName: 2
+    startTime: 60
+    enemyPrefabs:
+    - {fileID: 4487389877818370948, guid: 71bada5c1d1a0e94c9b07a63b69b8ac0, type: 3}
+    enemyWeights: 64000000
+    enemiesPerMinute: 100
+    maxEnemiesAlive: 1
+    minEnemiesAlive: 20
+    removeOldEnemiesOffScreen: 1
+    maxOldEnemiesAllowed: 20
+    enemyHealthMultiplier: 2
+    enemyDamageMultiplier: 2
+    enemySpeedMultiplier: 1
+  - waveName: 5
+    startTime: 360
     enemyPrefabs:
     - {fileID: 8405394039025064054, guid: 87d89524e4774a7459cb895060215fcd, type: 3}
     - {fileID: 6700572493935290248, guid: f0d8279a17e562848a82db690f329da5, type: 3}
@@ -16896,7 +16924,7 @@ MonoBehaviour:
   enableDynamicSpawning: 1
   gameTimer: {fileID: 1400132930}
   showSpawnGizmos: 0
-  showDebugLogs: 0
+  showDebugLogs: 1
 --- !u!4 &1718167764
 Transform:
   m_ObjectHideFlags: 0
@@ -18245,7 +18273,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f00870e7bb7634342a65692bd23e729d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
-  maxHealth: 10000
+  maxHealth: 1000
+  currentHealth: 0
   baseDamage: 10
   damageMultiplier: 1
   critChance: 0.2

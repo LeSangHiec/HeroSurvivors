@@ -22,7 +22,6 @@ public class XPGem : MonoBehaviour
 
     void Start()
     {
-        // Tự động tìm player
         player = FindAnyObjectByType<PlayerController>();
 
         if (spriteRenderer == null)
@@ -32,7 +31,6 @@ public class XPGem : MonoBehaviour
 
         startPosition = transform.position;
 
-        // Tự destroy sau lifetime
         Destroy(gameObject, lifetime);
     }
 
@@ -52,7 +50,6 @@ public class XPGem : MonoBehaviour
     {
         float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
 
-        // Nếu player gần thì hút về
         if (distanceToPlayer <= attractRange)
         {
             Vector3 direction = (player.transform.position - transform.position).normalized;
@@ -81,13 +78,11 @@ public class XPGem : MonoBehaviour
         Destroy(gameObject);
     }
 
-    // Public method để set XP value
     public void SetXPValue(int value)
     {
         xpValue = value;
     }
 
-    // Visualize attract range trong editor
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;

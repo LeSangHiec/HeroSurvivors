@@ -15,11 +15,6 @@ public class ExplosionEnemy : Enemy
     protected override void Start()
     {
         base.Start();
-
-        maxHealth = 15f;
-        currentHealth = maxHealth;
-        damage = 80f;
-        enemyMoveSpeed = 3f;
     }
 
     protected override void Die()

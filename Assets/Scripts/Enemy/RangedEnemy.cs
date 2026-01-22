@@ -30,10 +30,7 @@ public class RangedEnemy : Enemy
     {
         base.Start();
 
-        maxHealth = 80f;
-        currentHealth = maxHealth;
-        damage = 15f;
-        enemyMoveSpeed = 3f;
+       
 
         if (player != null)
         {

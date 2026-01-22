@@ -297,6 +297,17 @@ public class WeaponBase : MonoBehaviour
             float damageMultiplier = playerStats.GetDamageMultiplier();
 
             totalDamage = (baseDamage + playerBaseDamage) * damageMultiplier;
+
+            // ✅ ADD: Crit calculation
+            float critChance = playerStats.GetCritChance();
+            bool isCrit = Random.value < critChance;
+
+            if (isCrit)
+            {
+                totalDamage *= 2f; // 2x damage on crit
+
+                
+            }
         }
 
         return totalDamage;

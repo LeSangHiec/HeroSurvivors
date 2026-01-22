@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.Splines.ExtrusionShapes;
+using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,6 +10,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameTimer gameTimer;
     [SerializeField] private WaveSpawner waveSpawner;
     [SerializeField] private PlayerController player;
+
+    [Header("UI References")] // ← NEW
+    [SerializeField] private GameObject gameOverUI;
+    [SerializeField] private GameObject victoryUI;
 
     [Header("Game State")]
     private bool isPaused = false;
@@ -31,6 +37,9 @@ public class GameManager : MonoBehaviour
         SubscribeToEvents();
         StartGame();
 
+        // ✅ THÊM: Hide UI at start
+        HideAllEndScreens();
+
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.PlayGameplayMusic();
@@ -40,14 +49,6 @@ public class GameManager : MonoBehaviour
     void OnDestroy()
     {
         UnsubscribeEvents();
-    }
-
-    void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.Q))
-        //{
-        //    DebugWeaponStats();
-        //}
     }
 
     // ========== EVENT HANDLING ==========
@@ -73,14 +74,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // ✅ FIX: Handle player death
     void OnPlayerDeath()
     {
-        // Handle player death
+        Debug.Log("GameManager: Player died!");
+        GameOver();
     }
 
+    // ✅ FIX: Show Game Over UI
     void OnGameOver()
     {
-        // Handle game over
+        Debug.Log("GameManager: Showing Game Over UI");
+        ShowGameOver();
     }
 
     // ========== GAME CONTROL ==========
@@ -92,6 +97,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         isPaused = false;
         isGameOver = false;
+
+        HideAllEndScreens();
 
         if (gameTimer != null)
         {
@@ -157,6 +164,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // ✅ UPDATED: GameOver with UI
     public void GameOver()
     {
         if (isGameOver) return;
@@ -181,8 +189,18 @@ public class GameManager : MonoBehaviour
         {
             RunStats.Instance.PauseStats();
         }
+
+        // ✅ Show Game Over UI
+        ShowGameOver();
+
+        // Trigger event
+        if (GameEvents.Instance != null)
+        {
+            GameEvents.Instance.TriggerGameOver();
+        }
     }
 
+    // ✅ UPDATED: Victory with UI
     public void Victory()
     {
         if (isGameOver) return;
@@ -193,21 +211,73 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 0f;
 
+        if (gameTimer != null)
+        {
+            gameTimer.PauseTimer();
+        }
+
         if (waveSpawner != null)
         {
             waveSpawner.StopSpawning();
-        }
-
-        if (GameEvents.Instance != null)
-        {
-            GameEvents.Instance.TriggerGameOver();
         }
 
         if (RunStats.Instance != null)
         {
             RunStats.Instance.PauseStats();
         }
+
+        // ✅ Show Victory UI
+        ShowVictory();
+
+        // Trigger event
+        if (GameEvents.Instance != null)
+        {
+            GameEvents.Instance.TriggerGameOver();
+        }
     }
+
+    // ========== UI MANAGEMENT ========== ← NEW
+
+    void ShowGameOver()
+    {
+        if (gameOverUI != null)
+        {
+            gameOverUI.SetActive(true);
+            Debug.Log("Game Over UI shown");
+        }
+        else
+        {
+            Debug.LogError("GameManager: Game Over UI is null! Assign it in Inspector.");
+        }
+    }
+
+    void ShowVictory()
+    {
+        if (victoryUI != null)
+        {
+            victoryUI.SetActive(true);
+            Debug.Log("Victory UI shown");
+        }
+        else
+        {
+            Debug.LogWarning("GameManager: Victory UI is null!");
+        }
+    }
+
+    void HideAllEndScreens()
+    {
+        if (gameOverUI != null)
+        {
+            gameOverUI.SetActive(false);
+        }
+
+        if (victoryUI != null)
+        {
+            victoryUI.SetActive(false);
+        }
+    }
+
+    // ========== RESET ==========
 
     public void ResetForNewGame()
     {
@@ -219,6 +289,8 @@ public class GameManager : MonoBehaviour
         isGameOver = false;
 
         Time.timeScale = 1f;
+
+        HideAllEndScreens();
     }
 
     public void SetReferences(GameTimer timer, WaveSpawner spawner, PlayerController playerCtrl)
@@ -228,7 +300,7 @@ public class GameManager : MonoBehaviour
         player = playerCtrl;
     }
 
-    
+    // ========== GETTERS ==========
 
     public bool IsPaused() => isPaused;
     public bool IsGameOver() => isGameOver;

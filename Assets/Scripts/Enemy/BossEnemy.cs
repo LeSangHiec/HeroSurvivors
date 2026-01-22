@@ -26,22 +26,10 @@ public class BossEnemy : Enemy
 
     private float lastMinionSpawnTime;
 
-    // ❌ REMOVED: Death Animation fields (already in base class Enemy.cs)
-    // [Header("Death Animation")]
-    // [SerializeField] private float deathAnimationDuration = 2f;
-    // [SerializeField] private bool useDeathAnimation = true;
 
     protected override void Start()
     {
         base.Start();
-
-        // Boss stats
-        maxHealth = 1000f;
-        currentHealth = maxHealth;
-        damage = 50f;
-        enemyMoveSpeed = 2f;
-
-        // Initialize minion spawn timer with delay
         lastMinionSpawnTime = Time.time + firstMinionSpawnDelay;
     }
 

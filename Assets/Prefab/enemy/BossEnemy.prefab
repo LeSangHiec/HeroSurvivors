@@ -453,9 +453,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcfcf368c6f37bb4e8d78e610630f515, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossEnemy
-  maxHealth: 50
+  maxHealth: 5000
   currentHealth: 0
-  damage: 10
+  damage: 30
   hpBar: {fileID: 6250779068254780151}
   enemyMoveSpeed: 1
   enableAvoidance: 1
@@ -469,6 +469,9 @@ MonoBehaviour:
   xpDropAmount: 10
   xpGemPrefab: {fileID: 772648285333728963, guid: ba57c0de07cf74b4f956e627d7dabd23, type: 3}
   deathEffect: {fileID: 0}
+  useDeathAnimation: 1
+  deathAnimationDuration: 2
+  deathAnimationTrigger: Die
   attackCooldown: 1.5
   bulletPrefab: {fileID: 5872779725813888922, guid: 26a56c88e17cd6a4896e42050d295d3e, type: 3}
   firePoint: {fileID: 2222258301649943324}
@@ -481,8 +484,6 @@ MonoBehaviour:
   minionSpawnInterval: 15
   minionSpawnRadius: 3
   firstMinionSpawnDelay: 5
-  deathAnimationDuration: 2
-  useDeathAnimation: 1
 --- !u!114 &6240090684991978963
 MonoBehaviour:
   m_ObjectHideFlags: 0

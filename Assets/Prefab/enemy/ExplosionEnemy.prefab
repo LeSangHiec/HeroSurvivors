@@ -236,8 +236,13 @@ MonoBehaviour:
   xpDropAmount: 10
   xpGemPrefab: {fileID: 772648285333728963, guid: ba57c0de07cf74b4f956e627d7dabd23, type: 3}
   deathEffect: {fileID: 0}
+  useDeathAnimation: 0
+  deathAnimationDuration: 1
+  deathAnimationTrigger: Die
+  healthPickupPrefab: {fileID: 6633560389402007732, guid: ea29d3a534ee76a42a01757062b2000f, type: 3}
+  healthDropChance: 0.1
+  healthDropAmount: 150
   explosionPrefab: {fileID: 593492326903613700, guid: 3df71c362f0f6294495249fa8b14ffc1, type: 3}
-  explosionDelay: 0
   warningTime: 1
   warningColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &-8286838163696824391
@@ -291,7 +296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PooledEnemy
   poolName: 
-  autoDespawnWhenDead: 1
+  autoDespawnOnDeath: 1
   despawnDelay: 0.5
 --- !u!1001 &1674453775773431080
 PrefabInstance:

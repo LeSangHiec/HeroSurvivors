@@ -6,7 +6,7 @@ public class PlayerStats : MonoBehaviour
     [Header("Health Settings")]
     [SerializeField] private float maxHealth = 100f;
     private float baseMaxHealth;
-    private float currentHealth;
+    [SerializeField] private float currentHealth;
 
     [Header("Combat Stats")]
     [SerializeField] private float baseDamage;

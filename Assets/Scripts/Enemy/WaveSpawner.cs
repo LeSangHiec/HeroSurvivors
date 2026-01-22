@@ -259,6 +259,13 @@ public class WaveSpawner : MonoBehaviour
                 currentWave.enemySpeedMultiplier
             );
         }
+        if (showDebugLogs)
+        {
+            Debug.Log($"<color=orange>Applied multipliers to {enemy.name}: " +
+                      $"HP x{currentWave.enemyHealthMultiplier}, " +
+                      $"DMG x{currentWave.enemyDamageMultiplier}, " +
+                      $"SPD x{currentWave.enemySpeedMultiplier}</color>");
+        }
     }
 
     void TrackEnemy(GameObject enemy)

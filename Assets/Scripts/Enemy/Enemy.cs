@@ -32,6 +32,11 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected float deathAnimationDuration = 1f;
     [SerializeField] protected string deathAnimationTrigger = "Die";
 
+    [Header("Health Pickup Drop")]
+    [SerializeField] protected GameObject healthPickupPrefab;
+    [SerializeField] protected float healthDropChance = 0.15f; // tỉ lệ drop
+    [SerializeField] protected float healthDropAmount = 150f;
+
     protected PlayerController player;
     protected bool isDead = false;
 
@@ -294,6 +299,12 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void DropLoot()
     {
+        DropXP();
+        DropHealthPickup();
+    }
+
+    void DropXP()
+    {
         if (xpGemPrefab != null)
         {
             GameObject xpGem = Instantiate(xpGemPrefab, transform.position, Quaternion.identity);
@@ -302,6 +313,30 @@ public abstract class Enemy : MonoBehaviour
             if (gemScript != null)
             {
                 gemScript.SetXPValue(xpDropAmount);
+            }
+        }
+    }
+
+    void DropHealthPickup()
+    {
+        if (healthPickupPrefab == null) return;
+
+        float randomValue = Random.Range(0f, 1f);
+
+        if (randomValue <= healthDropChance)
+        {
+            Vector3 dropPosition = transform.position + new Vector3(
+                Random.Range(-0.5f, 0.5f),
+                Random.Range(-0.5f, 0.5f),
+                0f
+            );
+
+            GameObject healthPickup = Instantiate(healthPickupPrefab, dropPosition, Quaternion.identity);
+
+            HealthPickup pickupScript = healthPickup.GetComponent<HealthPickup>();
+            if (pickupScript != null)
+            {
+                pickupScript.SetHealAmount(healthDropAmount);
             }
         }
     }
