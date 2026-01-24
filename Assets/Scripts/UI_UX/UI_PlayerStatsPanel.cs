@@ -13,6 +13,7 @@ public class UI_PlayerStatsPanel : MonoBehaviour
     [Header("References")]
     [SerializeField] private PlayerStats playerStats;
     [SerializeField] private PlayerController playerController;
+    [SerializeField] private PlayerXP playerXP;  
 
     void Start()
     {
@@ -48,6 +49,10 @@ public class UI_PlayerStatsPanel : MonoBehaviour
             {
                 playerController = playerObj.GetComponent<PlayerController>();
             }
+            if (playerXP == null)
+            {
+                playerXP = playerObj.GetComponent<PlayerXP>();
+            }
         }
 
         // ✅ ADD: Debug log
@@ -74,7 +79,9 @@ public class UI_PlayerStatsPanel : MonoBehaviour
                 new StatConfig { statType = StatType.Speed, label = "Speed" },
                 new StatConfig { statType = StatType.AttackSpeed, label = "Attack Speed" },
                 new StatConfig { statType = StatType.CritChance, label = "Crit Chance" },
-                new StatConfig { statType = StatType.HealthRegen, label = "Regen" }
+                new StatConfig { statType = StatType.HealthRegen, label = "Regen" },
+                new StatConfig { statType = StatType.XPGain, label = "XP Gain" }  
+
             };
         }
     }
@@ -140,7 +147,7 @@ public class UI_PlayerStatsPanel : MonoBehaviour
     bool FindAndValidatePlayer()
     {
         // Try to find player if references are null
-        if (playerStats == null || playerController == null)
+        if (playerStats == null || playerController == null || playerXP == null)
         {
             FindPlayerReferences();
         }
@@ -183,6 +190,9 @@ public class UI_PlayerStatsPanel : MonoBehaviour
                 break;
             case StatType.HealthRegen:
                 UpdateHealthRegen(config.entry);
+                break;
+            case StatType.XPGain:  
+                UpdateXPGain(config.entry);
                 break;
         }
     }
@@ -246,6 +256,24 @@ public class UI_PlayerStatsPanel : MonoBehaviour
 
         entry.SetValue($"{playerStats.GetHealthRegen():F1}/s");
     }
+    void UpdateXPGain(StatEntry entry)
+    {
+        if (playerXP == null) return;
+
+        float multiplier = playerXP.GetXPGainMultiplier();
+
+        float bonusPercent = (multiplier - 1f) * 100f;
+
+        // Hiển thị với dấu + nếu > 0
+        if (bonusPercent > 0)
+        {
+            entry.SetValue($"+{bonusPercent:F0}%");
+        }
+        else
+        {
+            entry.SetValue($"{bonusPercent:F0}%");
+        }
+    }
 
     // ========== PUBLIC METHODS ==========
 
@@ -287,7 +315,8 @@ public enum StatType
     Speed,
     AttackSpeed,
     CritChance,
-    HealthRegen
+    HealthRegen,
+    XPGain
 }
 
 [System.Serializable]

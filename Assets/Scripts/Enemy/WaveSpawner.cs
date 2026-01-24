@@ -15,8 +15,7 @@ public class Wave
     [Header("Spawn Settings")]
     public int enemiesPerMinute = 30;
     public int maxEnemiesAlive = 50;
-    public int minEnemiesAlive = 20; // ← NEW: Minimum enemies to maintain
-
+    public int minEnemiesAlive = 20; 
     [Header("Wave Transition")]
     [Tooltip("Gradually remove old wave enemies when they go off-screen")]
     public bool removeOldEnemiesOffScreen = true;
@@ -92,7 +91,6 @@ public class WaveSpawner : MonoBehaviour
 
         UpdateCurrentWave();
 
-        // Normal timed spawning
         if (Time.time >= nextSpawnTime && currentWave != null)
         {
             if (CanSpawnEnemy())
@@ -102,7 +100,6 @@ public class WaveSpawner : MonoBehaviour
             }
         }
 
-        // ✅ NEW: Dynamic spawning to maintain minimum
         if (enableDynamicSpawning && Time.time >= nextMinSpawnCheck)
         {
             CheckMinimumEnemies();
@@ -113,7 +110,6 @@ public class WaveSpawner : MonoBehaviour
         RemoveOldEnemiesOffScreen();
     }
 
-    // ========== INITIALIZATION ==========
 
     void FindPlayer()
     {
