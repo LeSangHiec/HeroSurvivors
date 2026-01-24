@@ -16,10 +16,11 @@ MonoBehaviour:
   CardImage: {fileID: 1458827363991125065, guid: d3702ff4583efa249bfa45c5e2deb153, type: 3}
   cardType: 0
   effectType: 2
-  effectValue: 0.1
+  effectValue: 0.05
   weaponData: {fileID: 0}
   weaponPrefab: {fileID: 0}
   unlockLevel: 0
   isUnique: 0
   maxLevel: 5
   canStack: 1
+  targetWeapon: {fileID: 0}

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6e815e5d9824504399e77acf6c5a545, type: 3}
   m_Name: RifleUpgradeCard 1
   m_EditorClassIdentifier: Assembly-CSharp::CardSO
-  cardText: Rifle +1
-  CardImage: {fileID: 8169911770781555204, guid: b6af2b7f2e338de4699a27178f129395, type: 3}
+  cardText: Rifle Upgarde
+  CardImage: {fileID: 5339967085674362282, guid: b6af2b7f2e338de4699a27178f129395, type: 3}
   cardType: 2
   effectType: 0
   effectValue: 0

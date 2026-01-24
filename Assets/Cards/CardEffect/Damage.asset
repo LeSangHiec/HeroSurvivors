@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6e815e5d9824504399e77acf6c5a545, type: 3}
   m_Name: Damage
   m_EditorClassIdentifier: Assembly-CSharp::CardSO
-  cardText: +100 damage
+  cardText: +10 damage
   CardImage: {fileID: -5753298303747642727, guid: 34b232c9854ce1a4cbd1c0eb3bc92379, type: 3}
   cardType: 0
   effectType: 3
-  effectValue: 10
+  effectValue: 0.2
   weaponData: {fileID: 0}
   weaponPrefab: {fileID: 0}
   unlockLevel: 0
   isUnique: 0
-  maxLevel: 2
+  maxLevel: 5
   canStack: 1
+  targetWeapon: {fileID: 0}

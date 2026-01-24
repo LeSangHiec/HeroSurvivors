@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6e815e5d9824504399e77acf6c5a545, type: 3}
-  m_Name: PistolUpgradeCard
+  m_Name: ShotgunUpgradeCard
   m_EditorClassIdentifier: Assembly-CSharp::CardSO
-  cardText: Pistol Upgrade
-  CardImage: {fileID: 9202094985950219199, guid: 914b0f29a407fd643bd32421a4137fb5, type: 3}
+  cardText: Shotgun Upgrade
+  CardImage: {fileID: -7819570463777711224, guid: b6af2b7f2e338de4699a27178f129395, type: 3}
   cardType: 2
   effectType: 0
   effectValue: 0
@@ -23,4 +23,4 @@ MonoBehaviour:
   isUnique: 0
   maxLevel: 5
   canStack: 1
-  targetWeapon: {fileID: 11400000, guid: 6295cb307c2a22f459201ae3d10e1af3, type: 2}
+  targetWeapon: {fileID: 11400000, guid: 25e9eb09bb2d825498223adaa64440e9, type: 2}

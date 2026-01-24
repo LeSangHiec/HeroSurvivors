@@ -19,9 +19,9 @@ MonoBehaviour:
   spriteOffset: {x: 0, y: 0, z: 0}
   weaponOffset: {x: -0.54, y: 0.66, z: 0}
   rotationOffset: 0
-  baseDamage: 10
-  fireRate: 0.3
-  projectileSpeed: 15
+  baseDamage: 15
+  fireRate: 0.4
+  projectileSpeed: 20
   projectileCount: 1
   spreadAngle: 0
   projectilePrefab: {fileID: 4806496384374657963, guid: bbe7ab7a7decb964298028c5c016f5c3, type: 3}
@@ -31,7 +31,7 @@ MonoBehaviour:
   isStartingWeapon: 0
   maxWeaponLevel: 5
   canUpgrade: 1
-  damagePerLevel: 0.1
-  fireRatePerLevel: 0.02
-  speedPerLevel: 0.5
+  damagePerLevel: 0.15
+  fireRatePerLevel: 0.01
+  speedPerLevel: 1
   projectileCountLevels: 0300000005000000

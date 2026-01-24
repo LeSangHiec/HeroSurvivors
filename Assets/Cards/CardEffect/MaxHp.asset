@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6e815e5d9824504399e77acf6c5a545, type: 3}
   m_Name: MaxHp
   m_EditorClassIdentifier: Assembly-CSharp::CardSO
-  cardText: +100 Hp
+  cardText: +20 Hp
   CardImage: {fileID: -1515405729478551105, guid: ac8e614fb4e373644a0abe53fe68b777, type: 3}
   cardType: 0
   effectType: 1
-  effectValue: 100
+  effectValue: 20
   weaponData: {fileID: 0}
   weaponPrefab: {fileID: 0}
   unlockLevel: 0
   isUnique: 0
   maxLevel: 5
   canStack: 1
+  targetWeapon: {fileID: 0}

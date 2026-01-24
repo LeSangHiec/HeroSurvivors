@@ -77,18 +77,7 @@ public class PlayerController : MonoBehaviour
         isMoving = moveInput.magnitude > 0.1f;
     }
 
-    void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-
-            if (enemy != null && playerStats != null)
-            {
-                playerStats.TakeDamage(enemy.GetDamage() * Time.fixedDeltaTime);
-            }
-        }
-    }
+    
 
     // ========== UPGRADE METHODS ==========
 

@@ -19,8 +19,8 @@ MonoBehaviour:
   spriteOffset: {x: 0, y: 0, z: 0}
   weaponOffset: {x: 0.09, y: 1.08, z: 0}
   rotationOffset: 0
-  baseDamage: 10
-  fireRate: 0.2
+  baseDamage: 8
+  fireRate: 0.21
   projectileSpeed: 13
   projectileCount: 1
   spreadAngle: 0
@@ -31,7 +31,7 @@ MonoBehaviour:
   isStartingWeapon: 1
   maxWeaponLevel: 5
   canUpgrade: 1
-  damagePerLevel: 0.1
-  fireRatePerLevel: 0.02
-  speedPerLevel: 0.5
+  damagePerLevel: 0.12
+  fireRatePerLevel: 0.01
+  speedPerLevel: 2
   projectileCountLevels: 0300000005000000

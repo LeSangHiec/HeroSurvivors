@@ -9,9 +9,9 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float currentHealth;
 
     [Header("Combat Stats")]
-    [SerializeField] private float baseDamage;
+    [SerializeField] private float baseDamage ;
     [SerializeField] private float damageMultiplier = 1f;
-    [SerializeField] private float critChance;
+    [SerializeField] private float critChance ;
 
     [Header("Regeneration")]
     [SerializeField] private float healthRegenPerSecond = 0f;
@@ -27,7 +27,15 @@ public class PlayerStats : MonoBehaviour
     [Header("Effects")]
     [SerializeField] private GameObject deathEffect;
 
+    // ✅ THÊM: Damage Flash Settings
+    [Header("Damage Flash Effect")]
+    [SerializeField] private bool enableDamageFlash = true;
+    [SerializeField] private Color flashColor = Color.red;
+    [SerializeField] private float flashDuration = 0.1f;
+    [SerializeField] private int flashCount = 1; // Số lần nhấp nháy
+
     private bool isDead = false;
+    private Color originalColor; // ✅ THÊM: Lưu màu gốc
 
     void Awake()
     {
@@ -39,6 +47,12 @@ public class PlayerStats : MonoBehaviour
         if (rb == null)
         {
             rb = GetComponent<Rigidbody2D>();
+        }
+
+        // ✅ THÊM: Lưu màu gốc
+        if (spriteRenderer != null)
+        {
+            originalColor = spriteRenderer.color;
         }
     }
 
@@ -52,7 +66,6 @@ public class PlayerStats : MonoBehaviour
     void Update()
     {
         if (isDead) return;
-
         HandleHealthRegen();
     }
 
@@ -67,6 +80,12 @@ public class PlayerStats : MonoBehaviour
 
         UpdateHpBar();
 
+        // ✅ THÊM: Flash effect khi bị damage
+        if (enableDamageFlash)
+        {
+            StartCoroutine(DamageFlash());
+        }
+
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.PlayPlayerHit();
@@ -76,6 +95,26 @@ public class PlayerStats : MonoBehaviour
         {
             Die();
         }
+    }
+
+    // ✅ THÊM: Coroutine flash đỏ
+    System.Collections.IEnumerator DamageFlash()
+    {
+        if (spriteRenderer == null) yield break;
+
+        for (int i = 0; i < flashCount; i++)
+        {
+            // Flash đỏ
+            spriteRenderer.color = flashColor;
+            yield return new WaitForSeconds(flashDuration);
+
+            // Về màu gốc
+            spriteRenderer.color = originalColor;
+            yield return new WaitForSeconds(flashDuration);
+        }
+
+        // Đảm bảo về màu gốc
+        spriteRenderer.color = originalColor;
     }
 
     public void Heal(float healAmount)
@@ -128,7 +167,7 @@ public class PlayerStats : MonoBehaviour
         if (spriteRenderer != null)
         {
             spriteRenderer.enabled = true;
-            spriteRenderer.color = Color.white;
+            spriteRenderer.color = originalColor; // ✅ SỬA: Về màu gốc
         }
     }
 
@@ -215,8 +254,4 @@ public class PlayerStats : MonoBehaviour
     public float GetCritChance() => critChance;
     public float GetHealthRegen() => healthRegenPerSecond;
     public float GetBaseMaxHealth() => baseMaxHealth;
-
-    // ========== DEBUG ==========
-
-   
 }

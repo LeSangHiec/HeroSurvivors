@@ -383,9 +383,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b68b8db4b3fe0445a298c7c8d279063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BasicEnemy
-  maxHealth: 300
-  currentHealth: 300
-  damage: 20
+  maxHealth: 100
+  currentHealth: 100
+  damage: 5
   hpBar: {fileID: 6250779068254780151}
   enemyMoveSpeed: 1.75
   enableAvoidance: 1
@@ -404,7 +404,7 @@ MonoBehaviour:
   deathAnimationTrigger: Die
   healthPickupPrefab: {fileID: 6633560389402007732, guid: ea29d3a534ee76a42a01757062b2000f, type: 3}
   healthDropChance: 0.1
-  healthDropAmount: 150
+  healthDropAmount: 50
   attackCooldown: 0.5
 --- !u!114 &9070176458628032711
 MonoBehaviour:

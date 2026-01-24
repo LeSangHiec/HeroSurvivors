@@ -453,11 +453,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcfcf368c6f37bb4e8d78e610630f515, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossEnemy
-  maxHealth: 5000
+  maxHealth: 1000
   currentHealth: 0
-  damage: 30
+  damage: 25
   hpBar: {fileID: 6250779068254780151}
-  enemyMoveSpeed: 1
+  enemyMoveSpeed: 2.5
   enableAvoidance: 1
   detectionDistance: 1.5
   avoidanceForce: 3
@@ -472,6 +472,9 @@ MonoBehaviour:
   useDeathAnimation: 1
   deathAnimationDuration: 2
   deathAnimationTrigger: Die
+  healthPickupPrefab: {fileID: 0}
+  healthDropChance: 1
+  healthDropAmount: 500
   attackCooldown: 1.5
   bulletPrefab: {fileID: 5872779725813888922, guid: 26a56c88e17cd6a4896e42050d295d3e, type: 3}
   firePoint: {fileID: 2222258301649943324}

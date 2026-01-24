@@ -220,9 +220,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5212a263fbb26c34f8b3afc92bb55b2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExpolisonEnemy
-  maxHealth: 50
+  maxHealth: 60
   currentHealth: 0
-  damage: 10
+  damage: 30
   hpBar: {fileID: 3063673026494571924}
   enemyMoveSpeed: 2
   enableAvoidance: 1
@@ -241,7 +241,7 @@ MonoBehaviour:
   deathAnimationTrigger: Die
   healthPickupPrefab: {fileID: 6633560389402007732, guid: ea29d3a534ee76a42a01757062b2000f, type: 3}
   healthDropChance: 0.1
-  healthDropAmount: 150
+  healthDropAmount: 50
   explosionPrefab: {fileID: 593492326903613700, guid: 3df71c362f0f6294495249fa8b14ffc1, type: 3}
   warningTime: 1
   warningColor: {r: 1, g: 0, b: 0, a: 1}

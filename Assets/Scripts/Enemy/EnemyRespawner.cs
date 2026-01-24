@@ -1,7 +1,6 @@
-﻿using System.ComponentModel;
-using UnityEngine;
-using static Unity.Collections.AllocatorManager;
-using static UnityEngine.InputManagerEntry;
+﻿using UnityEngine;
+using System.Collections.Generic;
+
 
 public class EnemyRespawner : MonoBehaviour
 {
@@ -27,10 +26,8 @@ public class EnemyRespawner : MonoBehaviour
 
     void Start()
     {
-        // Lấy Enemy component
         enemyScript = GetComponent<Enemy>();
 
-        // Auto-find player
         if (player == null)
         {
             PlayerController playerController = FindAnyObjectByType<PlayerController>();
@@ -44,7 +41,6 @@ public class EnemyRespawner : MonoBehaviour
             }
         }
 
-        // Auto-find camera
         if (mainCamera == null)
         {
             mainCamera = Camera.main;
@@ -53,13 +49,11 @@ public class EnemyRespawner : MonoBehaviour
 
     void Update()
     {
-        // Không teleport nếu enemy đã chết
         if (enemyScript != null && enemyScript.IsDead())
         {
             return;
         }
 
-        // Kiểm tra định kỳ
         if (Time.time - lastCheckTime >= checkInterval)
         {
             CheckAndRespawnEnemy();
@@ -71,13 +65,10 @@ public class EnemyRespawner : MonoBehaviour
     {
         if (player == null) return;
 
-        // Tính khoảng cách đến player
         float distance = Vector2.Distance(transform.position, player.position);
 
-        // Kiểm tra điều kiện teleport
         bool shouldTeleport = distance > maxDistanceFromPlayer;
 
-        // Nếu bật option: chỉ teleport khi ngoài camera
         if (onlyTeleportWhenOutsideCamera)
         {
             shouldTeleport = shouldTeleport && IsOutsideCamera();
@@ -95,10 +86,9 @@ public class EnemyRespawner : MonoBehaviour
 
         Vector3 viewportPosition = mainCamera.WorldToViewportPoint(transform.position);
 
-        // Nếu ngoài viewport (0-1) → outside camera
         return viewportPosition.x < 0 || viewportPosition.x > 1 ||
                viewportPosition.y < 0 || viewportPosition.y > 1 ||
-               viewportPosition.z < 0; // Behind camera
+               viewportPosition.z < 0; 
     }
 
     void TeleportAroundPlayer()
@@ -136,13 +126,10 @@ public class EnemyRespawner : MonoBehaviour
 
     Vector2 GetRandomPositionAroundPlayer()
     {
-        // Random góc (0-360 độ)
         float randomAngle = Random.Range(0f, 360f);
 
-        // Random khoảng cách (minSpawnDistance -> maxSpawnDistance)
         float randomDistance = Random.Range(minSpawnDistance, maxSpawnDistance);
 
-        // Tính vị trí dựa trên góc và khoảng cách
         Vector2 direction = new Vector2(
             Mathf.Cos(randomAngle * Mathf.Deg2Rad),
             Mathf.Sin(randomAngle * Mathf.Deg2Rad)
@@ -150,7 +137,6 @@ public class EnemyRespawner : MonoBehaviour
 
         Vector2 newPosition = (Vector2)player.position + direction * randomDistance;
 
-        // Đảm bảo spawn ngoài rìa camera
         newPosition = EnsureOutsideCamera(newPosition);
 
         return newPosition;
@@ -160,25 +146,20 @@ public class EnemyRespawner : MonoBehaviour
     {
         if (mainCamera == null) return position;
 
-        // Lấy bounds của camera
         float cameraHeight = mainCamera.orthographicSize;
         float cameraWidth = cameraHeight * mainCamera.aspect;
 
         Vector2 cameraCenter = mainCamera.transform.position;
 
-        // Min/Max bounds của camera (với offset)
         float minX = cameraCenter.x - cameraWidth - edgeOffset;
         float maxX = cameraCenter.x + cameraWidth + edgeOffset;
         float minY = cameraCenter.y - cameraHeight - edgeOffset;
         float maxY = cameraCenter.y + cameraHeight + edgeOffset;
 
-        // Nếu position nằm trong camera → đẩy ra ngoài
         if (position.x > minX && position.x < maxX && position.y > minY && position.y < maxY)
         {
-            // Tính hướng từ camera center đến position
             Vector2 direction = (position - cameraCenter).normalized;
 
-            // Đẩy position ra ngoài rìa camera
             float pushDistance = Mathf.Max(cameraWidth, cameraHeight) + edgeOffset;
             position = cameraCenter + direction * pushDistance;
         }
@@ -192,7 +173,6 @@ public class EnemyRespawner : MonoBehaviour
     {
         if (player == null)
         {
-            // Tìm player để vẽ gizmos
             PlayerController playerController = FindAnyObjectByType<PlayerController>();
             if (playerController != null)
             {
@@ -204,28 +184,26 @@ public class EnemyRespawner : MonoBehaviour
             }
         }
 
-        // Vẽ vòng tròn max distance (màu đỏ)
         Gizmos.color = Color.red;
         DrawCircle(player.position, maxDistanceFromPlayer);
 
-        // Vẽ vòng tròn min spawn distance (màu vàng)
         Gizmos.color = Color.yellow;
         DrawCircle(player.position, minSpawnDistance);
 
-        // Vẽ vòng tròn max spawn distance (màu xanh lá)
         Gizmos.color = Color.green;
         DrawCircle(player.position, maxSpawnDistance);
 
-        // Vẽ line từ enemy đến player
         Gizmos.color = Color.cyan;
         Gizmos.DrawLine(transform.position, player.position);
 
-        // Hiển thị khoảng cách
+#if UNITY_EDITOR
         float distance = Vector2.Distance(transform.position, player.position);
         UnityEditor.Handles.Label(
             (transform.position + player.position) / 2f,
             $"Distance: {distance:F1}"
         );
+#endif
+
     }
 
     void DrawCircle(Vector3 center, float radius)

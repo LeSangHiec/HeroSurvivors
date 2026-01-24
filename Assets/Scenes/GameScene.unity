@@ -643,10 +643,6 @@ MonoBehaviour:
   statEntryPrefab: {fileID: 7607857851373146891, guid: e97044da5468fe94f87ab48f0e36bb09, type: 3}
   statsContainer: {fileID: 1205433886}
   statConfigs:
-  - statType: 0
-    label: HP
-    icon: {fileID: 7615744630675777287, guid: b043e319646d7744aafb9e7c34c93b0a, type: 3}
-    entry: {fileID: 0}
   - statType: 1
     label: MaxHP
     icon: {fileID: -1515405729478551105, guid: ac8e614fb4e373644a0abe53fe68b777, type: 3}
@@ -16851,59 +16847,45 @@ MonoBehaviour:
     enemyPrefabs:
     - {fileID: 8405394039025064054, guid: 87d89524e4774a7459cb895060215fcd, type: 3}
     enemyWeights: 64000000
+    enemiesPerMinute: 20
+    maxEnemiesAlive: 30
+    minEnemiesAlive: 15
+    removeOldEnemiesOffScreen: 1
+    maxOldEnemiesAllowed: 20
+    enemyHealthMultiplier: 1
+    enemyDamageMultiplier: 1
+    enemySpeedMultiplier: 1
+  - waveName: 2
+    startTime: 120
+    enemyPrefabs:
+    - {fileID: 8405394039025064054, guid: 87d89524e4774a7459cb895060215fcd, type: 3}
+    - {fileID: 4487389877818370948, guid: 71bada5c1d1a0e94c9b07a63b69b8ac0, type: 3}
+    enemyWeights: 4b00000019000000
+    enemiesPerMinute: 30
+    maxEnemiesAlive: 40
+    minEnemiesAlive: 20
+    removeOldEnemiesOffScreen: 1
+    maxOldEnemiesAllowed: 20
+    enemyHealthMultiplier: 1.1
+    enemyDamageMultiplier: 1.1
+    enemySpeedMultiplier: 1
+  - waveName: 3
+    startTime: 180
+    enemyPrefabs:
+    - {fileID: 8405394039025064054, guid: 87d89524e4774a7459cb895060215fcd, type: 3}
+    - {fileID: 4487389877818370948, guid: 71bada5c1d1a0e94c9b07a63b69b8ac0, type: 3}
+    - {fileID: 6700572493935290248, guid: f0d8279a17e562848a82db690f329da5, type: 3}
+    - {fileID: 8405394039025064054, guid: 70c49e64e815e154db5552b18d0cf09a, type: 3}
+    enemyWeights: 3c0000000f0000000f0000000a000000
     enemiesPerMinute: 100
-    maxEnemiesAlive: 1
+    maxEnemiesAlive: 50
     minEnemiesAlive: 20
     removeOldEnemiesOffScreen: 1
     maxOldEnemiesAllowed: 20
     enemyHealthMultiplier: 1.2
     enemyDamageMultiplier: 1.2
     enemySpeedMultiplier: 1
-  - waveName: 2
-    startTime: 60
-    enemyPrefabs:
-    - {fileID: 4487389877818370948, guid: 71bada5c1d1a0e94c9b07a63b69b8ac0, type: 3}
-    enemyWeights: 64000000
-    enemiesPerMinute: 100
-    maxEnemiesAlive: 1
-    minEnemiesAlive: 20
-    removeOldEnemiesOffScreen: 1
-    maxOldEnemiesAllowed: 20
-    enemyHealthMultiplier: 2
-    enemyDamageMultiplier: 2
-    enemySpeedMultiplier: 1
-  - waveName: 5
-    startTime: 360
-    enemyPrefabs:
-    - {fileID: 8405394039025064054, guid: 87d89524e4774a7459cb895060215fcd, type: 3}
-    - {fileID: 6700572493935290248, guid: f0d8279a17e562848a82db690f329da5, type: 3}
-    - {fileID: 4487389877818370948, guid: 71bada5c1d1a0e94c9b07a63b69b8ac0, type: 3}
-    enemyWeights: 460000000a00000014000000
-    enemiesPerMinute: 500
-    maxEnemiesAlive: 50
-    minEnemiesAlive: 20
-    removeOldEnemiesOffScreen: 1
-    maxOldEnemiesAllowed: 20
-    enemyHealthMultiplier: 1
-    enemyDamageMultiplier: 1
-    enemySpeedMultiplier: 1
-  - waveName: 2
-    startTime: 180
-    enemyPrefabs:
-    - {fileID: 8405394039025064054, guid: 87d89524e4774a7459cb895060215fcd, type: 3}
-    - {fileID: 6700572493935290248, guid: f0d8279a17e562848a82db690f329da5, type: 3}
-    - {fileID: 4487389877818370948, guid: 71bada5c1d1a0e94c9b07a63b69b8ac0, type: 3}
-    - {fileID: 8405394039025064054, guid: 70c49e64e815e154db5552b18d0cf09a, type: 3}
-    enemyWeights: 320000000f000000190000000a000000
-    enemiesPerMinute: 100
-    maxEnemiesAlive: 50
-    minEnemiesAlive: 20
-    removeOldEnemiesOffScreen: 1
-    maxOldEnemiesAllowed: 20
-    enemyHealthMultiplier: 1
-    enemyDamageMultiplier: 1
-    enemySpeedMultiplier: 1
-  - waveName: 3
+  - waveName: 4
     startTime: 240
     enemyPrefabs:
     - {fileID: 8405394039025064054, guid: 61e6c3b87dfd7374d9f3cb1bfc43ccbc, type: 3}
@@ -16915,6 +16897,22 @@ MonoBehaviour:
     maxOldEnemiesAllowed: 20
     enemyHealthMultiplier: 1
     enemyDamageMultiplier: 1
+    enemySpeedMultiplier: 1
+  - waveName: 5
+    startTime: 250
+    enemyPrefabs:
+    - {fileID: 8405394039025064054, guid: 87d89524e4774a7459cb895060215fcd, type: 3}
+    - {fileID: 4487389877818370948, guid: 71bada5c1d1a0e94c9b07a63b69b8ac0, type: 3}
+    - {fileID: 6700572493935290248, guid: f0d8279a17e562848a82db690f329da5, type: 3}
+    - {fileID: 8405394039025064054, guid: 70c49e64e815e154db5552b18d0cf09a, type: 3}
+    enemyWeights: 3c0000000f0000000f0000000a000000
+    enemiesPerMinute: 100
+    maxEnemiesAlive: 50
+    minEnemiesAlive: 20
+    removeOldEnemiesOffScreen: 1
+    maxOldEnemiesAllowed: 20
+    enemyHealthMultiplier: 1.2
+    enemyDamageMultiplier: 1.2
     enemySpeedMultiplier: 1
   player: {fileID: 1913580798}
   minSpawnDistance: 12.7
@@ -17495,7 +17493,7 @@ MonoBehaviour:
   gameTimer: {fileID: 1400132930}
   startOrthographicSize: 6
   zoomIncreasePerInterval: 2
-  zoomInterval: 600
+  zoomInterval: 120
   maxOrthographicSize: 11
   zoomSmoothSpeed: 2.5
 --- !u!4 &1872147020
@@ -18273,11 +18271,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f00870e7bb7634342a65692bd23e729d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
-  maxHealth: 1000
-  currentHealth: 0
+  maxHealth: 100
+  currentHealth: 10
   baseDamage: 10
   damageMultiplier: 1
-  critChance: 0.2
+  critChance: 0.05
   healthRegenPerSecond: 0
   hpBar: {fileID: 148124634}
   spriteRenderer: {fileID: 0}
@@ -18295,7 +18293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03943f94471ec96478b7a1d875bf8d4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  baseMoveSpeed: 5
+  baseMoveSpeed: 3.25
   rb: {fileID: 0}
   spriteRenderer: {fileID: 0}
   animator: {fileID: 0}
@@ -18508,6 +18506,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e1b39f05641bc434ba561a6bc4f710a9, type: 2}
   - {fileID: 11400000, guid: 3a04e7d55f1ed26498472c474ad2b1d4, type: 2}
   - {fileID: 11400000, guid: 91d0acd32d954c14c9ebc9bf21a5d8db, type: 2}
+  - {fileID: 11400000, guid: 0904ea166f8075044b46ddc71e1139be, type: 2}
 --- !u!4 &1952324675
 Transform:
   m_ObjectHideFlags: 0

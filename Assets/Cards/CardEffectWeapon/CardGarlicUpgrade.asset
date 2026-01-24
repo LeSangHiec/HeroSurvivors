@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CardGarlicUpgrade
   m_EditorClassIdentifier: Assembly-CSharp::CardSO
   cardText: Garlic Upgrade +20% damage, +0.3 radius
-  CardImage: {fileID: -263757610435022259, guid: d71557d55d0cef54c98301dc33371dda, type: 3}
+  CardImage: {fileID: -2674939308689259223, guid: a09513a828934ac4787e1fe5309fb15d, type: 3}
   cardType: 2
   effectType: 0
   effectValue: 0

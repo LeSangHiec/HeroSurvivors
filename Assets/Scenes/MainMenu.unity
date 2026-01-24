@@ -3691,7 +3691,7 @@ MonoBehaviour:
   victoryMusic: {fileID: 0}
   gameOverMusic: {fileID: 0}
   buttonClick: {fileID: 8300000, guid: f5764da81404d764ea6b57d798558757, type: 3}
-  playerHit: {fileID: 8300000, guid: 451523156c7a6634c95cea25a4c97819, type: 3}
+  playerHit: {fileID: 0}
   playerDeath: {fileID: 0}
   enemyDeath: {fileID: 8300000, guid: e3eea788b7b33ff42936ca366339767a, type: 3}
   weaponShoot: {fileID: 8300000, guid: 46c4f07228ebf90438a93279409f03ad, type: 3}
