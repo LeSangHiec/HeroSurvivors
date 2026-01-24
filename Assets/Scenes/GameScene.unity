@@ -15103,6 +15103,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1718167764}
   - {fileID: 1952324675}
   - {fileID: 1872147020}
   - {fileID: 505583495}
@@ -16886,7 +16887,7 @@ MonoBehaviour:
     enemyDamageMultiplier: 1.2
     enemySpeedMultiplier: 1
   - waveName: 4
-    startTime: 240
+    startTime: 242
     enemyPrefabs:
     - {fileID: 8405394039025064054, guid: 61e6c3b87dfd7374d9f3cb1bfc43ccbc, type: 3}
     enemyWeights: 64000000
@@ -16922,7 +16923,7 @@ MonoBehaviour:
   enableDynamicSpawning: 1
   gameTimer: {fileID: 1400132930}
   showSpawnGizmos: 0
-  showDebugLogs: 1
+  showDebugLogs: 0
 --- !u!4 &1718167764
 Transform:
   m_ObjectHideFlags: 0
@@ -16931,12 +16932,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1718167762}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -3.83518, y: 8.9467, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1253461196}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1753120916
 GameObject:
@@ -18281,6 +18282,10 @@ MonoBehaviour:
   spriteRenderer: {fileID: 0}
   rb: {fileID: 0}
   deathEffect: {fileID: 0}
+  enableDamageFlash: 1
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.1
+  flashCount: 1
 --- !u!114 &1913580804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67726,6 +67731,5 @@ SceneRoots:
   - {fileID: 962013086}
   - {fileID: 507525471}
   - {fileID: 1337136976}
-  - {fileID: 1718167764}
   - {fileID: 69480495}
   - {fileID: 1253461196}

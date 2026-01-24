@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: XpGain
   m_EditorClassIdentifier: Assembly-CSharp::CardSO
   cardText: + 20% Xp
-  CardImage: {fileID: 0}
+  CardImage: {fileID: 6853791922531163673, guid: 6a9f40028475c054db8626d1b22a6cc7, type: 3}
   cardType: 0
   effectType: 7
   effectValue: 1
@@ -21,3 +21,6 @@ MonoBehaviour:
   weaponPrefab: {fileID: 0}
   unlockLevel: 0
   isUnique: 0
+  maxLevel: 5
+  canStack: 1
+  targetWeapon: {fileID: 0}

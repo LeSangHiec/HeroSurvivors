@@ -95,8 +95,6 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
 
         ShowUpgradesPanel();
-
-       
     }
 
     public void Resume()
@@ -105,8 +103,6 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
 
         HideAllPanels();
-
-        
     }
 
     // ========== PANEL SWITCHING ==========
@@ -205,7 +201,7 @@ public class PauseMenu : MonoBehaviour
     void OnMainMenuClicked()
     {
         PlayButtonSound();
-        Time.timeScale = 1f;
+        Time.timeScale = 1f; // ✅ Reset time scale
 
         if (SceneController.Instance != null)
         {
@@ -216,10 +212,12 @@ public class PauseMenu : MonoBehaviour
     void OnQuitClicked()
     {
         PlayButtonSound();
+        Time.timeScale = 1f; // ✅ Reset time scale
 
+        // ✅ FIX: Quay về Main Menu thay vì thoát game
         if (SceneController.Instance != null)
         {
-            SceneController.Instance.QuitGame();
+            SceneController.Instance.LoadMainMenu();
         }
     }
 
