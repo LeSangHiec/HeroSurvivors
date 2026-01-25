@@ -15635,6 +15635,96 @@ MonoBehaviour:
     enemyHealthMultiplier: 1.2
     enemyDamageMultiplier: 1.2
     enemySpeedMultiplier: 1
+  - waveName: 6
+    startTime: 360
+    enemyPrefabs:
+    - {fileID: 8405394039025064054, guid: 87d89524e4774a7459cb895060215fcd, type: 3}
+    - {fileID: 4487389877818370948, guid: 71bada5c1d1a0e94c9b07a63b69b8ac0, type: 3}
+    - {fileID: 6700572493935290248, guid: f0d8279a17e562848a82db690f329da5, type: 3}
+    - {fileID: 8405394039025064054, guid: 70c49e64e815e154db5552b18d0cf09a, type: 3}
+    enemyWeights: 3c0000000f0000000f0000000a000000
+    enemiesPerMinute: 100
+    maxEnemiesAlive: 50
+    minEnemiesAlive: 20
+    removeOldEnemiesOffScreen: 1
+    maxOldEnemiesAllowed: 20
+    enemyHealthMultiplier: 1.2
+    enemyDamageMultiplier: 1.2
+    enemySpeedMultiplier: 1
+  - waveName: 7
+    startTime: 540
+    enemyPrefabs:
+    - {fileID: 8405394039025064054, guid: 87d89524e4774a7459cb895060215fcd, type: 3}
+    - {fileID: 4487389877818370948, guid: 71bada5c1d1a0e94c9b07a63b69b8ac0, type: 3}
+    enemyWeights: 3c00000028000000
+    enemiesPerMinute: 100
+    maxEnemiesAlive: 50
+    minEnemiesAlive: 20
+    removeOldEnemiesOffScreen: 1
+    maxOldEnemiesAllowed: 20
+    enemyHealthMultiplier: 1.2
+    enemyDamageMultiplier: 1.2
+    enemySpeedMultiplier: 1
+  - waveName: 8
+    startTime: 720
+    enemyPrefabs:
+    - {fileID: 8405394039025064054, guid: 87d89524e4774a7459cb895060215fcd, type: 3}
+    - {fileID: 6700572493935290248, guid: f0d8279a17e562848a82db690f329da5, type: 3}
+    - {fileID: 8405394039025064054, guid: 70c49e64e815e154db5552b18d0cf09a, type: 3}
+    enemyWeights: 4b0000000f0000000a000000
+    enemiesPerMinute: 20
+    maxEnemiesAlive: 50
+    minEnemiesAlive: 20
+    removeOldEnemiesOffScreen: 1
+    maxOldEnemiesAllowed: 20
+    enemyHealthMultiplier: 1.2
+    enemyDamageMultiplier: 1.2
+    enemySpeedMultiplier: 1
+  - waveName: 9
+    startTime: 910
+    enemyPrefabs:
+    - {fileID: 8405394039025064054, guid: 87d89524e4774a7459cb895060215fcd, type: 3}
+    - {fileID: 4487389877818370948, guid: 71bada5c1d1a0e94c9b07a63b69b8ac0, type: 3}
+    - {fileID: 6700572493935290248, guid: f0d8279a17e562848a82db690f329da5, type: 3}
+    - {fileID: 8405394039025064054, guid: 70c49e64e815e154db5552b18d0cf09a, type: 3}
+    enemyWeights: 3c0000000f0000000f0000000a000000
+    enemiesPerMinute: 100
+    maxEnemiesAlive: 50
+    minEnemiesAlive: 20
+    removeOldEnemiesOffScreen: 1
+    maxOldEnemiesAllowed: 20
+    enemyHealthMultiplier: 1.2
+    enemyDamageMultiplier: 1.2
+    enemySpeedMultiplier: 1
+  - waveName: 10
+    startTime: 1100
+    enemyPrefabs:
+    - {fileID: 8405394039025064054, guid: 61e6c3b87dfd7374d9f3cb1bfc43ccbc, type: 3}
+    enemyWeights: 64000000
+    enemiesPerMinute: 100
+    maxEnemiesAlive: 1
+    minEnemiesAlive: 1
+    removeOldEnemiesOffScreen: 1
+    maxOldEnemiesAllowed: 20
+    enemyHealthMultiplier: 1.2
+    enemyDamageMultiplier: 1.2
+    enemySpeedMultiplier: 1
+  - waveName: 11
+    startTime: 910
+    enemyPrefabs:
+    - {fileID: 8405394039025064054, guid: 87d89524e4774a7459cb895060215fcd, type: 3}
+    - {fileID: 4487389877818370948, guid: 71bada5c1d1a0e94c9b07a63b69b8ac0, type: 3}
+    - {fileID: 6700572493935290248, guid: f0d8279a17e562848a82db690f329da5, type: 3}
+    - {fileID: 8405394039025064054, guid: 70c49e64e815e154db5552b18d0cf09a, type: 3}
+    enemyWeights: 3c0000000f0000000f0000000a000000
+    enemiesPerMinute: 100
+    maxEnemiesAlive: 50
+    minEnemiesAlive: 20
+    removeOldEnemiesOffScreen: 1
+    maxOldEnemiesAllowed: 20
+    enemyHealthMultiplier: 1.2
+    enemyDamageMultiplier: 1.2
+    enemySpeedMultiplier: 1
   player: {fileID: 1913580798}
   minSpawnDistance: 12.7
   maxSpawnDistance: 17.2
