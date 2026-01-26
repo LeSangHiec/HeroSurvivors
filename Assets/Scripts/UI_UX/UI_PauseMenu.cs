@@ -23,7 +23,6 @@ public class PauseMenu : MonoBehaviour
     {
         SetupButtonListeners();
 
-        // ✅ CRITICAL: Hide all panels at start
         HideAllPanels();
     }
 
@@ -105,23 +104,19 @@ public class PauseMenu : MonoBehaviour
         HideAllPanels();
     }
 
-    // ========== PANEL SWITCHING ==========
 
     void ShowUpgradesPanel()
     {
-        // Show pause menu background
         if (pauseMenuPanel != null)
         {
             pauseMenuPanel.SetActive(true);
         }
 
-        // Show upgrades panel
         if (upgradesPanel != null)
         {
             upgradesPanel.SetActive(true);
         }
 
-        // ✅ CRITICAL: Hide options panel
         if (optionsPanel != null)
         {
             optionsPanel.SetActive(false);
@@ -130,19 +125,17 @@ public class PauseMenu : MonoBehaviour
 
     void ShowOptionsPanel()
     {
-        // Show pause menu background
         if (pauseMenuPanel != null)
         {
             pauseMenuPanel.SetActive(true);
         }
 
-        // ✅ CRITICAL: Hide upgrades panel
+
         if (upgradesPanel != null)
         {
             upgradesPanel.SetActive(false);
         }
 
-        // Show options panel
         if (optionsPanel != null)
         {
             optionsPanel.SetActive(true);
@@ -167,21 +160,17 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    // ========== BUTTON CALLBACKS ==========
 
     void OnResumeClicked()
     {
         PlayButtonSound();
 
-        // ✅ Check if in options panel
         if (IsInOptionsPanel())
         {
-            // Go back to upgrades panel
             ShowUpgradesPanel();
         }
         else
         {
-            // Resume game
             Resume();
         }
     }
@@ -201,7 +190,7 @@ public class PauseMenu : MonoBehaviour
     void OnMainMenuClicked()
     {
         PlayButtonSound();
-        Time.timeScale = 1f; // ✅ Reset time scale
+        Time.timeScale = 1f; 
 
         if (SceneController.Instance != null)
         {
@@ -212,9 +201,8 @@ public class PauseMenu : MonoBehaviour
     void OnQuitClicked()
     {
         PlayButtonSound();
-        Time.timeScale = 1f; // ✅ Reset time scale
-
-        // ✅ FIX: Quay về Main Menu thay vì thoát game
+        Time.timeScale = 1f; 
+        //  Quay về MainMenu 
         if (SceneController.Instance != null)
         {
             SceneController.Instance.LoadMainMenu();
@@ -236,7 +224,6 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    // ========== PUBLIC GETTERS ==========
 
     public bool IsPaused() => isPaused;
 }
