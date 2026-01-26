@@ -14,8 +14,12 @@ public class GameManager : MonoBehaviour
     [Header("UI References")] // ← NEW
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private GameObject victoryUI;
+    [SerializeField] private StoryIntroManager storyIntroManager; // ✅ THÊM
+
 
     [Header("Game State")]
+    private bool isGameStarted = false; // ✅ THÊM
+
     private bool isPaused = false;
     private bool isGameOver = false;
 
@@ -35,7 +39,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SubscribeToEvents();
-        StartGame();
 
         // ✅ THÊM: Hide UI at start
         HideAllEndScreens();
@@ -92,6 +95,13 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        if (isGameStarted)
+        {
+            Debug.LogWarning("Game already started!");
+            return;
+        }
+
+        isGameStarted = true; // ✅ Set flag
         Debug.Log("★ Game Started! ★");
 
         Time.timeScale = 1f;
@@ -287,6 +297,8 @@ public class GameManager : MonoBehaviour
 
         isPaused = false;
         isGameOver = false;
+        isGameStarted = false; // ✅ THÊM
+
 
         Time.timeScale = 1f;
 
@@ -307,4 +319,6 @@ public class GameManager : MonoBehaviour
     public GameTimer GetGameTimer() => gameTimer;
     public WaveSpawner GetWaveSpawner() => waveSpawner;
     public PlayerController GetPlayer() => player;
+    public bool IsGameStarted() => isGameStarted; // ✅ THÊM
+
 }

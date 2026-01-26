@@ -3818,8 +3818,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   musicSource: {fileID: 1630464815}
   sfxSource: {fileID: 1630464814}
-  menuMusic: {fileID: 8300000, guid: 7143fb2a1daeb2c46a66cf2a65c5e013, type: 3}
-  gameplayMusic: {fileID: 8300000, guid: 578da2b5027051046880799402d595f5, type: 3}
+  menuMusic: {fileID: 8300000, guid: 47f947140f8ac4c409005c5d6a9afc4c, type: 3}
+  gameplayMusic: {fileID: 8300000, guid: 7143fb2a1daeb2c46a66cf2a65c5e013, type: 3}
   victoryMusic: {fileID: 0}
   gameOverMusic: {fileID: 0}
   buttonClick: {fileID: 8300000, guid: f5764da81404d764ea6b57d798558757, type: 3}
