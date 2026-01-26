@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -8286838163696824391}
   - component: {fileID: -5835461088020796503}
   - component: {fileID: -5710657082255208330}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ExplosionEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -306,9 +306,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2490911077594528860}
     m_Modifications:
+    - target: {fileID: 1332288736041187236, guid: dccd5bdc043734240982a3640d163685, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2681187946905530145, guid: dccd5bdc043734240982a3640d163685, type: 3}
       propertyPath: m_SortingLayerID
       value: 111164913
+      objectReference: {fileID: 0}
+    - target: {fileID: 2801960507615592474, guid: dccd5bdc043734240982a3640d163685, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7435032255939026083, guid: dccd5bdc043734240982a3640d163685, type: 3}
       propertyPath: m_Pivot.x
@@ -393,6 +401,10 @@ PrefabInstance:
     - target: {fileID: 8339918888507794954, guid: dccd5bdc043734240982a3640d163685, type: 3}
       propertyPath: m_Name
       value: HpBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 8339918888507794954, guid: dccd5bdc043734240982a3640d163685, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8339918888507794954, guid: dccd5bdc043734240982a3640d163685, type: 3}
       propertyPath: m_IsActive

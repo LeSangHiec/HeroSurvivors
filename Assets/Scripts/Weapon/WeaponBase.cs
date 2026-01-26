@@ -10,6 +10,13 @@ public class WeaponBase : MonoBehaviour
     [SerializeField] protected Transform firePoint;
     [SerializeField] protected SpriteRenderer weaponSprite;
 
+    [Header("Auto-Targeting")]
+    [SerializeField] protected bool enableAutoTargeting = false;
+    [SerializeField] protected float targetingRange = 15f;
+    [SerializeField] protected float targetingUpdateInterval = 0.2f;
+    [SerializeField] protected LayerMask enemyLayer;
+    [SerializeField] protected bool showTargetingGizmos = true;
+
     // Stats
     protected float baseDamage;
     protected float fireRate;
@@ -18,16 +25,17 @@ public class WeaponBase : MonoBehaviour
     protected float spreadAngle;
     protected int currentWeaponLevel = 1;
 
-    // References
     protected Transform player;
     protected PlayerStats playerStats;
     protected Camera mainCamera;
+
+    protected Transform currentTarget;
+    protected float nextTargetUpdateTime = 0f;
 
     // State
     protected float nextFireTime = 0f;
     protected bool canFire = true;
 
-    // ========== UNITY LIFECYCLE ==========
 
     protected virtual void Awake()
     {
@@ -47,12 +55,16 @@ public class WeaponBase : MonoBehaviour
         if (firePoint == null)
         {
             firePoint = transform.Find("FirePoint");
-            
         }
 
         if (weaponSprite == null)
         {
             weaponSprite = GetComponentInChildren<SpriteRenderer>();
+        }
+
+        if (enemyLayer == 0)
+        {
+            enemyLayer = LayerMask.GetMask("Enemy");
         }
     }
 
@@ -63,7 +75,6 @@ public class WeaponBase : MonoBehaviour
             InitializeFromData();
             SubscribeEvents();
         }
-        
     }
 
     void OnDestroy()
@@ -73,11 +84,18 @@ public class WeaponBase : MonoBehaviour
 
     protected virtual void Update()
     {
-        UpdateRotation();
+        if (enableAutoTargeting)
+        {
+            UpdateAutoTargeting();
+        }
+        else
+        {
+            UpdateRotation(); 
+        }
+
         HandleShooting();
     }
 
-    // ========== INITIALIZATION ==========
 
     public virtual void SetWeaponData(WeaponSO data)
     {
@@ -89,7 +107,6 @@ public class WeaponBase : MonoBehaviour
     {
         if (weaponData == null) return;
 
-        // lấy lv từ tracker
         if (WeaponTracker.Instance != null)
         {
             currentWeaponLevel = WeaponTracker.Instance.GetWeaponLevel(weaponData);
@@ -98,7 +115,6 @@ public class WeaponBase : MonoBehaviour
 
         ApplyStats();
 
-        // Apply visual settings
         if (weaponSprite != null && weaponData.weaponSprite != null)
         {
             weaponSprite.sprite = weaponData.weaponSprite;
@@ -106,26 +122,22 @@ public class WeaponBase : MonoBehaviour
         }
 
         transform.localPosition = weaponData.weaponOffset;
-
     }
 
     protected virtual void ApplyStats()
     {
         if (weaponData == null) return;
 
-        // chỉ số cơ bản của SO
         baseDamage = weaponData.baseDamage;
         fireRate = weaponData.fireRate;
         projectileSpeed = weaponData.projectileSpeed;
         projectileCount = weaponData.projectileCount;
         spreadAngle = weaponData.spreadAngle;
 
-        // LV
         int levelBonus = currentWeaponLevel - 1;
 
         if (levelBonus > 0)
         {
-            // dame tăng theo lv
             float multiplier = 1f + weaponData.damagePerLevel * levelBonus;
             baseDamage *= multiplier;
 
@@ -143,7 +155,6 @@ public class WeaponBase : MonoBehaviour
         }
     }
 
-    // ========== EVENT HANDLING ==========
 
     void SubscribeEvents()
     {
@@ -167,11 +178,84 @@ public class WeaponBase : MonoBehaviour
         {
             currentWeaponLevel = newLevel;
             ApplyStats();
-
         }
     }
 
-    // ========== ROTATION ==========
+
+    protected virtual void UpdateAutoTargeting()
+    {
+        if (Time.time >= nextTargetUpdateTime)
+        {
+            FindClosestEnemy();
+            nextTargetUpdateTime = Time.time + targetingUpdateInterval;
+        }
+
+        if (currentTarget != null)
+        {
+            Enemy enemy = currentTarget.GetComponent<Enemy>();
+            if (enemy != null && enemy.IsDead())
+            {
+                currentTarget = null;
+                return;
+            }
+
+            RotateToTarget(currentTarget.position);
+        }
+        
+    }
+
+    protected virtual void FindClosestEnemy()
+    {
+        currentTarget = null;
+
+        if (player == null) return;
+
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(
+            player.position,
+            targetingRange,
+            enemyLayer
+        );
+
+        float closestDistance = Mathf.Infinity;
+
+        foreach (Collider2D enemyCollider in enemies)
+        {
+            if (enemyCollider == null) continue;
+
+            Enemy enemy = enemyCollider.GetComponent<Enemy>();
+            if (enemy != null && enemy.IsDead())
+            {
+                continue; 
+            }
+
+            float distance = Vector2.Distance(player.position, enemyCollider.transform.position);
+
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                currentTarget = enemyCollider.transform;
+            }
+        }
+    }
+
+    protected virtual void RotateToTarget(Vector3 targetPosition)
+    {
+        Vector2 direction = targetPosition - transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        if (weaponData != null)
+        {
+            angle += weaponData.rotationOffset;
+        }
+
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        if (weaponSprite != null && player != null)
+        {
+            weaponSprite.flipY = targetPosition.x < player.position.x;
+        }
+    }
+
 
     protected virtual void UpdateRotation()
     {
@@ -183,7 +267,6 @@ public class WeaponBase : MonoBehaviour
         Vector2 direction = mousePosition - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        // Wuay súng
         if (weaponData != null)
         {
             angle += weaponData.rotationOffset;
@@ -191,14 +274,12 @@ public class WeaponBase : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        // Lật súng
         if (weaponSprite != null && player != null)
         {
             weaponSprite.flipY = mousePosition.x < player.position.x;
         }
     }
 
-    // ========== SHOOTING ==========
 
     protected virtual void HandleShooting()
     {
@@ -213,7 +294,15 @@ public class WeaponBase : MonoBehaviour
 
     protected virtual bool CanShoot()
     {
-        return Input.GetMouseButton(0); 
+        //  Auto mode bắn khi có target, Manual mode  bắn khi nhấn chuột
+        if (enableAutoTargeting)
+        {
+            return currentTarget != null;
+        }
+        else
+        {
+            return Input.GetMouseButton(0);
+        }
     }
 
     protected virtual void Fire()
@@ -235,7 +324,6 @@ public class WeaponBase : MonoBehaviour
     {
         if (weaponData.projectilePrefab == null || firePoint == null) return;
 
-        
         float currentSpread = 0f;
         if (projectileCount > 1)
         {
@@ -243,11 +331,10 @@ public class WeaponBase : MonoBehaviour
             currentSpread = -spreadAngle / 2f + step * index;
         }
 
-        
         Quaternion spreadRotation = Quaternion.Euler(0, 0, currentSpread);
         Vector2 direction = spreadRotation * firePoint.right;
 
-        //  bullet pool 
+        // Spawn bullet từ pool
         GameObject bulletObj = null;
         string poolName = weaponData.projectilePrefab.name;
 
@@ -298,15 +385,13 @@ public class WeaponBase : MonoBehaviour
 
             totalDamage = (baseDamage + playerBaseDamage) * damageMultiplier;
 
-            // ✅ ADD: Crit calculation
+            // Crit 
             float critChance = playerStats.GetCritChance();
             bool isCrit = Random.value < critChance;
 
             if (isCrit)
             {
-                totalDamage *= 2f; // 2x damage on crit
-
-                
+                totalDamage *= 2f; 
             }
         }
 
@@ -347,15 +432,61 @@ public class WeaponBase : MonoBehaviour
         }
     }
 
+    // ========== DEBUG GIZMOS ==========
+
+    void OnDrawGizmosSelected()
+    {
+        if (!showTargetingGizmos) return;
+
+        // Lấy player position
+        Vector3 centerPosition = player != null ? player.position : transform.position;
+
+        if (enableAutoTargeting)
+        {
+            // Vẽ phạm vi targeting (vòng tròn vàng)
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(centerPosition, targetingRange);
+
+            // Vẽ line đến target hiện tại (đỏ)
+            if (currentTarget != null)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawLine(transform.position, currentTarget.position);
+                Gizmos.DrawWireSphere(currentTarget.position, 0.5f);
+
+                // Label
+#if UNITY_EDITOR
+                UnityEditor.Handles.Label(
+                    currentTarget.position + Vector3.up,
+                    "TARGET",
+                    new GUIStyle() { normal = new GUIStyleState() { textColor = Color.red } }
+                );
+#endif
+            }
+        }
+    }
+
     // ========== PUBLIC GETTERS ==========
 
     public WeaponSO GetWeaponData() => weaponData;
     public float GetBaseDamage() => baseDamage;
     public float GetTotalDamage() => CalculateTotalDamage();
+    public Transform GetCurrentTarget() => currentTarget;
+    public bool IsAutoTargeting() => enableAutoTargeting;
 
     public virtual void SetActive(bool active)
     {
         canFire = active;
         gameObject.SetActive(active);
+    }
+
+    public void SetAutoTargeting(bool enabled)
+    {
+        enableAutoTargeting = enabled;
+    }
+
+    public void SetTargetingRange(float range)
+    {
+        targetingRange = Mathf.Max(0f, range);
     }
 }

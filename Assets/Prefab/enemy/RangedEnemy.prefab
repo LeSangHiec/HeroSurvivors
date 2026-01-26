@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5634782680982209898}
   - component: {fileID: 1672286251528063187}
   - component: {fileID: 3278466349466007873}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HpBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9019174024002937939}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 1166032555928520140}
   - component: {fileID: 4923724938110831056}
   - component: {fileID: 4870256914837589200}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: -1308228018747138824}
   - component: {fileID: -3228595834241263401}
   - component: {fileID: 7994977896352325353}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RangedEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -514,7 +514,7 @@ GameObject:
   - component: {fileID: 4222969719622951821}
   - component: {fileID: 8835247333784014765}
   - component: {fileID: 6250779068254780151}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Hp
   m_TagString: Untagged
   m_Icon: {fileID: 0}

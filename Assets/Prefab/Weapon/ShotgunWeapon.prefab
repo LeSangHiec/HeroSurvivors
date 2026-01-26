@@ -170,5 +170,12 @@ MonoBehaviour:
   weaponData: {fileID: 11400000, guid: 25e9eb09bb2d825498223adaa64440e9, type: 2}
   firePoint: {fileID: 574069863160234474}
   weaponSprite: {fileID: 973774391426501989}
+  enableAutoTargeting: 1
+  targetingRange: 15
+  targetingUpdateInterval: 0.2
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  showTargetingGizmos: 1
   recoil: 2
   autoFire: 1
