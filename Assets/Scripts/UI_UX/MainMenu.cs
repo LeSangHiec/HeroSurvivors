@@ -21,6 +21,8 @@ public class MainMenu : MonoBehaviour
         ShowMainMenu();
         SetupButtonListeners();
         PlayMenuMusic();
+        ResetStoryForNewSession();
+
     }
 
     void Update()
@@ -65,7 +67,13 @@ public class MainMenu : MonoBehaviour
             AudioManager.Instance.PlayMenuMusic();
         }
     }
+    void ResetStoryForNewSession()
+    {
+        PlayerPrefs.DeleteKey("HasSeenStoryIntro");
+        PlayerPrefs.Save();
 
+        Debug.Log("<color=cyan>Story flag reset - Will show on next game start</color>");
+    }
     // ========== BUTTON CALLBACKS ==========
 
     void OnStartButtonClicked()

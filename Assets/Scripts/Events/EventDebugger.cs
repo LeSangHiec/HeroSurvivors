@@ -10,10 +10,7 @@ public class EventDebugger : MonoBehaviour
     [SerializeField] private bool logWaveEvents = true;
     [SerializeField] private bool logCardEvents = true;
     [SerializeField] private bool logWeaponEvents = true;
-    [SerializeField] private bool onGameStart = true;
-    [SerializeField] private bool onGamePause = true;
-    [SerializeField] private bool onGameResume = true;
-    [SerializeField] private bool onGameOver = true;
+
 
     void Start()
     {
