@@ -325,7 +325,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000061035156, y: 0.000061035156}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -0.00012207, y: 0.00012207}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!328 &46476616
@@ -15161,8 +15161,8 @@ MonoBehaviour:
     \u2013 mang theo mang theo s\u1EE9c m\u1EA1nh  t\u1EEB c\xE1c c\u1ED5 v\u1EADt
     v\xE0 v\u0169 kh\xED v\xE0 b\u01B0\u1EDBc v\xE0o V\xF9ng Ngo\u1EA1i Vi V\u1EF1c
     S\xE2u, n\u01A1i c\xE1c DreamLess kh\xF4ng ng\u1EEBng xu\u1EA5t hi\u1EC7n.\n\nKh\xF4ng
-    c\xF2n hy v\u1ECDng r\xFAt lui...\nCh\u1EC9 c\xF2n m\u1ED9t l\u1EF1a ch\u1ECDn:
-    sinh t\u1ED3n tr\u01B0\u1EDBc l\xE0n s\xF3ng V\u1EF1c S\xE2u v\xF4 t\u1EADn."
+    c\xF2n hy v\u1ECDng r\xFAt lui...\nCh\u1EC9 c\xF2n m\u1ED9t l\u1EF1a ch\u1ECDn
+    l\xE0 s\u1ED1ng s\xF3t tr\u01B0\u1EDBc l\xE0n s\xF3ng V\u1EF1c S\xE2u v\xF4 t\u1EADn."
   typewriterSpeed: 0.025
   autoStartOnLoad: 1
   showOnlyFirstTime: 1
@@ -16092,7 +16092,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000061035156}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1695365193
