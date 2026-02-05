@@ -15151,33 +15151,6 @@ MonoBehaviour:
   videoImage: {fileID: 46476613}
   playVideoOnStart: 1
   videoVolume: 0.3
-  canvasGroup: {fileID: 1494365468}
-  useFadeOut: 1
-  fadeOutDuration: 1
-  fadeOutCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   storyContent: "K\u1EF7 Nguy\xEAn V\u1EF1c S\xE2u\n\nSau m\u1ED9t tri\u1EC7u n\u0103m,
     n\u1EC1n v\u0103n minh c\u1ED5 \u0111\u1EA1i \u0111\xE3 s\u1EE5p \u0111\u1ED5,
     v\xE0 c\xE1c phong \u1EA5n ng\u0103n c\xE1ch th\u1EBF gi\u1EDBi v\u1EDBi V\u1EF1c
@@ -15192,7 +15165,8 @@ MonoBehaviour:
     sinh t\u1ED3n tr\u01B0\u1EDBc l\xE0n s\xF3ng V\u1EF1c S\xE2u v\xF4 t\u1EADn."
   typewriterSpeed: 0.025
   autoStartOnLoad: 1
-  delayBeforeAutoStart: 1
+  showOnlyFirstTime: 1
+  resetStoryOnQuit: 0
   typewriterSound: {fileID: 0}
   completeSound: {fileID: 0}
 --- !u!1 &1437090112
@@ -15581,7 +15555,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1494365467
 RectTransform:
   m_ObjectHideFlags: 0
